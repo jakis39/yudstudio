@@ -15,5 +15,8 @@
   },
   "devDependencies": {
     "lerna": "^3.13.1"
+  },
+  "dependencies": {
+    "react-player": "^2.9.0"
   }
 }

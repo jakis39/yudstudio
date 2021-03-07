@@ -32,7 +32,7 @@ export default {
     {
       name: 'videoUrl',
       title: 'Video URL',
-      type: 'video'
+      type: 'url'
     },
     {
       name: 'excerpt',
