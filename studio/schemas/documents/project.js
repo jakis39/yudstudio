@@ -8,54 +8,43 @@ export default {
     {
       name: 'title',
       title: 'Title',
-      type: 'string'
+      type: 'string',
+      validation: Rule => Rule.required()
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      description: 'Some frontend will require a slug to be set to be able to show the project',
+      description: 'Will show up in the url as yudstudio.com/projects/<slug>. Feel free to just click "Generate".',
       options: {
         source: 'title',
-        maxLength: 96
-      }
+        maxLength: 96,
+      },
+      validation: Rule => Rule.required()
     },
     {
       name: 'publishedAt',
       title: 'Published at',
-      description: 'You can use this field to schedule projects where you show them',
-      type: 'datetime'
+      description: 'You can set this to a date in the future if you don\'t want this project to appear on the site until later. Otherwise feel free to leave it as is.',
+      type: 'datetime',
+      validation: Rule => Rule.required()
+    },
+    {
+      name: 'videoUrl',
+      title: 'Video URL',
+      type: 'video'
     },
     {
       name: 'excerpt',
       title: 'Excerpt',
-      type: 'simplePortableText'
+      type: 'simplePortableText',
+      description: 'Write a blurb the project here'
     },
     {
-      name: 'members',
-      title: 'Members',
+      name: 'contributors',
+      title: 'Contributors',
       type: 'array',
-      of: [{type: 'projectMember'}]
-    },
-    {
-      name: 'startedAt',
-      title: 'Started at',
-      type: 'datetime'
-    },
-    {
-      name: 'endedAt',
-      title: 'Ended at',
-      type: 'datetime'
-    },
-    {
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'figure'
-    },
-    {
-      name: 'body',
-      title: 'Body',
-      type: 'projectPortableText'
+      of: [{type: 'projectContributor'}]
     },
     {
       name: 'relatedProjects',
@@ -64,19 +53,20 @@ export default {
       of: [{type: 'reference', to: {type: 'project'}}]
     }
   ],
+  initialValue: () => ({
+    publishedAt: (new Date()).toISOString()
+  }),
   preview: {
     select: {
       title: 'title',
       publishedAt: 'publishedAt',
       slug: 'slug',
-      media: 'mainImage'
     },
-    prepare({title = 'No title', publishedAt, slug = {}, media}) {
+    prepare({title = 'No title', publishedAt, slug = {}}) {
       const dateSegment = format(publishedAt, 'YYYY/MM')
       const path = `/${dateSegment}/${slug.current}/`
       return {
         title,
-        media,
         subtitle: publishedAt ? path : 'Missing publishing date'
       }
     }
