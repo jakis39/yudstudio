@@ -24,6 +24,7 @@ export const query = graphql`
           slug {
             current
           }
+          videoUrl
         }
       }
     }
@@ -45,12 +46,12 @@ const ProjectsPage = props => {
     <Layout>
       <SEO title='Projects' />
       <Container>
-        <h1 className={responsiveTitle1}>Projects</h1>
+        <h1 hidden className={responsiveTitle1}>Work</h1>
         {/* {projectNodes && projectNodes.length > 0 && <ProjectPreviewGrid nodes={projectNodes} />} */}
 
         {projectNodes && projectNodes.length > 0 && (
             projectNodes.map((project) => (
-                <div>{project.title} - {project.slug.current}</div>
+                <div>{project.title} - {project.slug.current} - {project.videoUrl}</div>
             ))
         )}
 

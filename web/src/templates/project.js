@@ -18,61 +18,11 @@ export const query = graphql`
           current
         }
       }
-      mainImage {
-        crop {
-          _key
-          _type
-          top
-          bottom
-          left
-          right
-        }
-        hotspot {
-          _key
-          _type
-          x
-          y
-          height
-          width
-        }
-        asset {
-          _id
-        }
-        alt
-      }
       title
       slug {
         current
       }
-      _rawBody
-      members {
-        _key
-        person {
-          image {
-            crop {
-              _key
-              _type
-              top
-              bottom
-              left
-              right
-            }
-            hotspot {
-              _key
-              _type
-              x
-              y
-              height
-              width
-            }
-            asset {
-              _id
-            }
-          }
-          name
-        }
-        roles
-      }
+      
     }
   }
 `

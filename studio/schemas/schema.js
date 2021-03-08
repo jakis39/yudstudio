@@ -17,7 +17,6 @@ import bioPortableText from './objects/bioPortableText'
 import figure from './objects/figure'
 import projectMember from './objects/projectMember'
 import projectContributor from './objects/projectContributor'
-import video from './objects/video'
 import projectPortableText from './objects/projectPortableText'
 import simplePortableText from './objects/simplePortableText'
 
@@ -41,7 +40,6 @@ export default createSchema({
     category,
     person,
     role,
-    video,
     // sampleProject,
     project,
     siteSettings
