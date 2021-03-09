@@ -27,7 +27,6 @@ export const query = graphql`
         node {
           id
           title
-          _rawExcerpt
           slug {
             current
           }

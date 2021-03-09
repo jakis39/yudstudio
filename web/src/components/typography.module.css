@@ -93,6 +93,7 @@
   font-size: var(--font-title3-size);
   line-height: var(--font-title3-line-height);
   margin: 1rem 0 2rem;
+  text-transform: uppercase;
 
   @media (--media-min-small) {
     font-size: var(--font-title2-size);

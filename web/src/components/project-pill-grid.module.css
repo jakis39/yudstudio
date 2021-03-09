@@ -1,0 +1,19 @@
+@import '../styles/custom-media.css';
+@import '../styles/custom-properties.css';
+
+.ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-content: flex-end;
+  max-width: 80%;
+}
+
+.li {
+    margin-left: 1rem;
+    margin-top: 1rem;
+}

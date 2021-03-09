@@ -10,7 +10,19 @@ export const query = graphql`
   query ProjectTemplateQuery($id: String!) {
     project: sanityProject(id: {eq: $id}) {
       id
-      publishedAt
+      title
+    	slug {
+        current
+      }
+    	publishedAt
+    	videoUrl
+    	excerpt
+    	contributors {
+        role {
+          title
+        }
+        contributors
+      }
       relatedProjects {
         title
         _id
@@ -18,11 +30,6 @@ export const query = graphql`
           current
         }
       }
-      title
-      slug {
-        current
-      }
-      
     }
   }
 `

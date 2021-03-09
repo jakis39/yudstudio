@@ -1,0 +1,14 @@
+@import '../styles/custom-media.css';
+@import '../styles/custom-properties.css';
+
+.root {
+    display: inline-block;
+    box-sizing: border-box;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0.5rem 2rem;
+    font-size: 1.5rem;
+    border: 3px solid black;
+    border-radius: 500px;
+}
+

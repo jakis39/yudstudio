@@ -1,8 +1,9 @@
 import React from 'react'
 import {graphql} from 'gatsby'
-import Container from '../components/container'
+import WideContainer from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import ProjectPreviewGrid from '../components/project-preview-grid'
+import ProjectPillGrid from '../components/project-pill-grid'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
 import {mapEdgesToNodes, filterOutDocsWithoutSlugs} from '../lib/helpers'
@@ -20,7 +21,6 @@ export const query = graphql`
         node {
           id
           title
-          _rawExcerpt
           slug {
             current
           }
@@ -45,17 +45,12 @@ const ProjectsPage = props => {
   return (
     <Layout>
       <SEO title='Projects' />
-      <Container>
-        <h1 hidden className={responsiveTitle1}>Work</h1>
-        {/* {projectNodes && projectNodes.length > 0 && <ProjectPreviewGrid nodes={projectNodes} />} */}
-
-        {projectNodes && projectNodes.length > 0 && (
-            projectNodes.map((project) => (
-                <div>{project.title} - {project.slug.current} - {project.videoUrl}</div>
-            ))
-        )}
-
-      </Container>
+      <WideContainer>
+        <div style={{ height: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+          <h1 hidden className={responsiveTitle1}>Work</h1>
+          {projectNodes && projectNodes.length > 0 && <ProjectPillGrid projects={projectNodes} />}
+        </div>
+      </WideContainer>
     </Layout>
   )
 }
