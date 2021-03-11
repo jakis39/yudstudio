@@ -3,13 +3,8 @@
 :root {
   --font-family-sans: 'Questrial', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  --color-black: #202123;
-  --color-dark-gray: #32373e;
-  --color-gray: #697a90;
-  --color-light-gray: #b4bcc7;
-  --color-very-light-gray: #e7ebed;
-  --color-white: #fff;
-  --color-accent: #156dff;
+  --color-black: #000000;
+  --color-gray: #a6a6a6;
 
   /* Typography */
   --unit: 16;

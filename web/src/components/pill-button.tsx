@@ -11,15 +11,18 @@ import styles from './pill-button.module.css'
 
 export interface PillButtonProps {
     to: string;
+    variant?: 'standard' | 'outlined';
     // component: PillButtonType;
-    onClick?: () => void;
+    // onClick?: () => void;
     children: any;
 }
 
 const PillButton = (props: PillButtonProps) => {
-  const { to, onClick, children } = props;
+  const { to, variant = '', children } = props;
 
-  return <Link className={styles.root} to={to}>{children}</Link>
+  console.log(variant);
+
+  return <Link className={`${styles.root} ${styles[variant]}`} to={to}>{children}</Link>
   
 //   switch(component) {
 //     case 'Link':

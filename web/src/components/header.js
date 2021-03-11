@@ -5,6 +5,9 @@ import {cn} from '../lib/helpers'
 
 import styles from './header.module.css'
 
+import logo from '../assets/yud.png';
+import PillButton from './pill-button'
+
 const Header = ({onHideNav, onShowNav, showNav, siteTitle}) => (
   <div className={styles.root}>
     <div className={styles.wrapper}>
@@ -16,16 +19,19 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle}) => (
       <nav className={cn(styles.nav, showNav && styles.showNav)}>
         <ul>
           <li>
-            <Link to='/projects/'>Projects</Link>
+            <PillButton to='/projects/' variant="outlined">Work</PillButton>
           </li>
           <li>
-            <Link to='/archive/'>Shop</Link>
+            <PillButton to='/archive/' variant="outlined">Shop</PillButton>
           </li>
         </ul>
       </nav>
 
       <div className={styles.branding}>
-        <Link to='/'>{siteTitle}</Link>
+        <Link to='/' className={styles.logo}>
+          <img src={logo} />
+          {/* <embed src={logo} width="200px" height="100px" type="image/svg+xml" />  */}
+        </Link>
       </div>
     </div>
   </div>

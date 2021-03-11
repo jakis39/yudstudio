@@ -10,3 +10,17 @@
     padding: 2em;
   }
 }
+
+.wide {
+  max-width: unset;
+
+  @media (--media-min-small) {
+    padding: 3rem;
+  }
+}
+
+.short {
+  @media (--media-min-small) {
+    padding: 0 3rem;
+  }
+}

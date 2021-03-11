@@ -3,11 +3,18 @@ import Header from './header'
 
 import '../styles/layout.css'
 import styles from './layout.module.css'
+import Container from './container'
 
 const Layout = ({children, onHideNav, onShowNav, showNav, siteTitle}) => (
-  <>
+  <div className={styles.pageWrapper}>
     <Header siteTitle={siteTitle} onHideNav={onHideNav} onShowNav={onShowNav} showNav={showNav} />
     <div className={styles.content}>{children}</div>
+
+    <footer className={styles.footer}>
+      <Container wide short>
+        © 2021 YUD STUDIO
+      </Container>
+    </footer>
     
     {/* <footer className={styles.footer}>
       <div className={styles.footerWrapper}>
@@ -18,7 +25,7 @@ const Layout = ({children, onHideNav, onShowNav, showNav, siteTitle}) => (
         </div>
       </div>
     </footer> */}
-  </>
+  </div>
 )
 
 export default Layout
