@@ -25,8 +25,8 @@ export default {
     {
       name: 'publishedAt',
       title: 'Published at',
-      description: 'You can set this to a date in the future if you don\'t want this project to appear on the site until later. Otherwise feel free to leave it as is.',
       type: 'datetime',
+      description: 'You can set this to a date in the future if you don\'t want this project to appear on the site until later. Otherwise feel free to leave it as is. It won\'t appear on the site.',
       validation: Rule => Rule.required()
     },
     {
@@ -68,7 +68,7 @@ export default {
       const path = `/project/${slug.current}/`
       return {
         title,
-        subtitle: publishedAt ? path : 'Missing publishing date'
+        subtitle: path
       }
     }
   }

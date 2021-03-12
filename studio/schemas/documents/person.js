@@ -15,7 +15,7 @@ export default {
       name: 'slug',
       type: 'slug',
       title: 'Slug',
-      description: 'Some frontend will require a slug to be set to be able to show the person',
+      description: 'Can be used to link directly to a team member\'s page (not implemented at the moment)',
       options: {
         source: 'name',
         maxLength: 96
@@ -30,7 +30,18 @@ export default {
       name: 'bio',
       title: 'Bio',
       type: 'bioPortableText'
-    }
+    },
+    {
+      name: 'instagram',
+      type: 'string',
+      title: 'Instagram handle',
+      description: 'Don\'t include @ symbol',
+    },
+    {
+      name: 'website',
+      title: 'Website',
+      type: 'url'
+    },
   ],
   preview: {
     select: {

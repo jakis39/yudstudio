@@ -44,14 +44,12 @@ const ProjectsPage = props => {
   return (
     <Layout>
       <SEO title='Projects' />
-      {/* <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}> */}
         <Container wide short>
           <div style={{ height: '100%', display: 'flex', justifyContent: 'flex-end' }}>
             <h1 hidden className={responsiveTitle1}>Work</h1>
             {projectNodes && projectNodes.length > 0 && <ProjectPillGrid projects={projectNodes} />}
           </div>
         </Container>
-      {/* </div> */}
     </Layout>
   )
 }

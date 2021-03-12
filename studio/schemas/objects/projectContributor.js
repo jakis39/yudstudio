@@ -3,37 +3,25 @@ export default {
     name: 'projectContributor',
     title: 'Project Contributor',
     fields: [
-        // {
-        //     title: 'Role',
-        //     name: 'role',
-        //     type: 'string',
-        //     options: {
-        //         layout: 'dropdown',
-        //         list: [
-        //             { title: 'Designer', value: 'designer' },
-        //             { title: 'Developer', value: 'developer' },
-        //             { title: 'Editor', value: 'editor' },
-        //             { title: 'Manager', value: 'manager' }
-        //         ]
-        //     }
-        // },
         {
             title: 'Role',
             name: 'role',
             type: 'reference',
-            to: {type: 'role'}
+            description: 'To add a new role, go to the Roles folder and create a new entry.',
+            to: {type: 'role'},
+            validation: Rule => Rule.required()
         },
         {
             title: 'Contributors',
             name: 'contributors',
             type: 'string',
-            description: 'Type out names here'
+            description: 'Type names or anything here.',
         },
         {
             title: 'People',
             name: 'people',
             type: 'array',
-            description: 'Or link to People here',
+            description: 'Or you can also link to People here. To add a new Person, go to the People folder and add a new entry.',
             of: [{
                 type: 'reference',
                 to: { type: 'person' }
