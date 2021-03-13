@@ -43,7 +43,7 @@ const ProjectsPage = props => {
     data && data.projects && mapEdgesToNodes(data.projects).filter(filterOutDocsWithoutSlugs)
   return (
     <Layout>
-      <SEO title='Projects' />
+      <SEO title='Work' />
         <Container wide short>
           <div style={{ height: '100%', display: 'flex', justifyContent: 'flex-end' }}>
             <h1 hidden className={responsiveTitle1}>Work</h1>
