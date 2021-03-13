@@ -23,7 +23,7 @@ function Project(props) {
         <p className={`${responsiveTitle2} ${styles.excerpt}`}>{excerpt}</p>
         <div className={styles.contributorsContainer}>
           {contributors && contributors.length > 0 && contributors.map((contributor) => (
-            <span className={`${styles.contributorBlock} ${paragraph}`}>
+            <span key={contributor._key} className={`${styles.contributorBlock} ${paragraph}`}>
               {`${contributor.role.title} - ${contributor.contributors}`}
             </span>
           ))}
