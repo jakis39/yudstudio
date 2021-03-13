@@ -1,5 +1,5 @@
-@import '../styles/custom-media.css';
-@import '../styles/custom-properties.css';
+@import "../styles/custom-media.css";
+@import "../styles/custom-properties.css";
 
 .root {
   position: relative;
@@ -22,11 +22,21 @@
   /* flex: 1; */
 
   @nest & a {
-    display: block;
+    display: inline-block;
     height: 45px;
 
     @nest & img {
       height: 100%;
+    }
+  }
+
+  @media (--media-max-small) {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+
+    @nest & a {
+      text-align: right;
     }
   }
 }
@@ -59,24 +69,6 @@
     padding: 0;
   }
 
-  /* @nest & ul li a {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 0.08rem 1.8rem;
-    font-size: 1.7rem;
-    font-weight: bold;
-    border: 3px solid black;
-    border-radius: 500px;
-  } */
-
-  /* @media (hover: hover) {
-    @nest & ul li a:hover {
-      color: var(--color-accent);
-    }
-  } */
-
   @media (--media-max-small) {
     position: absolute;
     background: var(--color-white);
@@ -87,11 +79,10 @@
     top: 4.3rem;
 
     @nest & ul {
-      /* padding: 1rem 0; */
-    }
-
-    @nest & ul li a {
-      /* padding: 0.5rem 1.5rem; */
+      padding: 1rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
     }
   }
 

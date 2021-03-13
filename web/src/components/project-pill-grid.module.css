@@ -10,10 +10,25 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   align-content: flex-end;
-  max-width: 80%;
+
+  @media (--media-min-small) {
+    max-width: 80%;
+  }
 }
 
 .li {
-    margin-left: 1rem;
     margin-top: 1rem;
+
+    @media (--media-min-small) {
+      margin-left: 1rem;
+    }
+
+    @media (--media-max-small) {
+      width: 100%;
+      text-align: right;
+
+      @nest & a {
+        padding: 0;
+      }
+    }
 }

@@ -6,7 +6,14 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
-  padding-top: 30vh;
+
+  @media (--media-max-small) {
+    padding-top: 23vh;
+  }
+
+  @media (--media-min-small) {
+    padding-top: 30vh;
+  }
 }
 
 .title {

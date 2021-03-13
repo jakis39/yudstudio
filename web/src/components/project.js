@@ -1,9 +1,9 @@
-import React from 'react'
-import ReactPlayer from 'react-player'
-import Container from './container'
+import React from "react";
+import ReactPlayer from "react-player";
+import Container from "./container";
 
-import styles from './project.module.css'
-import {responsiveTitle1, responsiveTitle2, paragraph} from '../components/typography.module.css'
+import styles from "./project.module.css";
+import { responsiveTitle1, responsiveTitle2, paragraph } from "../components/typography.module.css";
 
 function Project(props) {
   const { id, title, slug, publishedAt, videoUrl, excerpt, contributors } = props;
@@ -12,25 +12,29 @@ function Project(props) {
     <article className={styles.root}>
       <Container>
         <div className={styles.videoContainer}>
-          <ReactPlayer 
+          <ReactPlayer
             className={styles.reactPlayer}
             url={videoUrl}
             controls
-            width='100%'
-            height='100%' />
+            playsinline
+            width="100%"
+            height="100%"
+          />
         </div>
         <h1 className={`${responsiveTitle1} ${styles.header}`}>{title}</h1>
         <p className={`${responsiveTitle2} ${styles.excerpt}`}>{excerpt}</p>
         <div className={styles.contributorsContainer}>
-          {contributors && contributors.length > 0 && contributors.map((contributor) => (
-            <span key={contributor._key} className={`${styles.contributorBlock} ${paragraph}`}>
-              {`${contributor.role.title} - ${contributor.contributors}`}
-            </span>
-          ))}
+          {contributors &&
+            contributors.length > 0 &&
+            contributors.map((contributor) => (
+              <span key={contributor._key} className={`${styles.contributorBlock} ${paragraph}`}>
+                {`${contributor.role.title} - ${contributor.contributors}`}
+              </span>
+            ))}
         </div>
       </Container>
     </article>
-  )
+  );
 }
 
-export default Project
+export default Project;

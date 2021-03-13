@@ -15,19 +15,16 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-
-
-  /* min-height: calc(100% - 73px - 120px); */
-
-  /* @media (--media-min-small) {
-    min-height: calc(100% - 88px - 150px);
-  } */
 }
 
 .footer {
-  /* height: 50px; */
   margin-bottom: 3rem;
   color: var(--color-gray);
+
+  @media (--media-max-small) {
+    text-align: center;
+    margin-top: 3rem;
+  }
 }
 
 .centeredFooter {

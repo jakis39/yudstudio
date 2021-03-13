@@ -1,12 +1,18 @@
-@import '../styles/custom-media.css';
-@import '../styles/custom-properties.css';
-
-.root {}
+@import "../styles/custom-media.css";
+@import "../styles/custom-properties.css";
 
 .videoContainer {
   position: relative;
   padding-top: 56.25%;
-  margin-bottom: 3rem;
+
+  @media (--media-max-small) {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (--media-min-small) {
+    margin-bottom: 3rem;
+  }
 }
 
 .reactPlayer {
@@ -19,6 +25,10 @@
   width: 100%;
   text-align: center;
   margin-bottom: 0.7rem;
+
+  @media (--media-max-small) {
+    margin-bottom: 1rem;
+  }
 }
 
 .excerpt {
@@ -26,7 +36,14 @@
   margin-top: 0;
   margin: auto;
   text-align: center;
-  margin-bottom: 6rem;
+
+  @media (--media-max-small) {
+    margin-bottom: 1rem;
+  }
+
+  @media (--media-min-small) {
+    margin-bottom: 6rem;
+  }
 }
 
 .contributorsContainer {
@@ -38,11 +55,20 @@
 
 .contributorBlock {
   flex: 1 0 40%;
-  padding: 0.8rem 0;
   margin: 0;
   font-weight: bold;
 
-}
-.contributorBlock:nth-child(2n) {
-  text-align: right;
+  @media (--media-max-small) {
+    flex: 1 0 99%;
+    text-align: center;
+    padding: 0.4rem 0;
+  }
+
+  @media (--media-min-small) {
+    padding: 0.8rem 0;
+
+    @nest &:nth-child(2n) {
+      text-align: right;
+    }
+  }
 }
