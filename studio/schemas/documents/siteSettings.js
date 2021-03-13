@@ -31,6 +31,12 @@ export default {
       }
     },
     {
+      name: 'shopText',
+      type: 'text',
+      title: 'Shop page text',
+      description: 'Message that will display on the "under construction" shop page.'
+    },
+    {
       name: 'author',
       type: 'reference',
       description: 'Publish an author and set a reference to them here.',

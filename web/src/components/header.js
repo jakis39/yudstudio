@@ -22,7 +22,7 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle}) => (
             <PillButton to='/projects/' variant="outlined">Work</PillButton>
           </li>
           <li>
-            <PillButton to='/archive/' variant="outlined">Shop</PillButton>
+            <PillButton to='/' variant="outlined">Shop</PillButton>
           </li>
         </ul>
       </nav>

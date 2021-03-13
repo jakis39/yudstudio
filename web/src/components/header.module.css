@@ -41,7 +41,7 @@
   outline: none;
   color: inherit;
 
-  & svg {
+  @nest & svg {
     display: block;
     fill: inherit;
   }
@@ -106,7 +106,7 @@
     }
 
     @nest & ul li:not(:last-child) {
-      margin-right: 5rem;
+      margin-right: 14rem;
     }
   }
 }
