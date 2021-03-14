@@ -1,7 +1,7 @@
 import { Link } from 'gatsby'
 import React from 'react'
 
-import styles from './pill-button.module.css'
+import * as styles from './pill-button.module.css'
 
 export interface PillButtonProps {
     to: string;
