@@ -1,6 +1,10 @@
 @import "../styles/custom-media.css";
 @import "../styles/custom-properties.css";
 
+.root {
+  flex-grow: 1;
+}
+
 .videoContainer {
   position: relative;
   padding-top: 56.25%;

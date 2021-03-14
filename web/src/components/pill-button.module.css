@@ -11,18 +11,18 @@
     font-weight: bold;
     border-radius: 500px;
     margin: 3px;
-    color: black;
+    color: var(--color-black);
 
     @media (hover: hover) {
         @nest &:hover {
-            border: 3px solid black;
+            border: 3px solid var(--color-black);
             margin: 0;
-            color: black;
+            color: var(--color-black);
         }
     }
 }
 
 .outlined {
-    border: 3px solid black;
+    border: 3px solid var(--color-black);
     margin: 0;
 }

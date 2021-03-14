@@ -22,7 +22,7 @@
     display: flex;
     justify-content: space-between;
     padding: 1.3em 1em;
-    z-index: 1;
+    z-index: 10;
   }
 }
 
@@ -77,11 +77,12 @@
 
   @media (--media-max-small) {
     position: absolute;
-    background: var(--color-white);
-    color: var(--color-black);
     left: 0;
     right: 0;
     top: 0;
+    z-index: 1;
+    background: var(--color-white);
+    color: var(--color-black);
     border-bottom: 3px solid var(--color-black);
     transition: top 300ms ease;
 
