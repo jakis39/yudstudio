@@ -23,12 +23,12 @@ function Project(props) {
           />
         </div>
         <h1 className={classNames(responsiveTitle1, styles.header)}>{title}</h1>
-        <p className={classNames(responsiveTitle2, styles.excerpt)}>{excerpt}</p>
+        <p className={styles.excerpt}>{excerpt}</p>
         <div className={styles.contributorsContainer}>
           {contributors &&
             contributors.length > 0 &&
             contributors.map((contributor) => (
-              <span key={contributor._key} className={classNames(paragraph, styles.contributorBlock)}>
+              <span key={contributor._key} className={styles.contributorBlock}>
                 {`${contributor.role.title} - ${contributor.contributors}`}
               </span>
             ))}
