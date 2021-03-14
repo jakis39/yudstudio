@@ -2,19 +2,28 @@
 @import "../styles/custom-properties.css";
 
 .root {
-  position: relative;
-  z-index: 100;
-}
-
-.wrapper {
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 1em;
   display: flex;
   align-items: center;
+  background-color: var(--color-white);
+  width: 100%;
 
   @media (--media-min-small) {
     padding: 3rem 3rem 1.5rem;
+  }
+}
+
+.wrapper {
+  background-color: var(--color-white);
+
+  @media (--media-max-small) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1.3em 1em;
+    /* border: 1px solid red; */
+    z-index: 1;
   }
 }
 
@@ -62,8 +71,6 @@
 }
 
 .nav {
-  display: none;
-
   @nest & ul {
     margin: 0;
     padding: 0;
@@ -73,10 +80,11 @@
     position: absolute;
     background: var(--color-white);
     color: var(--color-black);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     left: 0;
     right: 0;
-    top: 4.3rem;
+    top: 0;
+    border-bottom: 3px solid var(--color-black);
+    transition: top 300ms ease;
 
     @nest & ul {
       padding: 1rem;
@@ -109,5 +117,5 @@
 }
 
 .showNav {
-  display: block;
+  top: 5rem;
 }
