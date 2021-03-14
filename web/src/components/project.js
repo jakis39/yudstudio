@@ -20,27 +20,29 @@ function Project(props) {
   return (
     <article className={root}>
       <Container>
-        <div className={videoContainer}>
-          <ReactPlayer
-            className={reactPlayer}
-            url={videoUrl}
-            controls
-            playsinline
-            width="100%"
-            height="100%"
-          />
-        </div>
-        <h1 className={classNames(responsiveTitle1, header)}>{title}</h1>
-        <p className={excerptStyle}>{excerpt}</p>
-        <div className={contributorsContainer}>
-          {contributors &&
-            contributors.length > 0 &&
-            contributors.map((contributor) => (
+        {videoUrl && (
+          <div className={videoContainer}>
+            <ReactPlayer
+              className={reactPlayer}
+              url={videoUrl}
+              controls
+              playsinline
+              width="100%"
+              height="100%"
+            />
+          </div>
+        )}
+        {title && <h1 className={classNames(responsiveTitle1, header)}>{title}</h1>}
+        {excerpt && <p className={excerptStyle}>{excerpt}</p>}
+        {contributors && contributors.length > 0 && (
+          <div className={contributorsContainer}>
+            {contributors.map((contributor) => (
               <span key={contributor._key} className={contributorBlock}>
                 {`${contributor.role.title} - ${contributor.contributors}`}
               </span>
             ))}
-        </div>
+          </div>
+        )}
       </Container>
     </article>
   );

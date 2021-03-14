@@ -17,16 +17,16 @@ export default {
             type: 'string',
             description: 'Type names or anything here.',
         },
-        {
-            title: 'People',
-            name: 'people',
-            type: 'array',
-            description: 'Or you can also link to People here. To add a new Person, go to the People folder and add a new entry.',
-            of: [{
-                type: 'reference',
-                to: { type: 'person' }
-            }],
-        },
+        // {
+        //     title: 'People',
+        //     name: 'people',
+        //     type: 'array',
+        //     description: 'Or you can also link to People here. To add a new Person, go to the People folder and add a new entry.',
+        //     of: [{
+        //         type: 'reference',
+        //         to: { type: 'person' }
+        //     }],
+        // },
     ],
     preview: {
         select: {
