@@ -10,7 +10,7 @@ function ProjectPillGrid(props) {
     <ul className={styles.ul}>
       {projects.map((project) => (
         <li key={project.slug.current} className={styles.li}>
-          <PillButton to={`/project/${project.slug.current}`}>{project.title}</PillButton>
+          <PillButton to={`/work/${project.slug.current}`}>{project.title}</PillButton>
         </li>
       ))}
     </ul>

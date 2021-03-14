@@ -13,7 +13,7 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => (
     <nav className={cn(styles.nav, showNav && styles.showNav)}>
       <ul>
         <li>
-          <PillButton to="/projects/" variant="outlined">
+          <PillButton to="/work/" variant="outlined">
             Work
           </PillButton>
         </li>

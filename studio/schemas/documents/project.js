@@ -15,7 +15,7 @@ export default {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      description: 'Will show up in the url as yudstudio.com/project/<slug>. Feel free to just click "Generate".',
+      description: 'Will show up in the url as yudstudio.com/work/<slug>. Feel free to just click "Generate".',
       options: {
         source: 'title',
         maxLength: 96,
@@ -65,7 +65,7 @@ export default {
     prepare({title = 'No title', publishedAt, slug = {}}) {
       // const dateSegment = format(publishedAt, 'YYYY/MM')
       // const path = `/${dateSegment}/${slug.current}/`
-      const path = `/project/${slug.current}/`
+      const path = `/work/${slug.current}/`
       return {
         title,
         subtitle: path
