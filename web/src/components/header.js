@@ -5,7 +5,7 @@ import { cn } from "../lib/helpers";
 
 import styles from "./header.module.css";
 
-import logo from "../assets/yud.png";
+import logo from "../images/yud.png";
 import PillButton from "./pill-button";
 
 const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => (
