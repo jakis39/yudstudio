@@ -97,6 +97,12 @@
     }
 
     @nest & ul li:not(:last-child) {
+      margin-right: 4rem;
+    }
+  }
+
+  @media (--media-min-large) {
+    @nest & ul li:not(:last-child) {
       margin-right: 14rem;
     }
   }
