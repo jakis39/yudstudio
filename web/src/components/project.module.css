@@ -39,15 +39,15 @@
   composes: responsiveTitle2 from "../components/typography.module.css";
   max-width: 80%;
   margin-top: 0;
-  margin: auto;
+  margin: auto !important;
   text-align: center;
 
   @media (--media-max-small) {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem !important;
   }
 
   @media (--media-min-small) {
-    margin-bottom: 6rem;
+    margin-bottom: 6rem !important;
   }
 }
 
