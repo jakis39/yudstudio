@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "./icon";
 import { cn } from "../lib/helpers";
 
-import styles from "./header.module.css";
+import * as styles from "./header.module.css";
 
 import logo from "../images/yud.png";
 import PillButton from "./pill-button";

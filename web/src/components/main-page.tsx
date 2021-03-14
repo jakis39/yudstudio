@@ -2,7 +2,7 @@ import React from "react";
 import Container from "../components/container";
 import classNames from "classnames";
 
-import styles from "./main-page.module.css";
+import * as styles from "./main-page.module.css";
 import { title1, title3 } from "../components/typography.module.css";
 
 export interface MainPageProps {

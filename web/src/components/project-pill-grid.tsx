@@ -1,7 +1,7 @@
 import React from "react";
 import PillButton from "./pill-button";
 
-import styles from "./project-pill-grid.module.css";
+import * as styles from "./project-pill-grid.module.css";
 
 function ProjectPillGrid(props) {
   const { projects } = props;
