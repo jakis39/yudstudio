@@ -22,7 +22,6 @@
     display: flex;
     justify-content: space-between;
     padding: 1.3em 1em;
-    /* border: 1px solid red; */
     z-index: 1;
   }
 }
@@ -52,11 +51,11 @@
 
 .toggleNavButton {
   appearance: none;
-  font-size: 25px;
+  font-size: 50px;
   border: none;
   background: none;
   margin: 0;
-  padding: calc(14 / 17 / 2 * 1rem);
+  padding: 0;
   outline: none;
   color: inherit;
 
@@ -117,5 +116,5 @@
 }
 
 .showNav {
-  top: 5rem;
+  top: 5.5rem;
 }
