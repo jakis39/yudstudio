@@ -1,20 +1,28 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import Container from "./container";
-import classNames from 'classnames';
+import classNames from "classnames";
 
-import styles from "./project.module.css";
-import { responsiveTitle1, responsiveTitle2, paragraph } from "../components/typography.module.css";
+import {
+  root,
+  header,
+  excerpt as excerptStyle,
+  contributorsContainer,
+  contributorBlock,
+  videoContainer,
+  reactPlayer,
+} from "./project.module.css";
+import { responsiveTitle1 } from "../components/typography.module.css";
 
 function Project(props) {
   const { id, title, slug, publishedAt, videoUrl, excerpt, contributors } = props;
 
   return (
-    <article className={styles.root}>
+    <article className={root}>
       <Container>
-        <div className={styles.videoContainer}>
+        <div className={videoContainer}>
           <ReactPlayer
-            className={styles.reactPlayer}
+            className={reactPlayer}
             url={videoUrl}
             controls
             playsinline
@@ -22,13 +30,13 @@ function Project(props) {
             height="100%"
           />
         </div>
-        <h1 className={classNames(responsiveTitle1, styles.header)}>{title}</h1>
-        <p className={styles.excerpt}>{excerpt}</p>
-        <div className={styles.contributorsContainer}>
+        <h1 className={classNames(responsiveTitle1, header)}>{title}</h1>
+        <p className={excerptStyle}>{excerpt}</p>
+        <div className={contributorsContainer}>
           {contributors &&
             contributors.length > 0 &&
             contributors.map((contributor) => (
-              <span key={contributor._key} className={styles.contributorBlock}>
+              <span key={contributor._key} className={contributorBlock}>
                 {`${contributor.role.title} - ${contributor.contributors}`}
               </span>
             ))}
