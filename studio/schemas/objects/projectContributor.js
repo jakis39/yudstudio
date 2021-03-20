@@ -16,10 +16,11 @@ export default {
       name: "people",
       type: "array",
       description:
-        "Link one more more team members. Add a new Person and they will be selectable here",
+        "Link one more more team members. When you link a person here, clicking their name on the website will link to their profile page.",
       of: [
         {
           type: "reference",
+          description: " Add a new Person and they will be selectable here.",
           to: { type: "person" }
         }
       ]
@@ -40,13 +41,16 @@ export default {
       person2Name: "people.2.name"
     },
     prepare: ({ role, person0Name, person1Name, person2Name, contributors }) => {
-      let subtitle;
+      let subtitle = "";
       const people = [person0Name, person1Name].filter(Boolean);
       if (people.length) {
         const hasMorePeople = Boolean(person2Name);
         const names = people.length > 0 ? `${people.join(", ")}` : "";
-        subtitle = hasMorePeople ? `${subtitle}…` : subtitle;
-      } else {
+        subtitle = hasMorePeople ? `${names}…` : names;
+      }
+      if (subtitle.length > 0 && contributors) {
+        subtitle = `${subtitle}, ${contributors}`;
+      } else if (contributors) {
         subtitle = contributors;
       }
       return {

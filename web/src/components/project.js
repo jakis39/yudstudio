@@ -1,7 +1,7 @@
-import React from "react";
-import ReactPlayer from "react-player";
-import Container from "./container";
-import classNames from "classnames";
+import React from 'react';
+import ReactPlayer from 'react-player';
+import Container from './container';
+import classNames from 'classnames';
 
 import {
   root,
@@ -11,8 +11,8 @@ import {
   contributorBlock,
   videoContainer,
   reactPlayer,
-} from "./project.module.css";
-import { responsiveTitle1 } from "../components/typography.module.css";
+} from './project.module.css';
+import { responsiveTitle1 } from '../components/typography.module.css';
 
 function Project(props) {
   const { id, title, slug, publishedAt, videoUrl, excerpt, contributors } = props;
@@ -36,11 +36,25 @@ function Project(props) {
         {excerpt && <p className={excerptStyle}>{excerpt}</p>}
         {contributors && contributors.length > 0 && (
           <div className={contributorsContainer}>
-            {contributors.map((contributor) => (
-              <span key={contributor._key} className={contributorBlock}>
-                {`${contributor.role.title} - ${contributor.contributors}`}
-              </span>
-            ))}
+            {contributors.map((contributor) => {
+              let contributorString = '';
+              if (contributor.people?.length) {
+                contributorString = contributor.people.reduce((list, person, index) => {
+                  return index === 0 ? person.name : `${list}, ${person.name}`;
+                }, '');
+              }
+              if (contributor.contributors) {
+                contributorString =
+                  contributorString.length > 0
+                    ? `${contributorString}, ${contributor.contributors}`
+                    : contributor.contributors;
+              }
+              return (
+                <span key={contributor._key} className={contributorBlock}>
+                  {`${contributor.role.title} - ${contributorString}`}
+                </span>
+              );
+            })}
           </div>
         )}
       </Container>

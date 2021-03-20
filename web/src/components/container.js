@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { root, wide as sWide, short as sShort, grow as sGrow } from "./container.module.css";
+import { root, wide as sWide, short as sShort, grow as sGrow } from './container.module.css';
 
 const Container = ({ wide = false, short = false, grow = false, children }) => {
   let classes = `${root}`;
