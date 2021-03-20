@@ -31,7 +31,7 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => (
       </button>
 
       <div className={styles.branding}>
-        <Link to="/" className={styles.logo}>
+        <Link to="/">
           <img src={logo} />
           {/* <embed src={logo} width="200px" height="100px" type="image/svg+xml" /> */}
         </Link>

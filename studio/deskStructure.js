@@ -25,10 +25,10 @@ export default () =>
         .title("Roles")
         .schemaType("role")
         .child(S.documentTypeList("role").title("Roles")),
-      // S.listItem()
-      //   .title("People")
-      //   .schemaType("person")
-      //   .child(S.documentTypeList("person").title("People")),
+      S.listItem()
+        .title("People")
+        .schemaType("person")
+        .child(S.documentTypeList("person").title("People")),
       // This returns an array of all the document types
       // defined in schema.js. We filter out those that we have
       // defined the structure above
