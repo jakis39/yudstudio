@@ -1,5 +1,5 @@
-@import "../styles/custom-media.css";
-@import "../styles/custom-properties.css";
+@import '../styles/custom-media.css';
+@import '../styles/custom-properties.css';
 
 .root {
   flex-grow: 1;
@@ -36,7 +36,7 @@
 }
 
 .excerpt {
-  composes: responsiveTitle2 from "../components/typography.module.css";
+  composes: responsiveTitle2 from '../components/typography.module.css';
   max-width: 80%;
   margin-top: 0;
   margin: auto !important;
@@ -61,7 +61,6 @@
 .contributorBlock {
   flex: 1 0 40%;
   margin: 0;
-  font-weight: bold;
 
   @media (--media-max-small) {
     flex: 1 0 99%;

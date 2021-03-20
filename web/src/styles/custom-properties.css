@@ -1,7 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap'); */
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: url('../../public/static/MaisonNeueExtendedWEB-Medium.woff2') format('woff2'),
+    url('../../public/static/MaisonNeueExtendedWEB-Medium.woff') format('woff');
+}
 
 :root {
-  --font-family-sans: 'Questrial', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-sans: 'Maison Neue', -apple-system, BlinkMacSystemFont, sans-serif;
 
   --color-black: #000000;
   --color-white: #ffffff;

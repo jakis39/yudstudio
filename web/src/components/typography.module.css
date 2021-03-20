@@ -19,14 +19,12 @@
   --font-title3-size: calc(21 / var(--unit) * 1rem); /* 21px */
   --font-title3-line-height: calc(30 / 21); /* 30px */
 
-  --font-title2-size: calc(28 / var(--unit) * 1rem); /* 28px */
+  --font-title2-size: calc(26 / var(--unit) * 1rem); /* 28px */
   --font-title2-line-height: calc(33 / 24); /* 33px */
 
   --font-title1-size: calc(34 / var(--unit) * 1rem); /* 34px */
   --font-title1-line-height: calc(52 / 49); /* 52px */
 }
-
-
 
 /*
  * Statically sized elements
@@ -35,7 +33,7 @@
 .title1 {
   font-size: var(--font-title1-size);
   line-height: var(--font-title1-line-height);
-  font-weight: 600;
+  font-weight: normal;
   text-transform: uppercase;
 }
 
@@ -70,8 +68,6 @@
   text-transform: uppercase;
 }
 
-
-
 /*
  * Responsively sized elements
  */
@@ -97,7 +93,7 @@
 }
 
 .responsiveTitle1 {
-  font-weight: 900;
+  font-weight: normal;
   font-size: var(--font-title2-size);
   line-height: var(--font-title2-line-height);
   margin: 1rem 0 2rem;
@@ -115,7 +111,7 @@
 }
 
 .responsiveTitle2 {
-  font-weight: 900;
+  font-weight: normal;
   font-size: var(--font-large-size);
   line-height: var(--font-large-line-height);
   margin: 1.5rem 0 0.5rem;
@@ -132,7 +128,7 @@
 }
 
 .responsiveTitle3 {
-  font-weight: 900;
+  font-weight: normal;
   font-size: var(--font-large-size);
   line-height: var(--font-large-line-height);
   margin: 1rem 0 0.5rem;

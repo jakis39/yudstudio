@@ -30,6 +30,11 @@ export default {
       type: "figure"
     },
     {
+      name: "title",
+      type: "string",
+      title: "Title"
+    },
+    {
       name: "bio",
       title: "Bio",
       type: "bioPortableText"
