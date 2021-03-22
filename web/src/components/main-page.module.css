@@ -1,4 +1,4 @@
-@import "../styles/custom-media.css";
+@import '../styles/custom-media.css';
 
 .wrapper {
   flex-grow: 1;
@@ -20,13 +20,16 @@
   margin: 0;
   text-align: right;
   white-space: pre-line;
+
+  @media (--media-max-small) {
+    max-width: 80%;
+  }
 }
 
 .contactBox {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  font-weight: bold;
   width: 100%;
   max-width: 35rem;
   font-style: normal;

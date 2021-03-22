@@ -2,27 +2,38 @@
 @import '../styles/custom-properties.css';
 
 .root {
-    display: inline-block;
-    box-sizing: border-box;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 0.08rem 1.8rem;
-    font-size: 1.7rem;
-    font-weight: bold;
-    border-radius: 500px;
-    margin: 3px;
-    color: var(--color-black);
+  display: inline-block;
+  box-sizing: border-box;
+  text-decoration: none;
+  text-transform: uppercase;
 
-    @media (hover: hover) {
-        @nest &:hover {
-            border: 3px solid var(--color-black);
-            margin: 0;
-            color: var(--color-black);
-        }
+  /* font-size: var(--font-interface-size); */
+  border-radius: 500px;
+  margin: 3px;
+  color: var(--color-black);
+
+  @media (--media-max-small) {
+    border: 3px solid var(--color-black);
+    margin: 0;
+  }
+}
+
+.standard {
+  composes: button from './typography.module.css';
+  padding: 0 0.5rem;
+
+  @media (hover: hover) {
+    @nest &:hover {
+      border: 3px solid var(--color-black);
+      margin: 0;
+      color: var(--color-black);
     }
+  }
 }
 
 .outlined {
-    border: 3px solid var(--color-black);
-    margin: 0;
+  composes: buttonLarge from './typography.module.css';
+  border: 3.5px solid var(--color-black);
+  margin: 0;
+  padding: 0 1.7rem;
 }

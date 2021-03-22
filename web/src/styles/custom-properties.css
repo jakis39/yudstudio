@@ -2,8 +2,8 @@
 
 @font-face {
   font-family: 'Maison Neue';
-  src: url('../../public/static/MaisonNeueExtendedWEB-Medium.woff2') format('woff2'),
-    url('../../public/static/MaisonNeueExtendedWEB-Medium.woff') format('woff');
+  src: url('../assets/MaisonNeueExtendedWEB-Medium.woff2') format('woff2'),
+    url('../assets/MaisonNeueExtendedWEB-Medium.woff') format('woff');
 }
 
 :root {

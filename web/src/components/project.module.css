@@ -36,7 +36,7 @@
 }
 
 .excerpt {
-  composes: responsiveTitle2 from '../components/typography.module.css';
+  composes: body1 from '../components/typography.module.css';
   max-width: 80%;
   margin-top: 0;
   margin: auto !important;
@@ -59,20 +59,21 @@
 }
 
 .contributorBlock {
+  composes: body2 from '../components/typography.module.css';
   flex: 1 0 40%;
   margin: 0;
 
-  @media (--media-max-small) {
+  /* @media (--media-max-small) {
     flex: 1 0 99%;
     text-align: center;
     padding: 0.4rem 0;
+  } */
+
+  @nest &:nth-child(2n) {
+    text-align: right;
   }
 
   @media (--media-min-small) {
     padding: 0.8rem 0;
-
-    @nest &:nth-child(2n) {
-      text-align: right;
-    }
   }
 }

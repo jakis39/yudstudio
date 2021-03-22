@@ -1,5 +1,5 @@
-@import "../styles/custom-media.css";
-@import "../styles/custom-properties.css";
+@import '../styles/custom-media.css';
+@import '../styles/custom-properties.css';
 
 .root {
   box-sizing: border-box;
@@ -31,7 +31,7 @@
 
   @nest & a {
     display: inline-block;
-    height: 45px;
+    height: 40px;
 
     @nest & img {
       height: 100%;
@@ -44,6 +44,7 @@
     justify-content: flex-end;
 
     @nest & a {
+      height: 24px;
       text-align: right;
     }
   }

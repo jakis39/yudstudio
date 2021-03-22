@@ -1,21 +1,21 @@
-import React from "react";
-import Container from "../components/container";
-import classNames from "classnames";
+import React from 'react';
+import Container from '../components/container';
+import classNames from 'classnames';
 
-import * as styles from "./main-page.module.css";
-import { title1, title3 } from "../components/typography.module.css";
+import * as styles from './main-page.module.css';
+import { title1, body1 } from '../components/typography.module.css';
 
 export interface MainPageProps {
   header?: string;
 }
 
 const MainPage = (props) => {
-  const {header = '', } = props;
+  const { header = '' } = props;
   return (
     <Container wide short grow>
       <div className={styles.wrapper}>
         <h1 className={classNames(title1, styles.title)}>{header}</h1>
-        <address className={classNames(title3, styles.contactBox)}>
+        <address className={classNames(body1, styles.contactBox)}>
           <span>INQUIRE:</span>
           <span>
             <a href="https://www.instagram.com/yud_studio/">@yud_studio</a>

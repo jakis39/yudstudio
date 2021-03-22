@@ -1,12 +1,12 @@
-import { Link } from "gatsby";
-import React from "react";
-import Icon from "./icon";
-import { cn } from "../lib/helpers";
+import { Link } from 'gatsby';
+import React from 'react';
+import Icon from './icon';
+import { cn } from '../lib/helpers';
 
-import * as styles from "./header.module.css";
+import * as styles from './header.module.css';
 
-import logo from "../images/yud.png";
-import PillButton from "./pill-button";
+import logo from '../images/yud.png';
+import PillButton from './pill-button';
 
 const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => (
   <div className={styles.root}>

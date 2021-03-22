@@ -12,7 +12,7 @@ import {
   videoContainer,
   reactPlayer,
 } from './project.module.css';
-import { responsiveTitle1 } from '../components/typography.module.css';
+import { title1 } from '../components/typography.module.css';
 
 function Project(props) {
   const { id, title, slug, publishedAt, videoUrl, excerpt, contributors } = props;
@@ -32,7 +32,7 @@ function Project(props) {
             />
           </div>
         )}
-        {title && <h1 className={classNames(responsiveTitle1, header)}>{title}</h1>}
+        {title && <h1 className={classNames(title1, header)}>{title}</h1>}
         {excerpt && <p className={excerptStyle}>{excerpt}</p>}
         {contributors && contributors.length > 0 && (
           <div className={contributorsContainer}>

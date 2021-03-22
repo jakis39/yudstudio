@@ -1,23 +1,26 @@
-import { Link } from 'gatsby'
-import React from 'react'
+import { Link } from 'gatsby';
+import React from 'react';
 
-import * as styles from './pill-button.module.css'
+import * as styles from './pill-button.module.css';
 
 export interface PillButtonProps {
-    to: string;
-    variant?: 'standard' | 'outlined';
-    children: any;
+  to: string;
+  variant?: 'standard' | 'outlined';
+  children: any;
 }
 
 const PillButton = (props: PillButtonProps) => {
-  const { to, variant = '', children } = props;
+  const { to, variant = 'standard', children } = props;
 
-  return <Link className={`${styles.root} ${styles[variant]}`} to={to}>{children}</Link>
-
-}
+  return (
+    <Link className={`${styles.root} ${styles[variant]}`} to={to}>
+      {children}
+    </Link>
+  );
+};
 
 PillButton.defaultProps = {
-  projects: []
-}
+  projects: [],
+};
 
-export default PillButton
+export default PillButton;
