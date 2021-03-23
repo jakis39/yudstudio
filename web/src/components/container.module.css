@@ -11,6 +11,10 @@
   @media (--media-min-small) {
     padding: 2em;
   }
+
+  @media (--media-max-small) {
+    overflow: auto;
+  }
 }
 
 .wide {
@@ -34,5 +38,4 @@
 .grow {
   flex-grow: 1;
   position: relative;
-  overflow: auto;
 }

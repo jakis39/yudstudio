@@ -36,17 +36,18 @@
 }
 
 .excerpt {
-  composes: body1 from '../components/typography.module.css';
-  max-width: 80%;
+  composes: body2 from '../components/typography.module.css';
   margin-top: 0;
   margin: auto !important;
   text-align: center;
 
   @media (--media-max-small) {
+    max-width: 90%;
     margin-bottom: 1rem !important;
   }
 
   @media (--media-min-small) {
+    max-width: 80%;
     margin-bottom: 6rem !important;
   }
 }
@@ -59,7 +60,7 @@
 }
 
 .contributorBlock {
-  composes: body2 from '../components/typography.module.css';
+  composes: body3 from '../components/typography.module.css';
   flex: 1 0 40%;
   margin: 0;
 

@@ -18,8 +18,8 @@ function Project(props) {
   const { id, title, slug, publishedAt, videoUrl, excerpt, contributors } = props;
 
   return (
-    <article className={root}>
-      <Container>
+    <Container>
+      <article className={root}>
         {videoUrl && (
           <div className={videoContainer}>
             <ReactPlayer
@@ -57,8 +57,8 @@ function Project(props) {
             })}
           </div>
         )}
-      </Container>
-    </article>
+      </article>
+    </Container>
   );
 }
 

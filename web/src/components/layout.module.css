@@ -24,7 +24,7 @@
 }
 
 .footer {
-  composes: body3 from '../components/typography.module.css';
+  composes: body4 from '../components/typography.module.css';
   margin-bottom: 2rem;
   color: var(--color-gray);
 
