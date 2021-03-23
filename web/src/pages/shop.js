@@ -1,15 +1,19 @@
-import React from "react";
-import { graphql } from "gatsby";
-import GraphQLErrorList from "../components/graphql-error-list";
-import SEO from "../components/seo";
-import Layout from "../containers/layout";
-import MainPage from "../components/main-page";
+import React from 'react';
+import { graphql } from 'gatsby';
+import GraphQLErrorList from '../components/graphql-error-list';
+import SEO from '../components/seo';
+import Layout from '../containers/layout';
+import MainPage from '../components/main-page';
 
 export const query = graphql`
   query ShopPageQuery {
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
       shopText
+      contactInfo {
+        instagram
+        email
+      }
     }
   }
 `;
@@ -36,7 +40,7 @@ const ShopPage = (props) => {
   return (
     <Layout>
       <SEO title={site.title} />
-      <MainPage header={site.shopText} />
+      <MainPage header={site.shopText} contactInfo={site.contactInfo} />
     </Layout>
   );
 };

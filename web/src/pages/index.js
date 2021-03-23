@@ -1,9 +1,9 @@
-import React from "react";
-import { graphql } from "gatsby";
-import GraphQLErrorList from "../components/graphql-error-list";
-import SEO from "../components/seo";
-import Layout from "../containers/layout";
-import MainPage from "../components/main-page";
+import React from 'react';
+import { graphql } from 'gatsby';
+import GraphQLErrorList from '../components/graphql-error-list';
+import SEO from '../components/seo';
+import Layout from '../containers/layout';
+import MainPage from '../components/main-page';
 
 export const query = graphql`
   query IndexPageQuery {
@@ -11,6 +11,10 @@ export const query = graphql`
       title
       description
       keywords
+      contactInfo {
+        instagram
+        email
+      }
     }
   }
 `;
@@ -37,7 +41,7 @@ const IndexPage = (props) => {
   return (
     <Layout>
       <SEO title={site.title} description={site.description} keywords={site.keywords} />
-      <MainPage header={site.description} />
+      <MainPage header={site.description} contactInfo={site.contactInfo} />
     </Layout>
   );
 };
