@@ -9,6 +9,7 @@
 
   @media (--media-max-small) {
     padding-top: 23vh;
+    padding-bottom: 2rem;
   }
 
   @media (--media-min-small) {

@@ -36,4 +36,9 @@
   border: 3.5px solid var(--color-black);
   margin: 0;
   padding: 0 1.7rem;
+
+  @media (--media-max-small) {
+    border-width: 2px;
+    padding: 0 0.8rem;
+  }
 }

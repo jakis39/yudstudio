@@ -49,6 +49,9 @@
 
     --font-interface-size: calc(18 / var(--unit) * 1rem);
     --font-interface-line-height: calc(36 / 28);
+
+    --font-interface-large-size: calc(16 / var(--unit) * 1rem); /* 28px */
+    --font-interface-large-line-height: calc(20 / 16);
   }
 }
 

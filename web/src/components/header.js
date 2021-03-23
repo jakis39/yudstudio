@@ -1,43 +1,26 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import Icon from './icon';
-import { cn } from '../lib/helpers';
 
 import * as styles from './header.module.css';
 
 import logo from '../images/yud.png';
-import PillButton from './pill-button';
+import Navigation from './navigation';
 
-const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => (
-  <div className={styles.root}>
-    <nav className={cn(styles.nav, showNav && styles.showNav)}>
-      <ul>
-        <li>
-          <PillButton to="/work/" variant="outlined">
-            Work
-          </PillButton>
-        </li>
-        <li>
-          <PillButton to="/shop/" variant="outlined">
-            Shop
-          </PillButton>
-        </li>
-      </ul>
-    </nav>
+const Header = () => {
+  return (
+    <div className={styles.root}>
+      <Navigation hideWhen="small" />
 
-    <div className={styles.wrapper}>
-      <button className={styles.toggleNavButton} onClick={showNav ? onHideNav : onShowNav}>
-        <Icon symbol="hamburger" />
-      </button>
-
-      <div className={styles.branding}>
-        <Link to="/">
-          <img src={logo} />
-          {/* <embed src={logo} width="200px" height="100px" type="image/svg+xml" /> */}
-        </Link>
+      <div className={styles.wrapper}>
+        <div className={styles.branding}>
+          <Link to="/">
+            <img src={logo} />
+            {/* <embed src={logo} width="200px" height="100px" type="image/svg+xml" /> */}
+          </Link>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Header;

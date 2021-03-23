@@ -1,0 +1,48 @@
+@import '../styles/custom-media.css';
+@import '../styles/custom-properties.css';
+
+.nav {
+  @nest & ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (--media-max-small) {
+    @nest & ul {
+      justify-content: space-between;
+    }
+  }
+
+  @media (--media-min-small) {
+    display: block;
+    flex-grow: 1;
+
+    @nest & ul {
+      justify-content: flex-start;
+    }
+
+    @nest & ul li:not(:last-child) {
+      margin-right: 3rem;
+    }
+  }
+
+  @media (--media-min-large) {
+    @nest & ul li:not(:last-child) {
+      margin-right: 14rem;
+    }
+  }
+}
+
+.hideWhenSmall {
+  @media (--media-max-small) {
+    display: none;
+  }
+}
+
+.hideWhenBig {
+  @media (--media-min-small) {
+    display: none;
+  }
+}
