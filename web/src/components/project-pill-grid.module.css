@@ -8,10 +8,15 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  align-content: flex-end;
+
+  @media (--media-max-small) {
+    align-content: flex-start;
+    padding-top: 2em;
+  }
 
   @media (--media-min-small) {
     max-width: 80%;
+    align-content: flex-end;
   }
 }
 
@@ -25,5 +30,6 @@
   @media (--media-max-small) {
     width: 100%;
     text-align: right;
+    margin-top: 2em;
   }
 }
