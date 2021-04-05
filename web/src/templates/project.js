@@ -1,10 +1,10 @@
-import React from "react";
-import { graphql } from "gatsby";
-import Container from "../components/container";
-import GraphQLErrorList from "../components/graphql-error-list";
-import Project from "../components/project";
-import SEO from "../components/seo";
-import Layout from "../containers/layout";
+import React from 'react';
+import { graphql } from 'gatsby';
+import Container from '../components/container';
+import GraphQLErrorList from '../components/graphql-error-list';
+import Project from '../components/project';
+import SEO from '../components/seo';
+import Layout from '../containers/layout';
 
 export const query = graphql`
   query ProjectTemplateQuery($id: String!) {
@@ -37,6 +37,29 @@ export const query = graphql`
           current
         }
       }
+      image {
+        _key
+        crop {
+          _key
+          _type
+          top
+          bottom
+          left
+          right
+        }
+        hotspot {
+          _key
+          _type
+          x
+          y
+          height
+          width
+        }
+        asset {
+          _id
+        }
+        alt
+      }
     }
   }
 `;
@@ -44,11 +67,10 @@ export const query = graphql`
 const ProjectTemplate = (props) => {
   const { data, errors } = props;
   const project = data && data.project;
-  console.log(project);
   return (
     <Layout centered>
       {errors && <SEO title="GraphQL Error" />}
-      {project && <SEO title={project.title || "Untitled"} />}
+      {project && <SEO title={project.title || 'Untitled'} />}
 
       {errors && (
         <Container>

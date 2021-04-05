@@ -1,4 +1,4 @@
-const { parseISO, isFuture } = require("date-fns");
+const { parseISO, isFuture } = require('date-fns');
 /**
  * Implement Gatsby's Node APIs in this file.
  *
@@ -36,7 +36,7 @@ async function createProjectPages(graphql, actions) {
 
       createPage({
         path,
-        component: require.resolve("./src/templates/project.js"),
+        component: require.resolve('./src/templates/project.js'),
         context: { id },
       });
     });
