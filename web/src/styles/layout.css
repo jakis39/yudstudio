@@ -14,9 +14,9 @@ body {
   overflow-x: hidden;
 }
 
-/* html,
+html,
 body,
-body > div,
-body > div > div {
+body > div#___gatsby,
+body > div#___gatsby > div {
   height: 100%;
-} */
+}

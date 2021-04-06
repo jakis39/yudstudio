@@ -65,8 +65,8 @@ function Project(props) {
             <SRLWrapper options={lightboxOptions}>
               <div className={imageGrid}>
                 {images.map((image) => (
-                  <div>
-                    <a key={image._key} href={imageUrlFor(buildImageObj(image)).url()}>
+                  <div key={image._key}>
+                    <a href={imageUrlFor(buildImageObj(image)).url()}>
                       <img
                         src={imageUrlFor(buildImageObj(image)).width(500).height(500).url()}
                         alt={image.alt}

@@ -2,13 +2,9 @@
 @import '../styles/custom-properties.css';
 
 .pageWrapper {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-
-  @media (--media-max-small) {
-    max-height: 100vh;
-  }
+  height: 100%;
 }
 
 .content {
@@ -16,7 +12,6 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-end; */
 
   @media (--media-max-small) {
     overflow: auto;
