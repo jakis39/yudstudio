@@ -31,11 +31,11 @@ const Navigation = (props) => {
             Work
           </PillButton>
         </li>
-        <li>
+        {/* <li>
           <PillButton to="/shop/" variant="outlined">
             Shop
           </PillButton>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );
