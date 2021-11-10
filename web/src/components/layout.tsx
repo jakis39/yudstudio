@@ -19,7 +19,7 @@ export interface LayoutProps {
 }
 
 const Layout = (props: LayoutProps) => {
-  const { children, siteTitle, contactInfo, centered = false } = props;
+  const { children, siteTitle, contactInfo = {}, centered = false } = props;
 
   const { instagram, email } = contactInfo;
 
@@ -35,8 +35,10 @@ const Layout = (props: LayoutProps) => {
         <Footer centered={centered}>
           <Container wide short row>
             <div className="footerText">{footerText}</div>
-            <FooterLink href={`mailto:${email}`}>{email}</FooterLink>
-            <FooterLink href={`https://www.instagram.com/${instagram}/`}>@{instagram}</FooterLink>
+            {email && <FooterLink href={`mailto:${email}`}>{email}</FooterLink>}
+            {instagram && (
+              <FooterLink href={`https://www.instagram.com/${instagram}/`}>@{instagram}</FooterLink>
+            )}
           </Container>
         </Footer>
       </PageWrapper>
