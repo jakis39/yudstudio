@@ -14,7 +14,6 @@ const Header = () => {
         <Branding>
           <Link to="/">
             <img src={logo} />
-            {/* <embed src={logo} width="200px" height="100px" type="image/svg+xml" /> */}
           </Link>
         </Branding>
       </BrandWrapper>
