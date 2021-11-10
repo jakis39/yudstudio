@@ -16,13 +16,14 @@ export interface MainPageProps {
 }
 
 const MainPage = (props) => {
-  const { header = '', contactInfo } = props;
-  const { instagram, email } = contactInfo ?? {};
+  const { header = '', contactInfo = {} } = props;
+  const { instagram, email } = contactInfo;
   return (
     <Container wide short grow>
       <div className={styles.wrapper}>
         <h1 className={classNames(title1, styles.title)}>{header}</h1>
-        {contactInfo && (
+
+        {/* {contactInfo && (
           <address className={classNames(body1, styles.contactBox)}>
             <span>INQUIRE:</span>
             {instagram && (
@@ -36,7 +37,7 @@ const MainPage = (props) => {
               </span>
             )}
           </address>
-        )}
+        )} */}
       </div>
     </Container>
   );
