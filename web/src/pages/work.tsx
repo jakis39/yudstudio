@@ -10,7 +10,7 @@ import Container from '../components/container';
 import Layout from '../containers/layout';
 
 import ArrowRight from '../images/arrow-right.svg';
-import { theme } from '../styles/Theme';
+import { theme } from '../styles/theme';
 import ReactPlayer from 'react-player';
 import { DeviceWidth } from '../styles/mediaQueries';
 
