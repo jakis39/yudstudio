@@ -47,7 +47,7 @@ const ProjectsPage = (props) => {
   const projectNodes =
     data && data.projects && mapEdgesToNodes(data.projects).filter(filterOutDocsWithoutSlugs);
 
-  const videoUrl = 'https://vimeo.com/581854936?background=1'; // TODO get from sanity
+  const videoUrl = 'https://vimeo.com/581854936'; // TODO get from sanity
 
   return (
     <Layout>
@@ -64,6 +64,7 @@ const ProjectsPage = (props) => {
             },
           }}
           playsinline
+          responsive
           width="100%"
           height="100%"
         />
