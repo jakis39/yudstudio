@@ -12,7 +12,6 @@ export interface SiteSettingsContactInfo {
 
 export interface MainPageProps {
   header?: string;
-  contactInfo: SiteSettingsContactInfo;
 }
 
 const MainPage = (props) => {
@@ -22,22 +21,6 @@ const MainPage = (props) => {
     <Container wide short grow>
       <div className={styles.wrapper}>
         <h1 className={classNames(title1, styles.title)}>{header}</h1>
-
-        {/* {contactInfo && (
-          <address className={classNames(body1, styles.contactBox)}>
-            <span>INQUIRE:</span>
-            {instagram && (
-              <span>
-                <a href={`https://www.instagram.com/${instagram}/`}>@{instagram}</a>
-              </span>
-            )}
-            {email && (
-              <span>
-                <a href={`mailto:${email}`}>{email}</a>
-              </span>
-            )}
-          </address>
-        )} */}
       </div>
     </Container>
   );

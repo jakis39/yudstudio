@@ -15,7 +15,6 @@ export interface LayoutProps {
   children: any;
   siteTitle: string;
   contactInfo: any;
-  centered: boolean;
 }
 
 const Layout = (props: LayoutProps) => {
@@ -32,15 +31,21 @@ const Layout = (props: LayoutProps) => {
         <Header />
         <Content>{children}</Content>
 
-        <Footer centered={centered}>
-          <Container wide short row>
+        <Container wide short row>
+          <Footer>
             <div className="footerText">{footerText}</div>
-            {email && <FooterLink href={`mailto:${email}`}>{email}</FooterLink>}
-            {instagram && (
-              <FooterLink href={`https://www.instagram.com/${instagram}/`}>@{instagram}</FooterLink>
+            {(email || instagram) && (
+              <address>
+                {email && <FooterLink href={`mailto:${email}`}>{email}</FooterLink>}
+                {instagram && (
+                  <FooterLink href={`https://www.instagram.com/${instagram}/`}>
+                    @{instagram}
+                  </FooterLink>
+                )}
+              </address>
             )}
-          </Container>
-        </Footer>
+          </Footer>
+        </Container>
       </PageWrapper>
     </>
   );
@@ -49,13 +54,13 @@ const Layout = (props: LayoutProps) => {
 export default Layout;
 
 const PageWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
 
 const Content = styled.div`
-  background: ${theme.colors.white};
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -65,22 +70,19 @@ const Content = styled.div`
   }
 `;
 
-const Footer = styled.footer<{ centered: boolean }>`
-  ${font('body3')}
-  padding-bottom: 2rem;
+const Footer = styled.footer`
+  width: 100%;
+  display: flex;
   color: ${theme.colors.gray};
+  padding-bottom: 2rem;
+  padding-top: 2em;
 
-  ${({ centered }) => {
-    return (
-      centered &&
-      css`
-        text-align: center;
-      `
-    );
-  }}
+  border-top: 2px solid ${theme.colors.black};
 
   .footerText {
     flex-grow: 1;
+    ${font('body18')};
+    text-transform: uppercase;
   }
 
   @media (${DeviceWidth.mediaMaxSmall}) {
@@ -94,7 +96,8 @@ const Footer = styled.footer<{ centered: boolean }>`
 `;
 
 const FooterLink = styled.a`
-  ${font('body3')}
+  ${font('body18')}
+  font-style: normal;
   color: ${theme.colors.black};
   text-decoration: none;
   margin-left: ${theme.space(3)};

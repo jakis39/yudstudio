@@ -11,10 +11,6 @@ export const query = graphql`
       title
       description
       keywords
-      contactInfo {
-        instagram
-        email
-      }
     }
   }
 `;
@@ -41,7 +37,7 @@ const IndexPage = (props) => {
   return (
     <Layout>
       <SEO title={site.title} description={site.description} keywords={site.keywords} />
-      <MainPage header={site.description} contactInfo={site.contactInfo} />
+      <MainPage header={site.description} />
     </Layout>
   );
 };

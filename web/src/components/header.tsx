@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import React from 'react';
 
-import logo from '../images/yud.png';
+import logo from '../images/yud-logo-white.png';
 import Navigation from './navigation';
 import { DeviceWidth } from '../styles/mediaQueries';
 import { theme } from '../styles/theme';
@@ -10,13 +10,9 @@ import styled from 'styled-components';
 const Header = () => {
   return (
     <HeaderContainer>
-      <BrandWrapper>
-        <Branding>
-          <Link to="/">
-            <img src={logo} />
-          </Link>
-        </Branding>
-      </BrandWrapper>
+      <Branding to="/">
+        <img src={logo} />
+      </Branding>
       <Navigation hideWhen="small" />
     </HeaderContainer>
   );
@@ -25,48 +21,28 @@ const Header = () => {
 export default Header;
 
 const HeaderContainer = styled.div`
-  box-sizing: border-box;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  background-color: ${theme.colors.white};
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  z-index: 999;
 
   @media (${DeviceWidth.mediaMinSmall}) {
     padding: 3rem 3rem 1.5rem;
   }
 `;
 
-const BrandWrapper = styled.div`
-  background-color: ${theme.colors.white};
+const Branding = styled(Link)`
+  height: ${theme.space(5)};
 
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 1.3em 1em;
-    z-index: 10;
-  }
-`;
-
-const Branding = styled.div`
-  a {
-    display: inline-block;
-    height: 40px;
-
-    img {
-      height: 100%;
-    }
+  img {
+    height: 100%;
   }
 
   @media (${DeviceWidth.mediaMaxSmall}) {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-
-    & a {
-      height: 24px;
-      text-align: right;
-    }
+    height: ${theme.space(3)};
   }
 `;

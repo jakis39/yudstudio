@@ -1,96 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '../lib/helpers';
 import PillButton from './pill-button';
 
 import styled, { css } from 'styled-components';
 import { DeviceWidth } from '../styles/mediaQueries';
+import { theme } from '../styles/theme';
+import { font } from '../styles/typography';
 
-export interface NavigationProps {
-  hideWhen?: 'small' | 'large';
-}
+const MENU_ITEMS = [
+  {
+    label: 'Projects',
+    href: '/work',
+  },
+  {
+    label: 'About',
+    href: '/',
+  },
+  {
+    label: 'Contact us',
+    href: '/contact',
+  },
+];
 
 const Navigation = (props) => {
-  const { hideWhen } = props;
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
-  // let hideClass = '';
-  // if (hideWhen === 'small') {
-  //   hideClass = hideWhenSmall;
-  // } else if (hideWhen === 'large') {
-  //   hideClass = hideWhenBig;
-  // }
+  const onMenuClick = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   return (
     <Nav>
-      <ul>
-        <li>
-          <PillButton to="/" variant="outlined">
-            About
-          </PillButton>
-        </li>
-        <li>
-          <PillButton to="/work/" variant="outlined">
-            Work
-          </PillButton>
-        </li>
-        {/* <li>
-          <PillButton to="/shop/" variant="outlined">
-            Shop
-          </PillButton>
-        </li> */}
-      </ul>
+      <NavToggle as="button" onClick={onMenuClick}>
+        <span>MENU</span>
+        <NavToggleIcon>{menuOpen ? '-' : '+'}</NavToggleIcon>
+      </NavToggle>
+      {menuOpen && (
+        <ul>
+          {MENU_ITEMS.map((item) => (
+            <li>
+              <NavLink href={item.href}>{item.label}</NavLink>
+            </li>
+          ))}
+        </ul>
+      )}
     </Nav>
   );
 };
 
 export default Navigation;
 
-const Nav = styled.div<{ hideWhen?: string }>`
+const Nav = styled.nav`
   ul {
     display: flex;
+    flex-direction: column;
     list-style: none;
     margin: 0;
     padding: 0;
-  }
 
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    ul {
-      justify-content: space-between;
+    li {
+      margin-top: ${theme.space(1.5)};
     }
   }
-
-  @media (${DeviceWidth.mediaMinSmall}) {
-    display: block;
-    flex-grow: 1;
-
-    ul {
-      justify-content: flex-end;
-    }
-
-    ul li:not(:last-child) {
-      margin-right: 3rem;
-    }
-  }
-
-  @media (--media-min-large) {
-    ul li:not(:last-child) {
-      margin-right: 14rem;
-    }
-  }
-
-  ${({ hideWhen }) => {
-    if (hideWhen === 'small') {
-      return css`
-        @media (${DeviceWidth.mediaMaxSmall}) {
-          display: none;
-        }
-      `;
-    } else if (hideWhen === 'large') {
-      return css`
-        @media (${DeviceWidth.mediaMinSmall}) {
-          display: none;
-        }
-      `;
-    }
-    return '';
-  }}
 `;
+
+const NavLink = styled.a`
+  ${font('interface20')};
+  display: block;
+  width: ${theme.space(30)};
+  color: ${theme.colors.white};
+  background: none;
+  border: 2px solid ${theme.colors.white};
+  border-radius: 50px;
+  padding: ${theme.space(1.25)} ${theme.space(3)};
+`;
+
+const NavToggle = styled(NavLink)`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const NavToggleIcon = styled.span``;
