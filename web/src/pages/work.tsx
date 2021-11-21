@@ -54,24 +54,23 @@ const ProjectsPage = (props) => {
       <SEO title="Work" />
 
       <VideoContainer>
-        <StyledReactPlayer
+        <ReactPlayer
+          style={{ position: 'absolute', top: 0, left: 0 }}
           url={videoUrl}
           // playing={true}
           // controls={true}
           config={{
             vimeo: {
-              playerOptions: { background: true, loop: true },
+              playerOptions: { background: true, loop: true, responsive: true },
             },
           }}
           playsinline
-          responsive
           width="100%"
           height="100%"
         />
       </VideoContainer>
 
       <Container wide short grow>
-        {/* {projectNodes && projectNodes.length > 0 && <ProjectPillGrid projects={projectNodes} />} */}
         {projectNodes && projectNodes.length > 0 && (
           <>
             <Title>Projects</Title>
@@ -128,6 +127,7 @@ const ProjectLink = styled(Link)`
   color: ${theme.colors.black};
   padding: ${theme.space(4)} ${theme.space(3)};
   border-top: 2px solid ${theme.colors.black};
+  cursor: pointer;
 
   img {
     width: ${theme.space(3)};

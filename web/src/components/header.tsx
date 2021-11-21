@@ -31,7 +31,7 @@ const HeaderContainer = styled.div`
   z-index: 999;
 
   @media (${DeviceWidth.mediaMinSmall}) {
-    padding: 3rem 3rem 1.5rem;
+    padding: ${theme.space(9)} ${theme.space(9)} 1.5rem;
   }
 `;
 

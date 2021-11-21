@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { cn } from '../lib/helpers';
-import PillButton from './pill-button';
 
 import styled, { css } from 'styled-components';
-import { DeviceWidth } from '../styles/mediaQueries';
 import { theme } from '../styles/theme';
 import { font } from '../styles/typography';
 

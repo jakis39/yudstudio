@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     -webkit-font-smoothing: antialiased;
-    background: ${theme.colors.white};
+    background: ${theme.colors.offWhite};
     color: ${theme.colors.black};
     margin: 0;
     overflow-x: hidden;
