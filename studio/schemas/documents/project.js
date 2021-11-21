@@ -6,6 +6,12 @@ export default {
   type: "document",
   fields: [
     {
+      name: "clientName",
+      title: "Client",
+      type: "string"
+      // validation: Rule => Rule.required()
+    },
+    {
       name: "title",
       title: "Title",
       type: "string",
@@ -37,10 +43,15 @@ export default {
       type: "url"
     },
     {
+      name: "headerImage",
+      title: "Header image",
+      type: "figure"
+    },
+    {
       name: "image",
       title: "Photos",
       type: "array",
-      of: [{ type: "figure" }],
+      of: [{ type: "gridFigure" }],
       description: 'Drag photos here or click "Add" to upload one.'
     },
     {

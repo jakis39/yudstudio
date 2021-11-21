@@ -13,6 +13,7 @@ import siteSettings from "./documents/siteSettings";
 
 // Object types
 import figure from "./objects/figure";
+import gridFigure from "./objects/gridFigure";
 import bioPortableText from "./objects/bioPortableText";
 import simplePortableText from "./objects/simplePortableText";
 import projectContributor from "./objects/projectContributor";
@@ -29,6 +30,7 @@ export default createSchema({
     // { type: 'typename' } in other document schemas
     bioPortableText,
     figure,
+    gridFigure,
     projectContributor,
     simplePortableText,
     contactInfo,
