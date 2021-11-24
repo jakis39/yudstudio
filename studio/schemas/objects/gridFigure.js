@@ -1,11 +1,28 @@
 export default {
-  name: "figure",
+  name: "gridFigure",
   title: "Image",
   type: "image",
   options: {
     hotspot: true
   },
   fields: [
+    {
+      name: "displayWidth",
+      title: "Layout width",
+      type: "string",
+      description:
+        "Set whether photo should take the full width of the page. Leave as default for automatic layout.",
+      options: {
+        list: [
+          { title: "Default (auto)", value: "auto" },
+          { title: "Full width", value: "fullWidth" },
+          { title: "Half width", value: "halfWidth" }
+        ],
+        initialValue: "auto",
+        layout: "radio",
+        isHighlighted: true
+      }
+    },
     {
       title: "Caption",
       name: "caption",
