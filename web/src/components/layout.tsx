@@ -15,10 +15,11 @@ export interface LayoutProps {
   children: any;
   siteTitle: string;
   contactInfo: any;
+  isDark?: boolean;
 }
 
 const Layout = (props: LayoutProps) => {
-  const { children, siteTitle, contactInfo = {}, centered = false } = props;
+  const { children, siteTitle, contactInfo = {}, isDark } = props;
 
   const { instagram, email } = contactInfo;
 
@@ -28,7 +29,7 @@ const Layout = (props: LayoutProps) => {
       <GlobalStyle />
 
       <PageWrapper>
-        <Header />
+        <Header isDark={isDark} />
         <Content>{children}</Content>
 
         <Container wide short row>

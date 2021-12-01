@@ -10,6 +10,7 @@ export const query = graphql`
   query ProjectTemplateQuery($id: String!) {
     project: sanityProject(id: { eq: $id }) {
       id
+      clientName
       title
       slug {
         current
@@ -59,6 +60,7 @@ export const query = graphql`
           _id
         }
         alt
+        displayWidth
       }
     }
   }

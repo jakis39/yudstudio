@@ -1,19 +1,26 @@
 import { Link } from 'gatsby';
 import React from 'react';
 
-import logo from '../images/yud-logo-white.png';
+import logoWhite from '../images/yud-logo-white.png';
+import logoBlack from '../images/yud-logo-black.png';
 import Navigation from './navigation';
 import { DeviceWidth } from '../styles/mediaQueries';
 import { theme } from '../styles/theme';
 import styled from 'styled-components';
 
-const Header = () => {
+export interface HeaderProps {
+  isDark?: boolean;
+}
+
+const Header = (props: HeaderProps) => {
+  const { isDark } = props;
+
   return (
     <HeaderContainer>
       <Branding to="/">
-        <img src={logo} />
+        <img src={isDark ? logoBlack : logoWhite} />
       </Branding>
-      <Navigation hideWhen="small" />
+      <Navigation isDark={isDark} />
     </HeaderContainer>
   );
 };

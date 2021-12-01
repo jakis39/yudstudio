@@ -52,6 +52,7 @@ const GridContainer = styled.div`
 
   a {
     flex: 1 0 49%;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,6 +61,7 @@ const GridContainer = styled.div`
 
   img {
     width: 101%;
+    height: 100%;
     object-fit: cover;
   }
 

@@ -1,29 +1,45 @@
 import React from 'react';
 import Container from '../components/container';
-import classNames from 'classnames';
-
-import * as styles from './main-page.module.css';
-import { title1, body1 } from '../components/typography.module.css';
-
-export interface SiteSettingsContactInfo {
-  instagram: string;
-  email: string;
-}
+import styled from 'styled-components';
+import { font } from '../styles/typography';
+import { theme } from '../styles/theme';
 
 export interface MainPageProps {
-  header?: string;
+  title?: string;
+  blurb?: string;
 }
 
 const MainPage = (props) => {
-  const { header = '', contactInfo = {} } = props;
-  const { instagram, email } = contactInfo;
+  const { title, blurb } = props;
   return (
     <Container wide short grow>
-      <div className={styles.wrapper}>
-        <h1 className={classNames(title1, styles.title)}>{header}</h1>
-      </div>
+      <Wrapper>
+        <Title>{title}</Title>
+        <Blurb>{blurb}</Blurb>
+      </Wrapper>
     </Container>
   );
 };
 
 export default MainPage;
+
+const Wrapper = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-left: ${theme.space(2)};
+  max-width: 580px;
+`;
+
+const Title = styled.h1`
+  ${font('title24')}
+  text-transform: uppercase;
+  margin: 0;
+`;
+
+const Blurb = styled.p`
+  ${font('body20')};
+  margin: ${theme.space(4)} 0 ${theme.space(7)};
+  white-space: pre-wrap;
+`;

@@ -35,9 +35,9 @@ const IndexPage = (props) => {
   }
 
   return (
-    <Layout>
+    <Layout isDark>
       <SEO title={site.title} description={site.description} keywords={site.keywords} />
-      <MainPage header={site.description} />
+      <MainPage title={site.title} blurb={site.description} />
     </Layout>
   );
 };

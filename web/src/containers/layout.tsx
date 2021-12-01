@@ -14,14 +14,12 @@ const query = graphql`
   }
 `;
 
-function LayoutContainer(props) {
-  const [showNav, setShowNav] = useState(false);
-  function handleShowNav() {
-    setShowNav(true);
-  }
-  function handleHideNav() {
-    setShowNav(false);
-  }
+export interface LayoutContainerProps {
+  isDark?: boolean;
+  children: any;
+}
+
+function LayoutContainer(props: LayoutContainerProps) {
   return (
     <StaticQuery
       query={query}
@@ -32,14 +30,7 @@ function LayoutContainer(props) {
           );
         }
         return (
-          <Layout
-            {...props}
-            showNav={showNav}
-            siteTitle={data.site.title}
-            contactInfo={data.site.contactInfo}
-            onHideNav={handleHideNav}
-            onShowNav={handleShowNav}
-          />
+          <Layout {...props} siteTitle={data.site.title} contactInfo={data.site.contactInfo} />
         );
       }}
     />

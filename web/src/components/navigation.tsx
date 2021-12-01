@@ -19,7 +19,12 @@ const MENU_ITEMS = [
   },
 ];
 
-const Navigation = (props) => {
+export interface NavigationProps {
+  isDark?: boolean;
+}
+
+const Navigation = (props: NavigationProps) => {
+  const { isDark } = props;
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   const onMenuClick = () => {
@@ -28,7 +33,7 @@ const Navigation = (props) => {
 
   return (
     <Nav>
-      <NavToggle as="button" onClick={onMenuClick}>
+      <NavToggle as="button" onClick={onMenuClick} isDark={isDark}>
         <span>MENU</span>
         <NavToggleIcon>{menuOpen ? '-' : '+'}</NavToggleIcon>
       </NavToggle>
@@ -36,7 +41,9 @@ const Navigation = (props) => {
         <ul>
           {MENU_ITEMS.map((item) => (
             <li>
-              <NavLink href={item.href}>{item.label}</NavLink>
+              <NavLink href={item.href} isDark={isDark}>
+                {item.label}
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -61,15 +68,20 @@ const Nav = styled.nav`
   }
 `;
 
-const NavLink = styled.a`
+const NavLink = styled.a<{ isDark: boolean }>`
   ${font('interface20')};
   display: block;
   width: ${theme.space(30)};
-  color: ${theme.colors.white};
   background: none;
   border: 2px solid ${theme.colors.white};
   border-radius: 50px;
   padding: ${theme.space(1.25)} ${theme.space(3)};
+
+  ${({ isDark }) =>
+    css`
+      color: ${isDark ? theme.colors.black : theme.colors.white};
+      border-color: ${isDark ? theme.colors.black : theme.colors.white}; ;
+    `}
 `;
 
 const NavToggle = styled(NavLink)`

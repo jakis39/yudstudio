@@ -24,6 +24,7 @@ export const query = graphql`
       edges {
         node {
           id
+          clientName
           title
           slug {
             current
@@ -111,7 +112,7 @@ const StyledReactPlayer = styled(ReactPlayer)`
 
 const Title = styled.h1`
   ${font('title24')};
-  margin-top: 1em;
+  margin-top: 2em;
 `;
 
 const ProjectList = styled.ul`

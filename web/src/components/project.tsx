@@ -8,14 +8,13 @@ import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
 import logo from '../images/yud-logo-black.png';
 import ArrowRight from '../images/arrow-right.svg';
 
-import { imageGrid } from './project.module.css';
 import styled from 'styled-components';
 import { font } from '../styles/typography';
 import { theme } from '../styles/theme';
 import PhotoGrid from './photo-grid';
 
 function Project(props) {
-  const { id, title, slug, publishedAt, videoUrl, excerpt, contributors } = props;
+  const { id, clientName, title, slug, publishedAt, videoUrl, excerpt, contributors } = props;
   const images: Array<any> = props.image;
 
   function generateContributorString(contributor) {
@@ -33,6 +32,14 @@ function Project(props) {
     }
     return contributorString;
   }
+
+  const titleBlock = (
+    <TitleContainer>
+      <Year>2021</Year>
+      {clientName && <Client>{clientName}</Client>}
+      {title && <Title>{title}</Title>}
+    </TitleContainer>
+  );
 
   return (
     <article>
@@ -53,23 +60,14 @@ function Project(props) {
               width="100%"
               height="100%"
             />
-
-            <TitleContainer>
-              <Year>2021</Year>
-              <Client>Haven Shop</Client>
-              {title && <Title>{title}</Title>}
-            </TitleContainer>
+            {titleBlock}
           </VideoContainer>
         )}
 
         {!videoUrl && images.length && (
           <MainPhotoContainer>
             <img src={imageUrlFor(buildImageObj(images[0])).url()} alt={images[0].alt} />
-            <TitleContainer>
-              <Year>2021</Year>
-              <Client>Haven Shop</Client>
-              {title && <Title>{title}</Title>}
-            </TitleContainer>
+            {titleBlock}
           </MainPhotoContainer>
         )}
 
@@ -159,7 +157,7 @@ const LogoContainer = styled.div`
   width: 100%;
   height: ${theme.space(56)};
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   img {
