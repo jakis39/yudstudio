@@ -37,6 +37,11 @@ const HeaderContainer = styled.div`
   margin: 0 auto;
   z-index: 999;
 
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    padding: ${theme.space(4)} ${theme.space(4)} 1.5rem;
+    align-items: center;
+  }
+
   @media (${DeviceWidth.mediaMinSmall}) {
     padding: ${theme.space(9)} ${theme.space(9)} 1.5rem;
   }
@@ -50,6 +55,6 @@ const Branding = styled(Link)`
   }
 
   @media (${DeviceWidth.mediaMaxSmall}) {
-    height: ${theme.space(3)};
+    height: ${theme.space(2.5)};
   }
 `;

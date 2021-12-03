@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import styled, { css } from 'styled-components';
+import { DeviceWidth } from '../styles/mediaQueries';
 import { theme } from '../styles/theme';
 import { font } from '../styles/typography';
 
@@ -41,7 +42,7 @@ const Navigation = (props: NavigationProps) => {
         <ul>
           {MENU_ITEMS.map((item) => (
             <li>
-              <NavLink href={item.href} isDark={isDark}>
+              <NavLink key={item.label} href={item.href} isDark={isDark}>
                 {item.label}
               </NavLink>
             </li>
@@ -56,6 +57,7 @@ export default Navigation;
 
 const Nav = styled.nav`
   ul {
+    position: absolute;
     display: flex;
     flex-direction: column;
     list-style: none;
@@ -82,6 +84,12 @@ const NavLink = styled.a<{ isDark: boolean }>`
       color: ${isDark ? theme.colors.black : theme.colors.white};
       border-color: ${isDark ? theme.colors.black : theme.colors.white}; ;
     `}
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    width: ${theme.space(17)};
+    border-width: 1px;
+    padding: ${theme.space(0.75)} ${theme.space(1.5)};
+  }
 `;
 
 const NavToggle = styled(NavLink)`

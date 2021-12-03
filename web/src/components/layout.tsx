@@ -86,13 +86,14 @@ const Footer = styled.footer`
     text-transform: uppercase;
   }
 
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    padding-top: 1rem;
-    padding-bottom: 2em;
-    box-shadow: 0px -5px 5px white;
-    z-index: 10;
+  address {
+    display: flex;
+  }
 
-    margin-top: 1.5rem;
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    padding-top: ${theme.space(2)};
+    padding-bottom: ${theme.space(3)};
+    border-width: 1px;
   }
 `;
 

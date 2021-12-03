@@ -66,29 +66,26 @@ const globalFonts = css`
     //    --font-interface-large-line-height: calc(42 / 32);
 
     @media (${DeviceWidth.mediaMaxSmall}) {
-      --font-base-size: 1em;
-      --font-base-line-height: calc(24 / var(--unit));
+      --font-base-size: 1em; /* 16px */
+      --font-base-line-height: calc(24 / var(--unit)); /* 24px */
 
-      --font-title1-size: calc(18 / var(--unit) * 1rem);
-      --font-title1-line-height: calc(24 / 18);
+      --font-interface20-size: calc(13 / var(--unit) * 1rem); /* 20px */
+      --font-interface20-line-height: calc(13 / 13);
 
-      --font-body1-size: calc(14 / var(--unit) * 1rem);
-      --font-body1-line-height: calc(20 / 16);
+      --font-body18-size: calc(10 / var(--unit) * 1rem); /* 18px */
+      --font-body18-line-height: calc(18 / 18);
 
-      --font-body2-size: calc(12 / var(--unit) * 1rem);
-      --font-body2-line-height: calc(18 / 12);
+      --font-body20-size: calc(14 / var(--unit) * 1rem); /* 20px */
+      --font-body20-line-height: calc(24 / 20);
 
-      --font-body3-size: calc(10 / var(--unit) * 1rem);
-      --font-body3-line-height: calc(26 / 10);
+      --font-body24-size: calc(12 / var(--unit) * 1rem); /* 24px */
+      --font-body24-line-height: calc(32 / 24);
 
-      --font-body4-size: calc(8 / var(--unit) * 1rem); /* 18px */
-      --font-body4-line-height: calc(14 / 8);
+      --font-title24-size: calc(18 / var(--unit) * 1rem); /* 24px */
+      --font-title24-line-height: calc(32 / 24);
 
-      --font-interface-size: calc(18 / var(--unit) * 1rem);
-      --font-interface-line-height: calc(36 / 28);
-
-      --font-interface-large-size: calc(16 / var(--unit) * 1rem); /* 28px */
-      --font-interface-large-line-height: calc(20 / 16);
+      --font-title48-size: calc(18 / var(--unit) * 1rem); /* 48px */
+      --font-title48-line-height: calc(64 / 48);
     }
   }
 `;

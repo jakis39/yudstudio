@@ -1,5 +1,14 @@
 import { css } from 'styled-components';
 
+interface TypeStyle {
+  fontFamily?: string;
+  fontSize?: string;
+  lineHeight?: string;
+  fontWeight?: string;
+  textTransform?: string;
+  textDecoration?: string;
+}
+
 const Typography = {
   interface20: {
     fontFamily: 'var(--font-family-chalet)',
@@ -41,37 +50,6 @@ const Typography = {
     fontWeight: '800',
     textTransform: 'uppercase',
   },
-
-  // title1: {
-  //   fontSize: 'var(--font-title1-size)',
-  //   lineHeight: 'var(--font-title1-line-height)',
-  //   fontWeight: 'normal',
-  //   textTransform: 'uppercase',
-  // },
-  // body1: {
-  //   fontSize: 'var(--font-body1-size)',
-  //   lineHeight: 'var(--font-body1-line-height)',
-  // },
-  // body2: {
-  //   fontSize: 'var(--font-body2-size)',
-  //   lineHeight: 'var(--font-body2-line-height)',
-  // },
-  // body3: {
-  //   fontSize: 'var(--font-body3-size)',
-  //   lineHeight: 'var(--font-body3-line-height)',
-  // },
-  // body4: {
-  //   fontSize: 'var(--font-body4-size)',
-  //   lineHeight: 'var(--font-body4-line-height)',
-  // },
-  // button: {
-  //   fontSize: 'var(--font-interface-size)',
-  //   lineHeight: 'var(--font-interface-line-height)',
-  // },
-  // buttonLarge: {
-  //   fontSize: 'var(--font-interface-large-size)',
-  //   lineHeight: 'var(--font-interface-large-line-height)',
-  // },
   base: {
     fontSize: 'inherit',
     lineHeight: 'inherit',
@@ -81,7 +59,7 @@ const Typography = {
 export type FontStyle = 'interface20' | 'body18' | 'body20' | 'body24' | 'title24' | 'title48';
 
 export const font = (type: FontStyle) => {
-  const typeStyle = Typography[type];
+  const typeStyle = Typography[type] as TypeStyle;
 
   if (!typeStyle) {
     return null;
