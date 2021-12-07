@@ -12,9 +12,10 @@ import styled from 'styled-components';
 import { font } from '../styles/typography';
 import { theme } from '../styles/theme';
 import PhotoGrid from './photo-grid';
+import { DeviceWidth } from '../styles/mediaQueries';
 
 function Project(props) {
-  const { id, clientName, title, slug, publishedAt, videoUrl, excerpt, contributors } = props;
+  const { clientName, clientLogo, title, videoUrl, excerpt, contributors } = props;
   const images: Array<any> = props.image;
 
   function generateContributorString(contributor) {
@@ -72,13 +73,15 @@ function Project(props) {
         )}
 
         <LogoContainer>
-          <img src={logo} /> {/* TODO get image from api */}
+          {clientLogo && (
+            <img src={imageUrlFor(buildImageObj(clientLogo)).url()} alt={clientLogo.alt} />
+          )}
         </LogoContainer>
 
         <PhotoGrid images={images} />
 
-        <Container wide short>
-          <Description>{excerpt}</Description>
+        <BottomContentContainer wide short>
+          {excerpt && <Description>{excerpt}</Description>}
 
           <StyledDL>
             {contributors &&
@@ -104,7 +107,7 @@ function Project(props) {
               <img src={ArrowRight} />
             </Button>
           </ButtonRow>
-        </Container>
+        </BottomContentContainer>
       </SimpleReactLightbox>
     </article>
   );
@@ -114,16 +117,22 @@ export default Project;
 
 const VideoContainer = styled.div`
   position: relative;
-  /* padding-top: 56.25%; */
-  height: 50vh;
+  padding-top: 56.25%;
   border-bottom-left-radius: 35px;
   border-bottom-right-radius: 35px;
   overflow: hidden;
   box-shadow: 0px 7px 16px 0px #0000004f;
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
 `;
 
 const MainPhotoContainer = styled(VideoContainer)`
   display: flex;
+  padding: 0;
+
   img {
     width: 100%;
     object-fit: cover;
@@ -137,6 +146,11 @@ const TitleContainer = styled.div`
   bottom: ${theme.space(7.5)};
   left: ${theme.space(9)};
   color: ${theme.colors.white};
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    left: ${theme.space(4)};
+    bottom: ${theme.space(3)};
+  }
 `;
 
 const Year = styled.div`
@@ -157,19 +171,39 @@ const LogoContainer = styled.div`
   width: 100%;
   height: ${theme.space(56)};
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 
   img {
     height: ${theme.space(5)};
   }
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    height: ${theme.space(25)};
+
+    img {
+      height: 20px;
+    }
+  }
+`;
+
+const BottomContentContainer = styled(Container)`
+  padding-top: ${theme.space(21.5)};
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    padding-top: ${theme.space(7)};
+  }
 `;
 
 const Description = styled.div`
   ${font('body24')};
-  padding: ${theme.space(21.5)} 0;
-  max-width: 80%;
-  margin: auto;
+  padding-bottom: ${theme.space(7)};
+
+  @media (${DeviceWidth.mediaMinSmall}) {
+    padding-bottom: ${theme.space(21.5)};
+    max-width: 80%;
+    margin: auto;
+  }
 `;
 
 const StyledDL = styled.dl`
@@ -180,12 +214,19 @@ const Row = styled.div`
   ${font('interface20')};
   display: flex;
   color: ${theme.colors.black};
-  padding: ${theme.space(4)} ${theme.space(3)};
+  padding: ${theme.space(1)} 0;
+
+  @media (${DeviceWidth.mediaMinSmall}) {
+    padding: ${theme.space(4)} ${theme.space(3)};
+  }
 `;
 
 const ContributorRow = styled(Row)`
-  border-bottom: 2px solid ${theme.colors.black};
-  padding: ${theme.space(4)} ${theme.space(3)};
+  border-bottom: 1px solid ${theme.colors.black};
+
+  @media (${DeviceWidth.mediaMinSmall}) {
+    border-width: 2px;
+  }
 
   dt {
     flex: 0 1 40%;
@@ -206,14 +247,23 @@ const Button = styled.button`
   border: none;
 
   img {
-    width: ${theme.space(3)};
-    margin: 0 0 0 ${theme.space(3)};
+    width: ${theme.space(2)};
+    margin: 0 0 0 ${theme.space(2)};
+
+    @media (${DeviceWidth.mediaMinSmall}) {
+      width: ${theme.space(3)};
+      margin: 0 0 0 ${theme.space(3)};
+    }
   }
 
   &:first-child {
     img {
       transform: rotate(180deg);
-      margin: 0 ${theme.space(3)} 0 0;
+      margin: 0 ${theme.space(2)} 0 0;
+
+      @media (${DeviceWidth.mediaMinSmall}) {
+        margin: 0 ${theme.space(3)} 0 0;
+      }
     }
   }
 `;

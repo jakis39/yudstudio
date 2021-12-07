@@ -41,8 +41,8 @@ const Navigation = (props: NavigationProps) => {
       {menuOpen && (
         <ul>
           {MENU_ITEMS.map((item) => (
-            <li>
-              <NavLink key={item.label} href={item.href} isDark={isDark}>
+            <li key={item.label}>
+              <NavLink href={item.href} isDark={isDark}>
                 {item.label}
               </NavLink>
             </li>

@@ -32,7 +32,7 @@ const Layout = (props: LayoutProps) => {
         <Header isDark={isDark} />
         <Content>{children}</Content>
 
-        <Container wide short row>
+        <FooterContainer wide short row>
           <Footer>
             <div className="footerText">{footerText}</div>
             {(email || instagram) && (
@@ -46,7 +46,7 @@ const Layout = (props: LayoutProps) => {
               </address>
             )}
           </Footer>
-        </Container>
+        </FooterContainer>
       </PageWrapper>
     </>
   );
@@ -65,10 +65,10 @@ const Content = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+`;
 
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    overflow: auto;
-  }
+const FooterContainer = styled(Container)`
+  flex-shrink: 0;
 `;
 
 const Footer = styled.footer`

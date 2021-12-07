@@ -125,12 +125,23 @@ const ProjectLink = styled(Link)`
   ${font('interface20')};
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: ${theme.colors.black};
   padding: ${theme.space(4)} ${theme.space(3)};
   border-top: 2px solid ${theme.colors.black};
   cursor: pointer;
 
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    padding: ${theme.space(2.5)} 0;
+    border-width: 1px;
+  }
+
   img {
     width: ${theme.space(3)};
+    margin-left: ${theme.space(2)};
+
+    @media (${DeviceWidth.mediaMaxSmall}) {
+      width: ${theme.space(2)};
+    }
   }
 `;
