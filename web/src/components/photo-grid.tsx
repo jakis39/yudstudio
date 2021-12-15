@@ -57,6 +57,10 @@ const GridContainer = styled.div`
     justify-content: center;
     align-items: center;
     overflow: hidden;
+
+    @media (${DeviceWidth.mediaMaxSmall}) {
+      min-height: 50vh;
+    }
   }
 
   img {

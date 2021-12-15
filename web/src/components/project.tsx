@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import Container from './container';
 import { buildImageObj } from '../lib/helpers';
@@ -13,10 +13,18 @@ import { font } from '../styles/typography';
 import { theme } from '../styles/theme';
 import PhotoGrid from './photo-grid';
 import { DeviceWidth } from '../styles/mediaQueries';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 function Project(props) {
   const { clientName, clientLogo, title, videoUrl, excerpt, contributors } = props;
   const images: Array<any> = props.image;
+  const { width: screenWidth } = useWindowDimensions();
+  const [videoWidth, setVideoWidth] = useState('100%');
+
+  useEffect(() => {
+    const w = screenWidth > 449 ? '100%' : '150%';
+    setVideoWidth(w);
+  }, [screenWidth])
 
   function generateContributorString(contributor) {
     let contributorString = '';
@@ -58,7 +66,7 @@ function Project(props) {
                 },
               }}
               playsinline
-              width="100%"
+              width={videoWidth}
               height="100%"
             />
             {titleBlock}
@@ -117,15 +125,23 @@ export default Project;
 
 const VideoContainer = styled.div`
   position: relative;
-  padding-top: 56.25%;
   border-bottom-left-radius: 35px;
   border-bottom-right-radius: 35px;
   overflow: hidden;
   box-shadow: 0px 7px 16px 0px #0000004f;
 
+  @media (${DeviceWidth.mediaMinSmall}) {
+    height: 600px;
+  }
+
   @media (${DeviceWidth.mediaMaxSmall}) {
+    height: 34vh;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+
+    & > div > div > div {
+      margin-left: -25%;
+    }
   }
 `;
 
