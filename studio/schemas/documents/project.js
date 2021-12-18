@@ -6,23 +6,33 @@ export default {
   type: "document",
   fields: [
     {
-      name: "clientName",
-      title: "Client",
-      type: "string"
-      // validation: Rule => Rule.required()
-    },
-    {
       name: "title",
       title: "Title",
       type: "string",
       validation: Rule => Rule.required()
     },
     {
+      name: "clientName",
+      title: "Client",
+      type: "string"
+    },
+    {
+      name: "clientLogo",
+      title: "Client logo",
+      description: "Should have a transparent background",
+      type: "figure"
+    },
+    {
+      name: "projectDate",
+      title: "Project date",
+      type: "string"
+    },
+    {
       name: "slug",
       title: "Slug",
       type: "slug",
       description:
-        'Will show up in the url as yudstudio.com/work/<slug>. Feel free to just click "Generate".',
+        'Will show up in the url as yudstudio.com/work/<slug>. Click "Generate" to automatically fill.',
       options: {
         source: "title",
         maxLength: 96
