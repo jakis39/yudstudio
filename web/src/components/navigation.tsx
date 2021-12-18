@@ -8,11 +8,11 @@ import { font } from '../styles/typography';
 const MENU_ITEMS = [
   {
     label: 'Projects',
-    href: '/work',
+    href: '/',
   },
   {
     label: 'About',
-    href: '/',
+    href: '/about',
   },
   {
     label: 'Contact us',

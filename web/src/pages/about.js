@@ -15,7 +15,7 @@ export const query = graphql`
   }
 `;
 
-const IndexPage = (props) => {
+const AboutPage = (props) => {
   const { data, errors } = props;
 
   if (errors) {
@@ -42,4 +42,4 @@ const IndexPage = (props) => {
   );
 };
 
-export default IndexPage;
+export default AboutPage;
