@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { graphql, Link } from 'gatsby';
 import { mapEdgesToNodes, filterOutDocsWithoutSlugs } from '../lib/helpers';
 import GraphQLErrorList from '../components/graphql-error-list';
@@ -13,6 +13,7 @@ import ArrowRight from '../images/arrow-right.svg';
 import { theme } from '../styles/theme';
 import ReactPlayer from 'react-player';
 import { DeviceWidth } from '../styles/mediaQueries';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 export const query = graphql`
   query ProjectsPageQuery {
@@ -38,6 +39,7 @@ export const query = graphql`
 
 const ProjectsPage = (props) => {
   const { data, errors } = props;
+
   if (errors) {
     return (
       <Layout>
@@ -45,10 +47,19 @@ const ProjectsPage = (props) => {
       </Layout>
     );
   }
+
   const projectNodes =
     data && data.projects && mapEdgesToNodes(data.projects).filter(filterOutDocsWithoutSlugs);
 
   const videoUrl = 'https://vimeo.com/581854936'; // TODO get from sanity
+
+  const { width: screenWidth } = useWindowDimensions();
+  const [videoWidth, setVideoWidth] = useState('100%');
+
+  useEffect(() => {
+    const w = screenWidth > 675 ? '100%' : '240%';
+    setVideoWidth(w);
+  }, [screenWidth]);
 
   return (
     <Layout>
@@ -66,7 +77,7 @@ const ProjectsPage = (props) => {
             },
           }}
           playsinline
-          width="100%"
+          width={videoWidth}
           height="100%"
         />
       </VideoContainer>
@@ -97,17 +108,24 @@ export default ProjectsPage;
 
 const VideoContainer = styled.div`
   position: relative;
-  padding-top: 56.25%;
   border-bottom-left-radius: 35px;
   border-bottom-right-radius: 35px;
   overflow: hidden;
   box-shadow: 0px 7px 16px 0px #0000004f;
-`;
 
-const StyledReactPlayer = styled(ReactPlayer)`
-  position: absolute;
-  top: 0;
-  left: 0;
+  @media (${DeviceWidth.mediaMinMedium}) {
+    padding-top: 56.25%;
+  }
+
+  @media (${DeviceWidth.mediaMaxMedium}) {
+    height: 60vh;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+    & > div > div > div {
+      margin-left: -59%;
+    }
+  }
 `;
 
 const Title = styled.h1`

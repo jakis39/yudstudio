@@ -8,12 +8,13 @@ import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
 import logo from '../images/yud-logo-black.png';
 import ArrowRight from '../images/arrow-right.svg';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { font } from '../styles/typography';
 import { theme } from '../styles/theme';
 import PhotoGrid from './photo-grid';
 import { DeviceWidth } from '../styles/mediaQueries';
 import useWindowDimensions from '../hooks/useWindowDimensions';
+import { Link } from 'gatsby';
 
 function Project(props) {
   const { clientName, clientLogo, title, videoUrl, excerpt, contributors } = props;
@@ -22,9 +23,9 @@ function Project(props) {
   const [videoWidth, setVideoWidth] = useState('100%');
 
   useEffect(() => {
-    const w = screenWidth > 449 ? '100%' : '150%';
+    const w = screenWidth > 1120 ? '100%' : '150%';
     setVideoWidth(w);
-  }, [screenWidth])
+  }, [screenWidth]);
 
   function generateContributorString(contributor) {
     let contributorString = '';
@@ -106,14 +107,18 @@ function Project(props) {
           </StyledDL>
 
           <ButtonRow>
-            <Button>
+            <StyledLink to="/">
+              <img src={ArrowRight} />
+              Back
+            </StyledLink>
+            {/* <Button>
               <img src={ArrowRight} />
               Previous
             </Button>
             <Button>
               Next
               <img src={ArrowRight} />
-            </Button>
+            </Button> */}
           </ButtonRow>
         </BottomContentContainer>
       </SimpleReactLightbox>
@@ -134,14 +139,21 @@ const VideoContainer = styled.div`
     height: 600px;
   }
 
+  @media (max-width: 1120px) {
+    & > div > div > div {
+      margin-left: -25%;
+    }
+  }
+
+  @media (min-width: 450px) and (max-width: 750px) {
+    height: unset;
+    padding-top: 80%;
+  }
+
   @media (${DeviceWidth.mediaMaxSmall}) {
     height: 34vh;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-
-    & > div > div > div {
-      margin-left: -25%;
-    }
   }
 `;
 
@@ -257,8 +269,9 @@ const ButtonRow = styled(Row)`
   padding: ${theme.space(4)} 0;
 `;
 
-const Button = styled.button`
+const test = css`
   ${font('interface20')};
+  color: ${theme.colors.black};
   background: none;
   border: none;
 
@@ -282,4 +295,12 @@ const Button = styled.button`
       }
     }
   }
+`;
+
+const Button = styled.button`
+  ${test}
+`;
+
+const StyledLink = styled(Link)`
+  ${test}
 `;
