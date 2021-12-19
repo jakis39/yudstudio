@@ -20,11 +20,23 @@ export default {
       title: "Description",
       description: "Describe your portfolio for search engines and social media."
     },
+    // {
+    //   name: "shopText",
+    //   type: "text",
+    //   title: "Shop page text",
+    //   description: 'Message that will display on the "under construction" shop page.'
+    // },
     {
-      name: "shopText",
-      type: "text",
-      title: "Shop page text",
-      description: 'Message that will display on the "under construction" shop page.'
+      name: "videoUrl",
+      title: "Video URL",
+      type: "url",
+      description: 'This video will be playing in the background on the home/projects page'
+    },
+    {
+      name: "headerImage",
+      title: "Header image",
+      type: "figure",
+      description: 'If there is no video URL above, the home/projects page will try to use this photo as a fallback' 
     },
     {
       name: "contactInfo",
