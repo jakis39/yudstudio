@@ -20,6 +20,8 @@ const MENU_ITEMS = [
   },
 ];
 
+const SLIDE_IN_DELAY = 100;
+
 export interface NavigationProps {
   isDark?: boolean;
 }
@@ -38,17 +40,21 @@ const Navigation = (props: NavigationProps) => {
         <span>MENU</span>
         <NavToggleIcon>{menuOpen ? '-' : '+'}</NavToggleIcon>
       </NavToggle>
-      {menuOpen && (
-        <ul>
-          {MENU_ITEMS.map((item) => (
-            <li key={item.label}>
-              <NavLink href={item.href} isDark={isDark}>
-                {item.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul>
+        {MENU_ITEMS.map((item, index) => (
+          <AnimatedLi
+            key={item.label}
+            visible={menuOpen}
+            delay={
+              menuOpen ? index * SLIDE_IN_DELAY : (MENU_ITEMS.length - 1 - index) * SLIDE_IN_DELAY
+            }
+          >
+            <NavLink href={item.href} isDark={isDark}>
+              {item.label}
+            </NavLink>
+          </AnimatedLi>
+        ))}
+      </ul>
     </Nav>
   );
 };
@@ -63,11 +69,32 @@ const Nav = styled.nav`
     list-style: none;
     margin: 0;
     padding: 0;
-
-    li {
-      margin-top: ${theme.space(1.5)};
-    }
+    overflow: hidden;
   }
+`;
+
+const AnimatedLi = styled.li<{ visible: boolean; delay: number }>`
+  margin-top: ${theme.space(1.5)};
+
+  ${({ visible, delay }) =>
+    visible
+      ? css`
+          transition: transform 300ms ease-in-out ${delay}ms, opacity 500ms linear ${delay}ms;
+        `
+      : css`
+          transition: transform 300ms ease-in-out ${delay}ms, opacity 300ms linear ${0}ms;
+        `};
+
+  ${({ visible }) =>
+    visible
+      ? css`
+          transform: translateY(0);
+          opacity: 1;
+        `
+      : css`
+          transform: translateY(-150px);
+          opacity 0;
+        `}
 `;
 
 const NavLink = styled.a<{ isDark: boolean }>`
@@ -78,6 +105,14 @@ const NavLink = styled.a<{ isDark: boolean }>`
   border: 2px solid ${theme.colors.white};
   border-radius: 50px;
   padding: ${theme.space(1.25)} ${theme.space(3)};
+
+  @media (hover: hover) {
+    opacity: 70%;
+
+    &:hover {
+      opacity: 100%;
+    }
+  }
 
   ${({ isDark }) =>
     css`

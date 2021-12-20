@@ -34,6 +34,9 @@ export const query = graphql`
         }
       }
     }
+    site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
+      videoUrl
+    }
   }
 `;
 
@@ -51,7 +54,7 @@ const ProjectsPage = (props) => {
   const projectNodes =
     data && data.projects && mapEdgesToNodes(data.projects).filter(filterOutDocsWithoutSlugs);
 
-  const videoUrl = 'https://vimeo.com/581854936'; // TODO get from sanity
+  const videoUrl = data?.site?.videoUrl;
 
   const { width: screenWidth } = useWindowDimensions();
   const [videoWidth, setVideoWidth] = useState('100%');
@@ -148,6 +151,14 @@ const ProjectLink = styled(Link)`
   padding: ${theme.space(4)} ${theme.space(3)};
   border-top: 2px solid ${theme.colors.black};
   cursor: pointer;
+
+  @media (hover: hover) {
+    opacity: 70%;
+
+    &:hover {
+      opacity: 100%;
+    }
+  }
 
   @media (${DeviceWidth.mediaMaxSmall}) {
     padding: ${theme.space(2.5)} 0;

@@ -5,7 +5,6 @@ import { buildImageObj } from '../lib/helpers';
 import { imageUrlFor } from '../lib/image-url';
 import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
 
-import logo from '../images/yud-logo-black.png';
 import ArrowRight from '../images/arrow-right.svg';
 
 import styled, { css } from 'styled-components';
@@ -269,11 +268,19 @@ const ButtonRow = styled(Row)`
   padding: ${theme.space(4)} 0;
 `;
 
-const test = css`
+const buttonStyles = css`
   ${font('interface20')};
   color: ${theme.colors.black};
   background: none;
   border: none;
+
+  @media (hover: hover) {
+    opacity: 70%;
+
+    &:hover {
+      opacity: 100%;
+    }
+  }
 
   img {
     width: ${theme.space(2)};
@@ -298,9 +305,9 @@ const test = css`
 `;
 
 const Button = styled.button`
-  ${test}
+  ${buttonStyles}
 `;
 
 const StyledLink = styled(Link)`
-  ${test}
+  ${buttonStyles}
 `;
