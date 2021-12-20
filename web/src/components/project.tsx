@@ -15,9 +15,16 @@ import { DeviceWidth } from '../styles/mediaQueries';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 import { Link } from 'gatsby';
 
-function Project(props) {
-  const { clientName, clientLogo, title, videoUrl, excerpt, contributors } = props;
-  const images: Array<any> = props.image;
+export interface ProjectProps {
+  project: any;
+  linkToPrevious?: string;
+  linkToNext?: string;
+}
+
+function Project(props: ProjectProps) {
+  const { project, linkToPrevious, linkToNext } = props;
+  const { clientName, clientLogo, title, videoUrl, excerpt, contributors } = project;
+  const images: Array<any> = project.image;
   const { width: screenWidth } = useWindowDimensions();
   const [videoWidth, setVideoWidth] = useState('100%');
 
@@ -106,18 +113,18 @@ function Project(props) {
           </StyledDL>
 
           <ButtonRow>
-            <StyledLink to="/">
-              <img src={ArrowRight} />
-              Back
-            </StyledLink>
-            {/* <Button>
-              <img src={ArrowRight} />
-              Previous
-            </Button>
-            <Button>
-              Next
-              <img src={ArrowRight} />
-            </Button> */}
+            {linkToPrevious && (
+              <PreviousLink to={linkToPrevious}>
+                <img src={ArrowRight} />
+                Previous
+              </PreviousLink>
+            )}
+            {linkToNext && (
+              <NextLink to={linkToNext}>
+                Next
+                <img src={ArrowRight} />
+              </NextLink>
+            )}
           </ButtonRow>
         </BottomContentContainer>
       </SimpleReactLightbox>
@@ -268,7 +275,7 @@ const ButtonRow = styled(Row)`
   padding: ${theme.space(4)} 0;
 `;
 
-const buttonStyles = css`
+const LinkStyles = css`
   ${font('interface20')};
   color: ${theme.colors.black};
   background: none;
@@ -291,23 +298,22 @@ const buttonStyles = css`
       margin: 0 0 0 ${theme.space(3)};
     }
   }
+`;
 
-  &:first-child {
-    img {
-      transform: rotate(180deg);
-      margin: 0 ${theme.space(2)} 0 0;
+const PreviousLink = styled(Link)`
+  ${LinkStyles}
 
-      @media (${DeviceWidth.mediaMinSmall}) {
-        margin: 0 ${theme.space(3)} 0 0;
-      }
+  img {
+    transform: rotate(180deg);
+    margin: 0 ${theme.space(2)} 0 0;
+
+    @media (${DeviceWidth.mediaMinSmall}) {
+      margin: 0 ${theme.space(3)} 0 0;
     }
   }
 `;
 
-const Button = styled.button`
-  ${buttonStyles}
-`;
-
-const StyledLink = styled(Link)`
-  ${buttonStyles}
+const NextLink = styled(Link)`
+  ${LinkStyles}
+  margin-left: auto;
 `;

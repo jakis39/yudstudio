@@ -107,7 +107,7 @@ const NavLink = styled.a<{ isDark: boolean }>`
   padding: ${theme.space(1.25)} ${theme.space(3)};
 
   @media (hover: hover) {
-    opacity: 70%;
+    opacity: 80%;
 
     &:hover {
       opacity: 100%;
