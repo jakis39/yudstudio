@@ -57,28 +57,28 @@ const ProjectsPage = (props) => {
 
   return (
     <Layout>
-      <SEO title="Work" />
+      <div id="scrollable">
+        <SEO title="Work" />
+        <ResponsiveVideoContainer fullHeight videoUrl={videoUrl} />
+        <Container wide short grow>
+          {projectNodes && projectNodes.length > 0 && (
+            <>
+              <Title>Projects</Title>
 
-      <ResponsiveVideoContainer fullHeight videoUrl={videoUrl} />
-
-      <Container wide short grow>
-        {projectNodes && projectNodes.length > 0 && (
-          <>
-            <Title>Projects</Title>
-
-            <ProjectList>
-              {projectNodes.map((project) => (
-                <li key={project.slug.current}>
-                  <ProjectLink to={`/work/${project.slug.current}`}>
-                    <span>{project.title}</span>
-                    <img src={ArrowRight} />
-                  </ProjectLink>
-                </li>
-              ))}
-            </ProjectList>
-          </>
-        )}
-      </Container>
+              <ProjectList>
+                {projectNodes.map((project) => (
+                  <li key={project.slug.current}>
+                    <ProjectLink to={`/work/${project.slug.current}`}>
+                      <span>{project.title}</span>
+                      <img src={ArrowRight} />
+                    </ProjectLink>
+                  </li>
+                ))}
+              </ProjectList>
+            </>
+          )}
+        </Container>
+      </div>
     </Layout>
   );
 };

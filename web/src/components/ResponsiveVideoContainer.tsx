@@ -50,7 +50,7 @@ const ResponsiveVideoContainer = (props: ResponsiveVideoContainer) => {
   return (
     <>
       {isFullscreen && (
-        <ModalDiv onClick={handleExitFullscreen} onScroll={preventScroll}>
+        <ModalDiv onClick={handleExitFullscreen}>
           <ModalVideoContainer id="modalVideoContainer">
             <ReactPlayer
               style={{ position: 'absolute', top: 0, left: 0 }}
