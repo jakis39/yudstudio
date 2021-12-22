@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import Container from './container';
 import { buildImageObj } from '../lib/helpers';
 import { imageUrlFor } from '../lib/image-url';
 import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
 
+import FullscreenIcon from '../images/fullscreen-icon.svg';
 import ArrowRight from '../images/arrow-right.svg';
 
 import styled, { css } from 'styled-components';
@@ -15,6 +16,13 @@ import { DeviceWidth } from '../styles/mediaQueries';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 import { Link } from 'gatsby';
 
+function preventScroll(e) {
+  console.log('preventing scroll!');
+  e.preventDefault();
+  e.stopPropagation();
+  return false;
+}
+
 export interface ProjectProps {
   project: any;
   linkToPrevious?: string;
@@ -23,7 +31,7 @@ export interface ProjectProps {
 
 function Project(props: ProjectProps) {
   const { project, linkToPrevious, linkToNext } = props;
-  const { clientName, clientLogo, title, videoUrl, excerpt, contributors } = project;
+  const { clientName, clientLogo, projectDate, title, videoUrl, excerpt, contributors } = project;
   const images: Array<any> = project.image;
   const { width: screenWidth } = useWindowDimensions();
   const [videoWidth, setVideoWidth] = useState('100%');
@@ -51,33 +59,73 @@ function Project(props: ProjectProps) {
 
   const titleBlock = (
     <TitleContainer>
-      <Year>2021</Year>
+      {projectDate && <Year>{projectDate}</Year>}
       {clientName && <Client>{clientName}</Client>}
       {title && <Title>{title}</Title>}
     </TitleContainer>
   );
 
+  const [playing, setPlaying] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const player = useRef(null);
+
+  const handleClickFullscreen = () => {
+    setPlaying(false);
+    setIsFullscreen(true);
+    document.querySelector('#scrollable')?.addEventListener('wheel', preventScroll);
+    document.querySelector('#modalVideoContainer')?.addEventListener('wheel', preventScroll);
+  };
+
+  const handleExitFullscreen = () => {
+    setPlaying(true);
+    setIsFullscreen(false);
+    document.querySelector('#scrollable')?.removeEventListener('wheel', preventScroll);
+  };
+
   return (
-    <article>
+    <article id="scrollable">
       <SimpleReactLightbox>
         {videoUrl && (
-          <VideoContainer>
-            <ReactPlayer
-              style={{ position: 'absolute', top: 0, left: 0 }}
-              url={videoUrl}
-              // playing={true}
-              // controls={true}
-              config={{
-                vimeo: {
-                  playerOptions: { background: true, loop: true, responsive: true },
-                },
-              }}
-              playsinline
-              width={videoWidth}
-              height="100%"
-            />
-            {titleBlock}
-          </VideoContainer>
+          <>
+            {isFullscreen && (
+              <ModalDiv onClick={handleExitFullscreen} onScroll={preventScroll}>
+                <ModalVideoContainer id="modalVideoContainer">
+                  <ReactPlayer
+                    style={{ position: 'absolute', top: 0, left: 0 }}
+                    url={videoUrl}
+                    controls={true}
+                    config={{
+                      vimeo: {
+                        playerOptions: { responsive: true },
+                      },
+                    }}
+                    width="100%"
+                    height="100%"
+                  />
+                </ModalVideoContainer>
+              </ModalDiv>
+            )}
+            <VideoContainer>
+              <ReactPlayer
+                ref={player}
+                style={{ position: 'absolute', top: 0, left: 0 }}
+                url={videoUrl}
+                controls={false}
+                playing={playing}
+                config={{
+                  vimeo: {
+                    playerOptions: { background: true, loop: true, responsive: true },
+                  },
+                }}
+                playsinline
+                width={videoWidth}
+                height="100%"
+              />
+              {titleBlock}
+              <FullscreenButton onClick={handleClickFullscreen} aria-label="Maximize video" />
+            </VideoContainer>
+          </>
         )}
 
         {!videoUrl && images.length && (
@@ -134,6 +182,27 @@ function Project(props: ProjectProps) {
 
 export default Project;
 
+const ModalDiv = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalVideoContainer = styled.div`
+  position: relative;
+  width: 70%;
+  height: 0;
+  padding-top: 40%;
+  overflow: hidden;
+`;
+
 const VideoContainer = styled.div`
   position: relative;
   border-bottom-left-radius: 35px;
@@ -143,6 +212,7 @@ const VideoContainer = styled.div`
 
   @media (${DeviceWidth.mediaMinSmall}) {
     height: 600px;
+    /* padding-top: 56.25%; */
   }
 
   @media (max-width: 1120px) {
@@ -161,6 +231,20 @@ const VideoContainer = styled.div`
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
   }
+`;
+
+const FullscreenButton = styled.button`
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  z-index: 998;
+  background: none;
+  background-image: url(${FullscreenIcon});
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  height: 30px;
+  width: 30px;
 `;
 
 const MainPhotoContainer = styled(VideoContainer)`

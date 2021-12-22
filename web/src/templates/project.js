@@ -36,6 +36,7 @@ export const query = graphql`
         alt
       }
       title
+      projectDate
       slug {
         current
       }
