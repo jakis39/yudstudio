@@ -121,8 +121,8 @@ const ProjectTemplate = (props) => {
       const previousProject = projectNodes[currentProjectIndex - 1];
       const nextProject = projectNodes[currentProjectIndex + 1];
 
-      previousLink = previousProject ? `/work/${previousProject.slug.current}` : undefined;
-      nextLink = nextProject ? `/work/${nextProject.slug.current}` : undefined;
+      previousLink = previousProject ? `/${previousProject.slug.current}` : undefined;
+      nextLink = nextProject ? `/${nextProject.slug.current}` : undefined;
     }
   }
 

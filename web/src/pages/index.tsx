@@ -66,7 +66,7 @@ const ProjectsPage = (props) => {
 
   return (
     <Layout>
-      <SEO title="Work" />
+      <SEO title="yudstudio - work" />
 
       <VideoContainer>
         <ReactPlayer
@@ -93,7 +93,7 @@ const ProjectsPage = (props) => {
             <ProjectList>
               {projectNodes.map((project) => (
                 <li key={project.slug.current}>
-                  <ProjectLink to={`/work/${project.slug.current}`}>
+                  <ProjectLink to={`/${project.slug.current}`}>
                     <span>{project.title}</span>
                     <img src={ArrowRight} />
                   </ProjectLink>
