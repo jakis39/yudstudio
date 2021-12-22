@@ -94,6 +94,7 @@ const AnimatedLi = styled.li<{ visible: boolean; delay: number }>`
       : css`
           transform: translateY(-150px);
           opacity 0;
+          pointer-events: none;
         `}
 `;
 
@@ -105,6 +106,7 @@ const NavLink = styled.a<{ isDark: boolean }>`
   border: 2px solid ${theme.colors.white};
   border-radius: 50px;
   padding: ${theme.space(1.25)} ${theme.space(3)};
+  cursor: pointer;
 
   @media (hover: hover) {
     opacity: 80%;

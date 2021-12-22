@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
-import Container from './container';
+import React from 'react';
+import styled, { css } from 'styled-components';
 import { buildImageObj } from '../lib/helpers';
 import { imageUrlFor } from '../lib/image-url';
-import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox';
+import { Link } from 'gatsby';
+import SimpleReactLightbox from 'simple-react-lightbox';
+import { DeviceWidth } from '../styles/mediaQueries';
 
-import ArrowRight from '../images/arrow-right.svg';
-
-import styled, { css } from 'styled-components';
 import { font } from '../styles/typography';
 import { theme } from '../styles/theme';
+
+import Container from './container';
 import PhotoGrid from './photo-grid';
-import { DeviceWidth } from '../styles/mediaQueries';
-import useWindowDimensions from '../hooks/useWindowDimensions';
-import { Link } from 'gatsby';
+import ResponsiveVideoContainer, { VideoContainer } from './ResponsiveVideoContainer';
+
+import ArrowRight from '../images/arrow-right.svg';
 
 export interface ProjectProps {
   project: any;
@@ -23,15 +23,8 @@ export interface ProjectProps {
 
 function Project(props: ProjectProps) {
   const { project, linkToPrevious, linkToNext } = props;
-  const { clientName, clientLogo, title, videoUrl, excerpt, contributors } = project;
+  const { clientName, clientLogo, projectDate, title, videoUrl, excerpt, contributors } = project;
   const images: Array<any> = project.image;
-  const { width: screenWidth } = useWindowDimensions();
-  const [videoWidth, setVideoWidth] = useState('100%');
-
-  useEffect(() => {
-    const w = screenWidth > 1120 ? '100%' : '150%';
-    setVideoWidth(w);
-  }, [screenWidth]);
 
   function generateContributorString(contributor) {
     let contributorString = '';
@@ -51,33 +44,17 @@ function Project(props: ProjectProps) {
 
   const titleBlock = (
     <TitleContainer>
-      <Year>2021</Year>
+      {projectDate && <Year>{projectDate}</Year>}
       {clientName && <Client>{clientName}</Client>}
       {title && <Title>{title}</Title>}
     </TitleContainer>
   );
 
   return (
-    <article>
+    <article id="scrollable">
       <SimpleReactLightbox>
         {videoUrl && (
-          <VideoContainer>
-            <ReactPlayer
-              style={{ position: 'absolute', top: 0, left: 0 }}
-              url={videoUrl}
-              // playing={true}
-              // controls={true}
-              config={{
-                vimeo: {
-                  playerOptions: { background: true, loop: true, responsive: true },
-                },
-              }}
-              playsinline
-              width={videoWidth}
-              height="100%"
-            />
-            {titleBlock}
-          </VideoContainer>
+          <ResponsiveVideoContainer videoUrl={videoUrl}>{titleBlock}</ResponsiveVideoContainer>
         )}
 
         {!videoUrl && images.length && (
@@ -133,35 +110,6 @@ function Project(props: ProjectProps) {
 }
 
 export default Project;
-
-const VideoContainer = styled.div`
-  position: relative;
-  border-bottom-left-radius: 35px;
-  border-bottom-right-radius: 35px;
-  overflow: hidden;
-  box-shadow: 0px 7px 16px 0px #0000004f;
-
-  @media (${DeviceWidth.mediaMinSmall}) {
-    height: 600px;
-  }
-
-  @media (max-width: 1120px) {
-    & > div > div > div {
-      margin-left: -25%;
-    }
-  }
-
-  @media (min-width: 450px) and (max-width: 750px) {
-    height: unset;
-    padding-top: 80%;
-  }
-
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    height: 34vh;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-  }
-`;
 
 const MainPhotoContainer = styled(VideoContainer)`
   display: flex;
