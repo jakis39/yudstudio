@@ -7,17 +7,17 @@ const GlobalStyle = createGlobalStyle`
   }
   
   html {
-    font-family: var(--font-family-sans);
+    font-family: var(--font-family-chalet);
     font-size: var(--font-base-size);
     line-height: var(--font-base-line-height);
   }
 
   body {
-    -webkit-font-smoothing: antialiased;
     background: ${theme.colors.offWhite};
     color: ${theme.colors.black};
     margin: 0;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
   html,
