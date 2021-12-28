@@ -67,7 +67,16 @@ const ContactPage = (props) => {
 
       <Container wide short grow>
         <Wrapper>
-          <form name="contact" method="POST" data-netlify="true" onSubmit={handleSubmit}>
+          <form
+            name="contact"
+            netlify-honeypot="bot-field"
+            method="POST"
+            data-netlify="true"
+            onSubmit={handleSubmit}
+          >
+            <input type="hidden" name="bot-field" />
+            <input type="hidden" name="form-name" value="contact" />
+
             <FormWrapper>
               <div>
                 Toronto, CAN <br />
