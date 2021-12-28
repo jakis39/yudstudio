@@ -1,14 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import GraphQLErrorList from '../components/graphql-error-list';
+import styled, { css } from 'styled-components';
+import Clock from 'react-live-clock';
 import SEO from '../components/seo';
 import Layout from '../containers/layout';
 import Container from '../components/container';
-import styled from 'styled-components';
 import { DeviceWidth } from '../styles/mediaQueries';
 import { theme } from '../styles/theme';
 import { font } from '../styles/typography';
-import Clock from 'react-live-clock';
 
 export const query = graphql`
   query ContactPageQuery {
@@ -26,6 +26,7 @@ export const query = graphql`
 
 const ContactPage = (props) => {
   const { data, errors } = props;
+  const site = (data || {}).site;
 
   if (errors) {
     return (
@@ -34,8 +35,6 @@ const ContactPage = (props) => {
       </Layout>
     );
   }
-
-  const site = (data || {}).site;
 
   if (!site) {
     throw new Error(
@@ -46,13 +45,31 @@ const ContactPage = (props) => {
   const contactEmail = site?.contactInfo?.email;
   const contactPhone = site?.contactInfo?.phone;
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
+
   function handleSubmit(e) {
-    console.log(e);
     e.preventDefault();
 
-    const formData = new FormData(e.target);
+    setIsSubmitting(true);
+    setSubmissionError(false);
+    setStatusMessage('');
 
-    // TODO: Validation
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const firstName = formData.get('firstName');
+    const lastName = formData.get('lastName');
+    const email = formData.get('email');
+    const message = formData.get('message');
+
+    if (!firstName || !lastName || !email || !message) {
+      setIsSubmitting(false);
+      setSubmissionError(true);
+      setStatusMessage('Missing required fields');
+      return;
+    }
 
     fetch('/', {
       method: 'POST',
@@ -61,12 +78,20 @@ const ContactPage = (props) => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log('Form successfully submitted');
+          console.log('Contact form successfully submitted');
+          form.reset();
+          setStatusMessage('Thanks for getting in touch!');
         } else {
-          throw new Error("something's bad");
+          throw new Error('Contact form submission error!');
         }
+        setIsSubmitting(false);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setIsSubmitting(false);
+        setSubmissionError(true);
+        setStatusMessage("Something's wrong! Please try again later");
+      });
   }
 
   return (
@@ -99,18 +124,26 @@ const ContactPage = (props) => {
               </div>
 
               <ContactInfo>
-                <StyledInput type="email" name="email" aria-label="Email" placeholder="*Email" />
+                <StyledInput
+                  type="email"
+                  name="email"
+                  aria-label="Email"
+                  placeholder="*Email"
+                  required
+                />
                 <StyledInput
                   type="text"
                   name="firstName"
                   aria-label="First Name"
                   placeholder="*First Name"
+                  required
                 />
                 <StyledInput
                   type="text"
                   name="lastName"
                   aria-label="Last Name"
                   placeholder="*Last Name"
+                  required
                 />
                 <StyledInput
                   type="text"
@@ -125,9 +158,13 @@ const ContactPage = (props) => {
                   name="message"
                   placeholder="Message"
                   aria-label="Message"
+                  required
                 ></StyledTextarea>
                 <div>
-                  <SendButton type="submit">Send</SendButton>
+                  <StatusMessage error={submissionError}>{statusMessage}</StatusMessage>
+                  <SendButton type="submit" disabled={isSubmitting}>
+                    Send
+                  </SendButton>
                 </div>
               </MessageWrapper>
             </FormWrapper>
@@ -197,18 +234,13 @@ const ContactText = styled.div`
   }
 `;
 
-const ContactInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const MessageWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
   > div {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
     margin-top: ${theme.space(2)};
   }
 `;
@@ -222,6 +254,15 @@ const StyledInput = styled.input`
 
   @media (${DeviceWidth.mediaMaxSmall}) {
     border-width: 1px;
+  }
+`;
+
+const ContactInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  > ${StyledInput}:not(:first-child) {
+    margin-top: ${theme.space(1)};
   }
 `;
 
@@ -245,6 +286,15 @@ const StyledTextarea = styled.textarea`
   }
 `;
 
+const StatusMessage = styled.div<{ error?: boolean }>`
+  ${font('body18')};
+  flex-grow: 1;
+
+  ${({ error }) => css`
+    color: ${error ? '#ee5253' : '#1dd1a1'};
+  `}
+`;
+
 const SendButton = styled.button`
   ${font('interface20')};
   display: block;
@@ -260,6 +310,10 @@ const SendButton = styled.button`
     &:hover {
       opacity: 100%;
     }
+  }
+
+  &:disabled {
+    opacity: 30%;
   }
 
   @media (${DeviceWidth.mediaMaxSmall}) {

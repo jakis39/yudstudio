@@ -37,12 +37,14 @@ const HeaderContainer = styled.div`
   margin: 0 auto;
   z-index: 999;
 
+  padding: ${theme.space(6)} ${theme.space(6)} 1.5rem;
+
   @media (${DeviceWidth.mediaMaxSmall}) {
     padding: ${theme.space(4)} ${theme.space(4)} 1.5rem;
     align-items: center;
   }
 
-  @media (${DeviceWidth.mediaMinSmall}) {
+  @media (${DeviceWidth.mediaMinLarge}) {
     padding: ${theme.space(9)} ${theme.space(9)} 1.5rem;
   }
 `;
