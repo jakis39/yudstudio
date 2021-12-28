@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { DeviceWidth } from '../styles/mediaQueries';
 import { theme } from '../styles/theme';
 import { font } from '../styles/typography';
+import Clock from 'react-live-clock';
 
 export const query = graphql`
   query ContactPageQuery {
@@ -15,6 +16,10 @@ export const query = graphql`
       title
       description
       keywords
+      contactInfo {
+        email
+        phone
+      }
     }
   }
 `;
@@ -37,6 +42,9 @@ const ContactPage = (props) => {
       'Missing "Site settings". Open the studio at http://localhost:3333 and add some content to "Site settings" and restart the development server.'
     );
   }
+
+  const contactEmail = site?.contactInfo?.email;
+  const contactPhone = site?.contactInfo?.phone;
 
   function handleSubmit(e) {
     console.log(e);
@@ -79,9 +87,15 @@ const ContactPage = (props) => {
 
             <FormWrapper>
               <div>
-                Toronto, CAN <br />
-                10:00pm <br />
-                whatever <br />
+                <LocationText>Toronto, CAN</LocationText>
+                <LocationText>
+                  <Clock format={'hh:mm:ss a'} ticking={true} timezone={'America/Toronto'} />
+                </LocationText>
+                <ContactText>
+                  {contactEmail && <a href={`mailto:${contactEmail}`}>{contactEmail}</a>}
+                  <br />
+                  {contactPhone && <a href={`tel:${contactPhone}`}>{contactPhone}</a>}
+                </ContactText>
               </div>
 
               <ContactInfo>
@@ -112,7 +126,9 @@ const ContactPage = (props) => {
                   placeholder="Message"
                   aria-label="Message"
                 ></StyledTextarea>
-                <button type="submit">Send</button>
+                <div>
+                  <SendButton type="submit">Send</SendButton>
+                </div>
               </MessageWrapper>
             </FormWrapper>
           </form>
@@ -135,7 +151,6 @@ const Wrapper = styled.div`
   }
 
   @media (${DeviceWidth.mediaMinSmall}) {
-    padding-left: ${theme.space(2)};
     justify-content: flex-end;
   }
 `;
@@ -144,18 +159,41 @@ const FormWrapper = styled.div`
   display: flex;
   padding-bottom: ${theme.space(6)};
 
-  > div {
-    padding: 0 ${theme.space(3)};
+  @media (${DeviceWidth.mediaMinMedium}) {
+    > div {
+      padding: 0 ${theme.space(3)};
+    }
+    > div:nth-child(1) {
+      flex-basis: 20%;
+    }
+    > div:nth-child(2) {
+      flex-grow: 1;
+    }
+    > div:nth-child(3) {
+      flex-basis: 50%;
+    }
   }
 
-  > div:nth-child(1) {
-    flex-basis: 25%;
+  @media (${DeviceWidth.mediaMaxLarge}) {
+    flex-direction: column;
+
+    > div {
+      padding: ${theme.space(3)} 0 0;
+    }
   }
-  > div:nth-child(2) {
-    flex-basis: 25%;
-  }
-  > div:nth-child(3) {
-    flex-basis: 50%;
+`;
+
+const LocationText = styled.div`
+  ${font('title24')};
+`;
+
+const ContactText = styled.div`
+  ${font('body20')};
+  margin-top: ${theme.space(2)};
+
+  a {
+    color: ${theme.colors.black};
+    text-decoration: none;
   }
 `;
 
@@ -167,22 +205,65 @@ const ContactInfo = styled.div`
 const MessageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  > div {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: ${theme.space(2)};
+  }
 `;
 
 const StyledInput = styled.input`
+  ${font('interface18')};
   background: none;
   border: none;
   border-bottom: 2px solid ${theme.colors.black};
   padding: ${theme.space(2)};
-  ${font('body18')};
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    border-width: 1px;
+  }
 `;
 
 const StyledTextarea = styled.textarea`
-  ${font('body18')};
+  ${font('interface18')};
   background: none;
   border: 2px solid ${theme.colors.black};
   border-radius: 10px;
   padding: ${theme.space(2)};
   width: 100%;
   flex-grow: 1;
+  resize: vertical;
+  max-height: 500px;
+
+  @media (${DeviceWidth.mediaMaxLarge}) {
+    min-height: 200px;
+  }
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    border-width: 1px;
+  }
+`;
+
+const SendButton = styled.button`
+  ${font('interface20')};
+  display: block;
+  background: none;
+  border: 2px solid ${theme.colors.black};
+  border-radius: 50px;
+  padding: ${theme.space(1.25)} ${theme.space(3)};
+  cursor: pointer;
+
+  @media (hover: hover) {
+    opacity: 80%;
+
+    &:hover {
+      opacity: 100%;
+    }
+  }
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    border-width: 1px;
+    padding: ${theme.space(0.75)} ${theme.space(1.5)};
+  }
 `;

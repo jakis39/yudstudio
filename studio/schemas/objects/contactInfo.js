@@ -13,6 +13,11 @@ export default {
       name: "email",
       type: "string",
       title: "Email address"
+    },
+    {
+      name: "phone",
+      type: "string",
+      title: "Phone number"
     }
   ],
   preview: {

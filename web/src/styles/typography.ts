@@ -10,6 +10,13 @@ interface TypeStyle {
 }
 
 const Typography = {
+  interface18: {
+    fontFamily: 'var(--font-family-chalet)',
+    fontSize: 'var(--font-interface18-size)',
+    lineHeight: 'var(--font-interface18-line-height)',
+    fontWeight: 'normal',
+    textDecoration: 'none',
+  },
   interface20: {
     fontFamily: 'var(--font-family-chalet)',
     fontSize: 'var(--font-interface20-size)',
@@ -56,7 +63,14 @@ const Typography = {
   },
 };
 
-export type FontStyle = 'interface20' | 'body18' | 'body20' | 'body24' | 'title24' | 'title48';
+export type FontStyle =
+  | 'interface18'
+  | 'interface20'
+  | 'body18'
+  | 'body20'
+  | 'body24'
+  | 'title24'
+  | 'title48';
 
 export const font = (type: FontStyle) => {
   const typeStyle = Typography[type] as TypeStyle;

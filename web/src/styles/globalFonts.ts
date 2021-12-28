@@ -26,6 +26,9 @@ const globalFonts = css`
     --font-base-size: 1em; /* 16px */
     --font-base-line-height: calc(24 / var(--unit)); /* 24px */
 
+    --font-interface18-size: calc(18 / var(--unit) * 1rem); /* 18px */
+    --font-interface18-line-height: calc(18 / 18);
+
     --font-interface20-size: calc(20 / var(--unit) * 1rem); /* 20px */
     --font-interface20-line-height: calc(20 / 20);
 
@@ -47,6 +50,9 @@ const globalFonts = css`
     @media (${DeviceWidth.mediaMaxSmall}) {
       --font-base-size: 1em; /* 16px */
       --font-base-line-height: calc(24 / var(--unit)); /* 24px */
+
+      --font-interface18-size: calc(14 / var(--unit) * 1rem); /* 18px */
+      --font-interface18-line-height: calc(14 / 14);
 
       --font-interface20-size: calc(13 / var(--unit) * 1rem); /* 20px */
       --font-interface20-line-height: calc(13 / 13);
