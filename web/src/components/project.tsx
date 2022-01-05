@@ -155,13 +155,13 @@ function Project(props: ProjectProps) {
               contributors.map((contributor) => {
                 let contributorString = generateContributorString(contributor);
                 return (
-                  <>
-                    <ContributorRow key={contributor._key} ref={addToContributorRefs}>
+                  <div key={contributor._key}>
+                    <ContributorRow ref={addToContributorRefs}>
                       <dt>{contributor.role.title}</dt>
                       <dd>{contributorString}</dd>
                     </ContributorRow>
                     <Divider ref={addToDividerRefs} />
-                  </>
+                  </div>
                 );
               })}
           </StyledDL>

@@ -26,6 +26,10 @@ const ResponsiveVideoContainer = (props: ResponsiveVideoContainer) => {
   const [playing, setPlaying] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  const player = useRef(null);
+  const fullscreenPlayer = useRef(null);
+  const [playerCurrentTime, setPlayerCurrentTime] = useState(0);
+
   useEffect(() => {
     const breakpoint = fullHeight ? 675 : 1120;
     const scaleFactor = fullHeight ? '240%' : '200%';
@@ -33,11 +37,10 @@ const ResponsiveVideoContainer = (props: ResponsiveVideoContainer) => {
     setVideoWidth(w);
   }, [screenWidth]);
 
-  const player = useRef(null);
-
   const handleClickFullscreen = () => {
     setPlaying(false);
     setIsFullscreen(true);
+    setPlayerCurrentTime(player.current.getCurrentTime());
     document.querySelector('#scrollable')?.addEventListener('wheel', preventScroll);
   };
 
@@ -45,6 +48,14 @@ const ResponsiveVideoContainer = (props: ResponsiveVideoContainer) => {
     setPlaying(true);
     setIsFullscreen(false);
     document.querySelector('#scrollable')?.removeEventListener('wheel', preventScroll);
+
+    const currentTime = fullscreenPlayer.current.getCurrentTime();
+    setPlayerCurrentTime(currentTime);
+    player.current?.seekTo(currentTime);
+  };
+
+  const onFullscreenPlayerReady = () => {
+    fullscreenPlayer.current?.seekTo(playerCurrentTime);
   };
 
   return (
@@ -53,9 +64,11 @@ const ResponsiveVideoContainer = (props: ResponsiveVideoContainer) => {
         <ModalDiv onClick={handleExitFullscreen}>
           <ModalVideoContainer id="modalVideoContainer">
             <ReactPlayer
+              ref={fullscreenPlayer}
               style={{ position: 'absolute', top: 0, left: 0 }}
               url={videoUrl}
               controls={true}
+              playing
               config={{
                 vimeo: {
                   playerOptions: { responsive: true },
@@ -63,6 +76,7 @@ const ResponsiveVideoContainer = (props: ResponsiveVideoContainer) => {
               }}
               width="100%"
               height="100%"
+              onReady={onFullscreenPlayerReady}
             />
           </ModalVideoContainer>
         </ModalDiv>
