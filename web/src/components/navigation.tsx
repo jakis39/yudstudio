@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { gsap } from 'gsap';
+import React, { useEffect, useRef, useState } from 'react';
 
 import styled, { css } from 'styled-components';
 import { DeviceWidth } from '../styles/mediaQueries';
@@ -29,6 +30,22 @@ export interface NavigationProps {
 const Navigation = (props: NavigationProps) => {
   const { isDark } = props;
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const toggleIconRef = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo(
+      toggleIconRef.current,
+      {
+        rotate: 180,
+      },
+      {
+        rotate: 0,
+        delay: 1,
+        duration: 0.4,
+        ease: 'none',
+      }
+    );
+  }, [toggleIconRef]);
 
   const onMenuClick = () => {
     setMenuOpen(!menuOpen);
@@ -38,7 +55,10 @@ const Navigation = (props: NavigationProps) => {
     <Nav>
       <NavToggle as="button" onClick={onMenuClick} isDark={isDark}>
         <span>MENU</span>
-        <NavToggleIcon>{menuOpen ? '-' : '+'}</NavToggleIcon>
+        <NavToggleIcon menuOpen={menuOpen} ref={toggleIconRef}>
+          <DashLine />
+          <DashLine />
+        </NavToggleIcon>
       </NavToggle>
       <ul>
         {MENU_ITEMS.map((item, index) => (
@@ -62,6 +82,12 @@ const Navigation = (props: NavigationProps) => {
 export default Navigation;
 
 const Nav = styled.nav`
+  --line-width: 2px;
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    --line-width: 1px;
+  }
+
   ul {
     position: absolute;
     display: flex;
@@ -103,7 +129,7 @@ const NavLink = styled.a<{ isDark: boolean }>`
   display: block;
   width: ${theme.space(30)};
   background: none;
-  border: 2px solid ${theme.colors.white};
+  border: var(--line-width) solid ${theme.colors.white};
   border-radius: 50px;
   padding: ${theme.space(1.25)} ${theme.space(3)};
   cursor: pointer;
@@ -124,7 +150,6 @@ const NavLink = styled.a<{ isDark: boolean }>`
 
   @media (${DeviceWidth.mediaMaxSmall}) {
     width: ${theme.space(17)};
-    border-width: 1px;
     padding: ${theme.space(0.75)} ${theme.space(1.5)};
   }
 `;
@@ -132,6 +157,41 @@ const NavLink = styled.a<{ isDark: boolean }>`
 const NavToggle = styled(NavLink)`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  ${({ isDark }) =>
+    css`
+      ${DashLine} {
+        background-color: ${isDark ? theme.colors.black : theme.colors.white};
+      }
+    `}
 `;
 
-const NavToggleIcon = styled.span``;
+const DashLine = styled.div`
+  width: ${theme.space(1)};
+  height: var(--line-width);
+  background-color: ${theme.colors.black};
+  position: absolute;
+  top: calc(50% - 1px);
+  left: 0;
+`;
+
+const NavToggleIcon = styled.div<{ menuOpen: boolean }>`
+  height: ${theme.space(1)};
+  width: ${theme.space(1)};
+  position: relative;
+
+  ${DashLine}:last-child {
+    transition: all 200ms ease-in-out;
+    width: var(--line-width);
+    left: calc(50% - 1px);
+
+    ${({ menuOpen }) =>
+      !menuOpen
+        ? css`
+            height: ${theme.space(1)};
+            top: 0;
+          `
+        : null};
+  }
+`;

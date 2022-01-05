@@ -28,7 +28,7 @@ const ResponsiveVideoContainer = (props: ResponsiveVideoContainer) => {
 
   useEffect(() => {
     const breakpoint = fullHeight ? 675 : 1120;
-    const scaleFactor = fullHeight ? '240%' : '150%';
+    const scaleFactor = fullHeight ? '240%' : '200%';
     const w = screenWidth > breakpoint ? '100%' : scaleFactor;
     setVideoWidth(w);
   }, [screenWidth]);
@@ -124,6 +124,7 @@ export const VideoContainer = styled.div<{ fullHeight?: boolean }>`
   border-bottom-right-radius: 35px;
   overflow: hidden;
   box-shadow: 0px 7px 16px 0px #0000004f;
+  background-color: #ccc;
 
   ${({ fullHeight }) =>
     fullHeight
@@ -144,13 +145,13 @@ export const VideoContainer = styled.div<{ fullHeight?: boolean }>`
         `
       : css`
           @media (${DeviceWidth.mediaMinSmall}) {
-            height: 600px;
+            height: 60vh;
             /* padding-top: 56.25%; */
           }
 
           @media (max-width: 1120px) {
             & > div > div > div {
-              margin-left: -25%;
+              margin-left: -50%;
             }
           }
 

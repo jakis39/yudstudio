@@ -189,6 +189,7 @@ const Wrapper = styled.div`
 
   @media (${DeviceWidth.mediaMinSmall}) {
     justify-content: flex-end;
+    padding-top: ${theme.space(18)};
   }
 `;
 

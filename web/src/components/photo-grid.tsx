@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { SRLWrapper } from 'simple-react-lightbox';
 import styled, { css } from 'styled-components';
 import { buildImageObj } from '../lib/helpers';
 import { imageUrlFor } from '../lib/image-url';
 import { DeviceWidth } from '../styles/mediaQueries';
+
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export interface PhotoGridProps {
   images: any[];
@@ -31,11 +36,41 @@ const PhotoGrid = (props: PhotoGridProps) => {
     },
   };
 
+  const photoRefs = useRef([]);
+
+  const addPhotoRef = (element) => {
+    if (element && !photoRefs.current.includes(element)) {
+      photoRefs.current.push(element);
+    }
+  };
+
+  useEffect(() => {
+    photoRefs.current.forEach((ref, index) => {
+      gsap.fromTo(
+        ref,
+        {
+          autoAlpha: 0,
+        },
+        {
+          autoAlpha: 1,
+          duration: 0.8,
+          delay: (index + 1) % 3 === 0 ? 0.8 : 0.4,
+          scrollTrigger: {
+            id: `section-${index + 1}`,
+            trigger: ref,
+            start: 'top center+=100',
+            toggleActions: 'play',
+          },
+        }
+      );
+    });
+  }, [photoRefs]);
+
   return (
     <SRLWrapper options={lightboxOptions}>
       <GridContainer>
         {images.map((image) => (
-          <a key={image._key} href={imageUrlFor(buildImageObj(image)).url()}>
+          <a key={image._key} href={imageUrlFor(buildImageObj(image)).url()} ref={addPhotoRef}>
             <img src={imageUrlFor(buildImageObj(image)).url()} alt={image.alt} />
           </a>
         ))}

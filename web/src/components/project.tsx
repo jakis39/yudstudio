@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { buildImageObj } from '../lib/helpers';
 import { imageUrlFor } from '../lib/image-url';
@@ -14,6 +14,10 @@ import PhotoGrid from './photo-grid';
 import ResponsiveVideoContainer, { VideoContainer } from './ResponsiveVideoContainer';
 
 import ArrowRight from '../images/arrow-right.svg';
+
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 export interface ProjectProps {
   project: any;
@@ -50,6 +54,75 @@ function Project(props: ProjectProps) {
     </TitleContainer>
   );
 
+  const contributorRefs = useRef([]);
+  const dividerRefs = useRef([]);
+
+  function addToContributorRefs(element) {
+    if (element && !contributorRefs.current.includes(element)) {
+      contributorRefs.current.push(element);
+    }
+  }
+
+  function addToDividerRefs(element) {
+    if (element && !dividerRefs.current.includes(element)) {
+      dividerRefs.current.push(element);
+    }
+  }
+
+  useEffect(() => {
+    const scrollTrigger = (ref, index) => ({
+      id: `section-${index + 1}`,
+      trigger: ref,
+      start: 'top bottom',
+      toggleActions: 'play',
+    });
+
+    contributorRefs.current.forEach((ref, index) => {
+      gsap.fromTo(
+        ref,
+        {
+          autoAlpha: 0,
+        },
+        {
+          autoAlpha: 1,
+          duration: 0.8,
+          ease: 'none',
+          delay: (index + 1) * 0.2,
+          scrollTrigger: scrollTrigger(ref, index),
+        }
+      );
+    });
+
+    dividerRefs.current.forEach((ref, index) => {
+      gsap.fromTo(
+        ref,
+        {
+          transform: 'translateX(-100%)',
+        },
+        {
+          transform: 'translateX(0)',
+          duration: 0.4,
+          ease: 'none',
+          delay: (index + 1) * 0.2,
+          scrollTrigger: scrollTrigger(ref, index),
+        }
+      );
+      gsap.fromTo(
+        ref,
+        {
+          autoAlpha: 0,
+        },
+        {
+          autoAlpha: 1,
+          duration: 0.3,
+          ease: 'none',
+          delay: (index + 1) * 0.2,
+          scrollTrigger: scrollTrigger(ref, index),
+        }
+      );
+    });
+  }, [contributorRefs, dividerRefs]);
+
   return (
     <article id="scrollable">
       <SimpleReactLightbox>
@@ -64,27 +137,31 @@ function Project(props: ProjectProps) {
           </MainPhotoContainer>
         )}
 
-        <LogoContainer>
+        <TopContent>
           {clientLogo && (
-            <img src={imageUrlFor(buildImageObj(clientLogo)).url()} alt={clientLogo.alt} />
+            <LogoContainer>
+              <img src={imageUrlFor(buildImageObj(clientLogo)).url()} alt={clientLogo.alt} />
+            </LogoContainer>
           )}
-        </LogoContainer>
+          {excerpt && <Description addSpacing={clientLogo && excerpt}>{excerpt}</Description>}
+        </TopContent>
 
         <PhotoGrid images={images} />
 
         <BottomContentContainer wide short>
-          {excerpt && <Description>{excerpt}</Description>}
-
           <StyledDL>
             {contributors &&
               contributors.length > 0 &&
               contributors.map((contributor) => {
                 let contributorString = generateContributorString(contributor);
                 return (
-                  <ContributorRow key={contributor._key}>
-                    <dt>{contributor.role.title}</dt>
-                    <dd>{contributorString}</dd>
-                  </ContributorRow>
+                  <>
+                    <ContributorRow key={contributor._key} ref={addToContributorRefs}>
+                      <dt>{contributor.role.title}</dt>
+                      <dd>{contributorString}</dd>
+                    </ContributorRow>
+                    <Divider ref={addToDividerRefs} />
+                  </>
                 );
               })}
           </StyledDL>
@@ -149,9 +226,21 @@ const Title = styled.h2`
   margin: 0;
 `;
 
+const TopContent = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: ${theme.space(20)} 0;
+
+  @media (${DeviceWidth.mediaMaxMedium}) {
+    flex-direction: column;
+    padding: ${theme.space(10)} 0;
+  }
+`;
+
 const LogoContainer = styled.div`
-  width: 100%;
-  height: ${theme.space(56)};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -161,35 +250,38 @@ const LogoContainer = styled.div`
   }
 
   @media (${DeviceWidth.mediaMaxSmall}) {
-    height: ${theme.space(25)};
-
     img {
       height: 20px;
     }
   }
 `;
 
-const BottomContentContainer = styled(Container)`
-  padding-top: ${theme.space(21.5)};
+const Description = styled.div<{ addSpacing: boolean }>`
+  ${font('body24')};
 
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    padding-top: ${theme.space(7)};
-  }
+  ${({ addSpacing }) =>
+    addSpacing &&
+    css`
+      @media (${DeviceWidth.mediaMaxMedium}) {
+        margin-top: ${theme.space(8)};
+      }
+      @media (${DeviceWidth.mediaMinMedium}) {
+        margin-left: 15%;
+      }
+    `}
 `;
 
-const Description = styled.div`
-  ${font('body24')};
-  padding-bottom: ${theme.space(7)};
+const BottomContentContainer = styled(Container)`
+  padding-top: ${theme.space(22)};
 
-  @media (${DeviceWidth.mediaMinSmall}) {
-    padding-bottom: ${theme.space(21.5)};
-    max-width: 80%;
-    margin: auto;
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    padding-top: ${theme.space(10)};
   }
 `;
 
 const StyledDL = styled.dl`
   margin: 0;
+  overflow: hidden;
 `;
 
 const Row = styled.div`
@@ -204,8 +296,6 @@ const Row = styled.div`
 `;
 
 const ContributorRow = styled(Row)`
-  border-bottom: 1px solid ${theme.colors.black};
-
   @media (${DeviceWidth.mediaMinSmall}) {
     border-width: 2px;
   }
@@ -215,6 +305,16 @@ const ContributorRow = styled(Row)`
   }
   dd {
     flex: 1;
+  }
+`;
+
+const Divider = styled.div`
+  height: 1px;
+  width: 100%;
+  background-color: ${theme.colors.black};
+
+  @media (${DeviceWidth.mediaMinSmall}) {
+    height: 2px;
   }
 `;
 

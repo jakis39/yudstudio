@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import { mapEdgesToNodes, filterOutDocsWithoutSlugs } from '../lib/helpers';
 import GraphQLErrorList from '../components/graphql-error-list';
+import { DeviceWidth } from '../styles/mediaQueries';
 import SEO from '../components/seo';
-import styled from 'styled-components';
+
+import { theme } from '../styles/theme';
 import { font } from '../styles/typography';
 
 import Container from '../components/container';
 import Layout from '../containers/layout';
+import ResponsiveVideoContainer from '../components/ResponsiveVideoContainer';
 
 import ArrowRight from '../images/arrow-right.svg';
-import { theme } from '../styles/theme';
-import { DeviceWidth } from '../styles/mediaQueries';
-import ResponsiveVideoContainer from '../components/ResponsiveVideoContainer';
+
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 export const query = graphql`
   query ProjectsPageQuery {
@@ -55,20 +60,91 @@ const ProjectsPage = (props) => {
 
   const videoUrl = data?.site?.videoUrl;
 
+  const containerRef = useRef(null);
+  const projectLinksRefs = useRef([]);
+  const lineRefs = useRef([]);
+
+  const addToTitleRefs = (element) => {
+    if (element && !projectLinksRefs.current.includes(element)) {
+      projectLinksRefs.current.push(element);
+    }
+  };
+
+  const addToLineRefs = (element) => {
+    if (element && !lineRefs.current.includes(element)) {
+      lineRefs.current.push(element);
+    }
+  };
+
+  useEffect(() => {
+    const scrollTrigger = (ref, index) => ({
+      id: `section-${index + 1}`,
+      trigger: ref,
+      start: 'top bottom',
+      toggleActions: 'play',
+    });
+
+    projectLinksRefs.current.forEach((ref, index) => {
+      gsap.fromTo(
+        ref,
+        {
+          autoAlpha: 0,
+        },
+        {
+          autoAlpha: 1,
+          duration: 0.8,
+          ease: 'none',
+          delay: (index + 1) * 0.2,
+          scrollTrigger: scrollTrigger(ref, index),
+        }
+      );
+    });
+
+    lineRefs.current.forEach((ref, index) => {
+      gsap.fromTo(
+        ref,
+        {
+          transform: 'translateX(-100%)',
+        },
+        {
+          transform: 'translateX(0)',
+          duration: 0.4,
+          ease: 'none',
+          delay: (index + 1) * 0.2,
+          scrollTrigger: scrollTrigger(ref, index),
+        }
+      );
+      gsap.fromTo(
+        ref,
+        {
+          autoAlpha: 0,
+        },
+        {
+          autoAlpha: 1,
+          duration: 0.3,
+          ease: 'none',
+          delay: (index + 1) * 0.2,
+          scrollTrigger: scrollTrigger(ref, index),
+        }
+      );
+    });
+  }, [projectLinksRefs, lineRefs]);
+
   return (
     <Layout>
       <div id="scrollable">
-        <SEO title="yudstudio - Projects" />
+        <SEO title="yudstudio" />
         <ResponsiveVideoContainer fullHeight videoUrl={videoUrl} />
         <Container wide short grow>
           {projectNodes && projectNodes.length > 0 && (
             <>
               <Title>Projects</Title>
 
-              <ProjectList>
+              <ProjectList ref={containerRef}>
                 {projectNodes.map((project) => (
                   <li key={project.slug.current}>
-                    <ProjectLink to={`/${project.slug.current}`}>
+                    <Line ref={addToLineRefs} />
+                    <ProjectLink to={`/${project.slug.current}`} ref={addToTitleRefs}>
                       <span>{project.title}</span>
                       <img src={ArrowRight} />
                     </ProjectLink>
@@ -94,6 +170,16 @@ const ProjectList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+
+  > li {
+    overflow: hidden;
+  }
+`;
+
+const Line = styled.div`
+  width: 100%;
+  border-top: 2px solid ${theme.colors.black};
+  opacity: 0;
 `;
 
 const ProjectLink = styled(Link)`
@@ -103,8 +189,8 @@ const ProjectLink = styled(Link)`
   align-items: center;
   color: ${theme.colors.black};
   padding: ${theme.space(4)} ${theme.space(3)};
-  border-top: 2px solid ${theme.colors.black};
   cursor: pointer;
+  opacity: 0;
 
   @media (hover: hover) {
     opacity: 70%;
