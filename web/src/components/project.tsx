@@ -48,9 +48,9 @@ function Project(props: ProjectProps) {
 
   const titleBlock = (
     <TitleContainer>
-      {projectDate && <Year>{projectDate}</Year>}
       {clientName && <Client>{clientName}</Client>}
       {title && <Title>{title}</Title>}
+      {projectDate && <Year>{projectDate}</Year>}
     </TitleContainer>
   );
 
@@ -205,6 +205,7 @@ const TitleContainer = styled.div`
   bottom: ${theme.space(7.5)};
   left: ${theme.space(9)};
   color: ${theme.colors.white};
+  max-width: 70%;
 
   @media (${DeviceWidth.mediaMaxSmall}) {
     left: ${theme.space(4)};
@@ -213,7 +214,12 @@ const TitleContainer = styled.div`
 `;
 
 const Year = styled.div`
-  ${font('body24')}
+  ${font('body18')}
+  margin-top: ${theme.space(2)};
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    margin-top: ${theme.space(1)};
+  }
 `;
 
 const Client = styled.h1`
