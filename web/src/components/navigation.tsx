@@ -30,22 +30,6 @@ export interface NavigationProps {
 const Navigation = (props: NavigationProps) => {
   const { isDark } = props;
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const toggleIconRef = useRef(null);
-
-  useEffect(() => {
-    gsap.fromTo(
-      toggleIconRef.current,
-      {
-        rotate: 180,
-      },
-      {
-        rotate: 0,
-        delay: 1,
-        duration: 0.4,
-        ease: 'none',
-      }
-    );
-  }, [toggleIconRef]);
 
   const onMenuClick = () => {
     setMenuOpen(!menuOpen);
@@ -55,7 +39,7 @@ const Navigation = (props: NavigationProps) => {
     <Nav>
       <NavToggle as="button" onClick={onMenuClick} isDark={isDark}>
         <span>MENU</span>
-        <NavToggleIcon menuOpen={menuOpen} ref={toggleIconRef}>
+        <NavToggleIcon menuOpen={menuOpen}>
           <DashLine />
           <DashLine />
         </NavToggleIcon>
@@ -82,14 +66,23 @@ const Navigation = (props: NavigationProps) => {
 export default Navigation;
 
 const Nav = styled.nav`
+  --icon-width: 14px;
+  --icon-spacing: 18px;
+  --icon-padding: 32px;
   --line-width: 2px;
 
   @media (${DeviceWidth.mediaMaxSmall}) {
+    --icon-width: 9px;
+    --icon-spacing: 12px;
+    --icon-padding: 21px;
     --line-width: 1px;
   }
 
+  position: relative;
+
   ul {
     position: absolute;
+    right: 0;
     display: flex;
     flex-direction: column;
     list-style: none;
@@ -100,7 +93,7 @@ const Nav = styled.nav`
 `;
 
 const AnimatedLi = styled.li<{ visible: boolean; delay: number }>`
-  margin-top: ${theme.space(1.5)};
+  margin-top: ${theme.space(1)};
 
   ${({ visible, delay }) =>
     visible
@@ -118,7 +111,7 @@ const AnimatedLi = styled.li<{ visible: boolean; delay: number }>`
           opacity: 1;
         `
       : css`
-          transform: translateY(-150px);
+          transform: translateY(-100px);
           opacity 0;
           pointer-events: none;
         `}
@@ -127,12 +120,12 @@ const AnimatedLi = styled.li<{ visible: boolean; delay: number }>`
 const NavLink = styled.a<{ isDark: boolean }>`
   ${font('interface20')};
   display: block;
-  width: ${theme.space(30)};
   background: none;
-  border: var(--line-width) solid ${theme.colors.white};
-  border-radius: 50px;
-  padding: ${theme.space(1.25)} ${theme.space(3)};
+  border: none;
+  text-align: right;
+  padding: 0 var(--icon-padding) 0 ${theme.space(1)};
   cursor: pointer;
+  white-space: nowrap;
 
   @media (hover: hover) {
     opacity: 80%;
@@ -145,19 +138,14 @@ const NavLink = styled.a<{ isDark: boolean }>`
   ${({ isDark }) =>
     css`
       color: ${isDark ? theme.colors.black : theme.colors.white};
-      border-color: ${isDark ? theme.colors.black : theme.colors.white}; ;
     `}
-
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    width: ${theme.space(17)};
-    padding: ${theme.space(0.75)} ${theme.space(1.5)};
-  }
 `;
 
 const NavToggle = styled(NavLink)`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  padding-right: 0;
 
   ${({ isDark }) =>
     css`
@@ -168,7 +156,7 @@ const NavToggle = styled(NavLink)`
 `;
 
 const DashLine = styled.div`
-  width: ${theme.space(1)};
+  width: var(--icon-width);
   height: var(--line-width);
   background-color: ${theme.colors.black};
   position: absolute;
@@ -177,9 +165,18 @@ const DashLine = styled.div`
 `;
 
 const NavToggleIcon = styled.div<{ menuOpen: boolean }>`
-  height: ${theme.space(1)};
-  width: ${theme.space(1)};
+  height: var(--icon-width);
+  width: var(--icon-width);
   position: relative;
+  margin-left: var(--icon-spacing);
+  transition: transform 200ms ease-in-out;
+
+  ${({ menuOpen }) =>
+    !menuOpen
+      ? css`
+          transform: rotate(90deg);
+        `
+      : null};
 
   ${DashLine}:last-child {
     transition: all 200ms ease-in-out;
@@ -189,7 +186,7 @@ const NavToggleIcon = styled.div<{ menuOpen: boolean }>`
     ${({ menuOpen }) =>
       !menuOpen
         ? css`
-            height: ${theme.space(1)};
+            height: var(--icon-width);
             top: 0;
           `
         : null};

@@ -91,11 +91,12 @@ const ProjectsPage = (props) => {
           autoAlpha: 0,
         },
         {
-          autoAlpha: 1,
+          autoAlpha: 0.7,
           duration: 0.8,
           ease: 'none',
           delay: (index + 1) * 0.2,
           scrollTrigger: scrollTrigger(ref, index),
+          clearProps: 'opacity',
         }
       );
     });

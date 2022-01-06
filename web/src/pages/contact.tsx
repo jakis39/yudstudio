@@ -98,7 +98,7 @@ const ContactPage = (props) => {
     <Layout isDark>
       <SEO title={site.title} description={site.description} keywords={site.keywords} />
 
-      <Container wide short grow>
+      <Container wide short grow addHeaderPadding>
         <Wrapper>
           <form
             name="contact"
@@ -182,15 +182,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    padding-top: ${theme.space(12)};
-  }
-
-  @media (${DeviceWidth.mediaMinSmall}) {
-    justify-content: flex-end;
-    padding-top: ${theme.space(18)};
-  }
 `;
 
 const FormWrapper = styled.div`

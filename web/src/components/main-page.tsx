@@ -13,7 +13,7 @@ export interface MainPageProps {
 const MainPage = (props) => {
   const { title, blurb } = props;
   return (
-    <Container wide short grow>
+    <Container wide short grow addHeaderPadding>
       <Wrapper>
         <Title>{title}</Title>
         <Blurb>{blurb}</Blurb>

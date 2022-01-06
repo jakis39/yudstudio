@@ -1,12 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { DeviceWidth } from '../styles/mediaQueries';
+import { theme } from '../styles/theme';
 
 export interface ContainerProps {
   wide?: boolean;
   short?: boolean;
   grow?: boolean;
   row?: boolean;
+  addHeaderPadding?: boolean;
   children: any;
 }
 
@@ -70,5 +72,18 @@ const Cntnr = styled.div<Omit<ContainerProps, 'children'>>`
     css`
       flex-grow: 1;
       position: relative;
+    `}
+    
+    ${({ addHeaderPadding }) =>
+    addHeaderPadding &&
+    css`
+      @media (${DeviceWidth.mediaMaxSmall}) {
+        padding-top: ${theme.space(12)};
+      }
+
+      @media (${DeviceWidth.mediaMinSmall}) {
+        justify-content: flex-end;
+        padding-top: ${theme.space(18)};
+      }
     `}
 `;
