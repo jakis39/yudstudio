@@ -30,21 +30,32 @@ export interface NavigationProps {
 const Navigation = (props: NavigationProps) => {
   const { isDark } = props;
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const navToggleRef = useRef(null);
+  const [iconOffset, setIconOffset] = useState(0);
 
   const onMenuClick = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const onNavLinkMouseEnter = (e) => {
+    // Calcualte Y offset of hovered item to move toggle icon down next to it
+    const menuToggleOffset = navToggleRef.current.getBoundingClientRect().y;
+    const listItemOffset = e.target.getBoundingClientRect().y;
+    setIconOffset(listItemOffset - menuToggleOffset);
+  };
+
+  const onNavListMouseLeave = () => setIconOffset(0);
+
   return (
     <Nav>
-      <NavToggle as="button" onClick={onMenuClick} isDark={isDark}>
+      <NavToggle as="button" onClick={onMenuClick} isDark={isDark} ref={navToggleRef}>
         <span>MENU</span>
-        <NavToggleIcon menuOpen={menuOpen}>
+        <NavToggleIcon menuOpen={menuOpen} offset={iconOffset}>
           <DashLine />
           <DashLine />
         </NavToggleIcon>
       </NavToggle>
-      <ul>
+      <ul onMouseLeave={onNavListMouseLeave}>
         {MENU_ITEMS.map((item, index) => (
           <AnimatedLi
             key={item.label}
@@ -53,7 +64,7 @@ const Navigation = (props: NavigationProps) => {
               menuOpen ? index * SLIDE_IN_DELAY : (MENU_ITEMS.length - 1 - index) * SLIDE_IN_DELAY
             }
           >
-            <NavLink href={item.href} isDark={isDark}>
+            <NavLink href={item.href} isDark={isDark} onMouseEnter={onNavLinkMouseEnter}>
               {item.label}
             </NavLink>
           </AnimatedLi>
@@ -160,23 +171,25 @@ const DashLine = styled.div`
   height: var(--line-width);
   background-color: ${theme.colors.black};
   position: absolute;
-  top: calc(50% - 1px);
+  top: calc(50% - var(--line-width) / 2);
   left: 0;
 `;
 
-const NavToggleIcon = styled.div<{ menuOpen: boolean }>`
+const NavToggleIcon = styled.div<{ menuOpen: boolean; offset: number }>`
   height: var(--icon-width);
   width: var(--icon-width);
   position: relative;
   margin-left: var(--icon-spacing);
   transition: transform 200ms ease-in-out;
 
-  ${({ menuOpen }) =>
-    !menuOpen
-      ? css`
-          transform: rotate(90deg);
-        `
-      : null};
+  ${({ menuOpen, offset }) => {
+    const rotate = !menuOpen ? 'rotate(90deg)' : '';
+    const yOffset = `translateY(${offset}px)`;
+
+    return css`
+      transform: ${rotate} ${yOffset};
+    `;
+  }};
 
   ${DashLine}:last-child {
     transition: all 200ms ease-in-out;

@@ -191,7 +191,6 @@ const ProjectLink = styled(Link)`
   color: ${theme.colors.black};
   padding: ${theme.space(4)} ${theme.space(3)};
   cursor: pointer;
-  opacity: 0;
 
   @media (hover: hover) {
     opacity: 70%;

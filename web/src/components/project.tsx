@@ -34,7 +34,11 @@ function Project(props: ProjectProps) {
     let contributorString = '';
     if (contributor.people?.length) {
       contributorString = contributor.people.reduce((list, person, index) => {
-        return index === 0 ? person.name : `${list}, ${person.name}`;
+        if (person.name) {
+          return list.length === 0 ? person.name : `${list}, ${person.name}`;
+        } else {
+          return '';
+        }
       }, '');
     }
     if (contributor.contributors) {
