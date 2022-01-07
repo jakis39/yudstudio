@@ -11,7 +11,7 @@ export default {
       title: "Layout width",
       type: "string",
       description:
-        "Set whether photo should take the full width of the page. Leave as default for automatic layout.",
+        "Set whether photo should fill the width of the page. Leave as default for automatic layout.",
       options: {
         list: [
           { title: "Default (auto)", value: "auto" },
