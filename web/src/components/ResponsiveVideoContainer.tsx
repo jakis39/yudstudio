@@ -160,18 +160,33 @@ export const VideoContainer = styled.div<{ fullHeight?: boolean }>`
       : css`
           @media (${DeviceWidth.mediaMinSmall}) {
             height: 60vh;
-            /* padding-top: 56.25%; */
+            max-height: 830px;
+          }
+
+          & > div > div > div {
+            margin-top: -13%;
           }
 
           @media (max-width: 1120px) {
             & > div > div > div {
               margin-left: -50%;
+              margin-top: -35vw;
             }
           }
 
           @media (min-width: 450px) and (max-width: 750px) {
             height: unset;
             padding-top: 80%;
+
+            & > div > div > div {
+              margin-top: -18vw;
+            }
+          }
+
+          @media (min-height: 1050px) and (max-width: 1800px) {
+            & > div > div > div {
+              margin-top: 0;
+            }
           }
 
           @media (${DeviceWidth.mediaMaxSmall}) {

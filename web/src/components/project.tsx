@@ -27,7 +27,16 @@ export interface ProjectProps {
 
 function Project(props: ProjectProps) {
   const { project, linkToPrevious, linkToNext } = props;
-  const { clientName, clientLogo, projectDate, title, videoUrl, excerpt, contributors } = project;
+  const {
+    clientName,
+    clientLogo,
+    projectDate,
+    title,
+    videoUrl,
+    headerImage,
+    excerpt,
+    contributors,
+  } = project;
   const images: Array<any> = project.image;
 
   function generateContributorString(contributor) {
@@ -91,7 +100,7 @@ function Project(props: ProjectProps) {
           autoAlpha: 1,
           duration: 0.8,
           ease: 'none',
-          delay: (index + 1) * 0.2,
+          // delay: (index + 1) * 0.2,
           scrollTrigger: scrollTrigger(ref, index),
         }
       );
@@ -107,7 +116,7 @@ function Project(props: ProjectProps) {
           transform: 'translateX(0)',
           duration: 0.4,
           ease: 'none',
-          delay: (index + 1) * 0.2,
+          // delay: (index + 1) * 0.2,
           scrollTrigger: scrollTrigger(ref, index),
         }
       );
@@ -120,7 +129,7 @@ function Project(props: ProjectProps) {
           autoAlpha: 1,
           duration: 0.3,
           ease: 'none',
-          delay: (index + 1) * 0.2,
+          // delay: (index + 1) * 0.2,
           scrollTrigger: scrollTrigger(ref, index),
         }
       );
@@ -134,9 +143,9 @@ function Project(props: ProjectProps) {
           <ResponsiveVideoContainer videoUrl={videoUrl}>{titleBlock}</ResponsiveVideoContainer>
         )}
 
-        {!videoUrl && images.length && (
+        {!videoUrl && headerImage && (
           <MainPhotoContainer>
-            <img src={imageUrlFor(buildImageObj(images[0])).url()} alt={images[0].alt} />
+            <img src={imageUrlFor(buildImageObj(headerImage)).url()} alt={headerImage.alt} />
             {titleBlock}
           </MainPhotoContainer>
         )}
@@ -256,13 +265,9 @@ const LogoContainer = styled.div`
   align-items: center;
 
   img {
-    height: ${theme.space(5)};
-  }
-
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    img {
-      height: 20px;
-    }
+    width: 20vw;
+    max-height: 100px;
+    object-fit: contain;
   }
 `;
 

@@ -146,7 +146,9 @@ const ProjectsPage = (props) => {
                   <li key={project.slug.current}>
                     <Line ref={addToLineRefs} />
                     <ProjectLink to={`/${project.slug.current}`} ref={addToTitleRefs}>
-                      <span>{project.title}</span>
+                      <span>
+                        {project.clientName}: {project.title}
+                      </span>
                       <img src={ArrowRight} />
                     </ProjectLink>
                   </li>
