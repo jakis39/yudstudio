@@ -53,8 +53,8 @@ const PhotoGrid = (props: PhotoGridProps) => {
         },
         {
           autoAlpha: 1,
-          duration: 0.8,
-          delay: (index + 1) % 3 === 0 ? 0.8 : 0.4,
+          duration: 0.6,
+          delay: (index + 1) % 3 === 0 ? 0.4 : 0.2,
           scrollTrigger: {
             id: `section-${index + 1}`,
             trigger: ref,

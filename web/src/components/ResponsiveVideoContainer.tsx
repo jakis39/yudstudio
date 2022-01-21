@@ -19,13 +19,22 @@ function preventScroll(e) {
   return false;
 }
 
+const detectVideoType = (url: string) => {
+  if (url.includes('vimeo')) {
+    return 'vimeo';
+  }
+  if (url.includes('youtube')) {
+    return 'youtube';
+  }
+};
+
 const ResponsiveVideoContainer = (props: ResponsiveVideoContainer) => {
   const { videoUrl, fullHeight, children } = props;
-  const { width: screenWidth } = useWindowDimensions();
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   const [videoWidth, setVideoWidth] = useState('100%');
   const [playing, setPlaying] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
-
+  const videoType = detectVideoType(videoUrl);
   const player = useRef(null);
   const fullscreenPlayer = useRef(null);
   const [playerCurrentTime, setPlayerCurrentTime] = useState(0);
@@ -81,8 +90,9 @@ const ResponsiveVideoContainer = (props: ResponsiveVideoContainer) => {
           </ModalVideoContainer>
         </ModalDiv>
       )}
-      <VideoContainer fullHeight={fullHeight}>
+      <VideoContainer fullHeight={fullHeight} videoType={videoType}>
         <ReactPlayer
+          id="video"
           ref={player}
           style={{ position: 'absolute', top: 0, left: 0 }}
           url={videoUrl}
@@ -91,6 +101,21 @@ const ResponsiveVideoContainer = (props: ResponsiveVideoContainer) => {
           config={{
             vimeo: {
               playerOptions: { background: true, loop: true, responsive: true },
+            },
+            youtube: {
+              playerVars: {
+                playsinline: 1,
+                modestbranding: 1,
+                loop: 1,
+                controls: 0,
+                autoplay: 1,
+                mute: 1,
+                showinfo: 0,
+                cc_load_policy: 0,
+                iv_load_policy: 3,
+                disablekb: 1,
+                rel: 0,
+              },
             },
           }}
           playsinline
@@ -132,7 +157,7 @@ const ModalVideoContainer = styled.div`
   }
 `;
 
-export const VideoContainer = styled.div<{ fullHeight?: boolean }>`
+export const VideoContainer = styled.div<{ fullHeight?: boolean; videoType: string }>`
   position: relative;
   border-bottom-left-radius: 35px;
   border-bottom-right-radius: 35px;
@@ -140,7 +165,7 @@ export const VideoContainer = styled.div<{ fullHeight?: boolean }>`
   box-shadow: 0px 7px 16px 0px #0000004f;
   background-color: #ccc;
 
-  ${({ fullHeight }) =>
+  ${({ fullHeight, videoType }) =>
     fullHeight
       ? css`
           @media (${DeviceWidth.mediaMinMedium}) {
@@ -162,31 +187,36 @@ export const VideoContainer = styled.div<{ fullHeight?: boolean }>`
             height: 60vh;
             max-height: 830px;
           }
+          ${videoType === 'youtube'
+            ? css`
+                & > div#video > div {
+                  @media (max-width: 1120px) {
+                    margin-left: -25%;
+                  }
+                }
+              `
+            : css`
+                & > div#video > div > div {
+                  margin-top: -13%;
 
-          & > div > div > div {
-            margin-top: -13%;
-          }
+                  @media (max-width: 1120px) {
+                    margin-left: -50%;
+                    margin-top: -35vw;
+                  }
 
-          @media (max-width: 1120px) {
-            & > div > div > div {
-              margin-left: -50%;
-              margin-top: -35vw;
-            }
-          }
+                  @media (min-width: 450px) and (max-width: 750px) {
+                    margin-top: -18vw;
+                  }
+
+                  @media (min-height: 1050px) and (max-width: 1800px) {
+                    margin-top: 0;
+                  }
+                }
+              `}
 
           @media (min-width: 450px) and (max-width: 750px) {
             height: unset;
             padding-top: 80%;
-
-            & > div > div > div {
-              margin-top: -18vw;
-            }
-          }
-
-          @media (min-height: 1050px) and (max-width: 1800px) {
-            & > div > div > div {
-              margin-top: 0;
-            }
           }
 
           @media (${DeviceWidth.mediaMaxSmall}) {

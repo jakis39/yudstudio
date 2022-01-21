@@ -92,9 +92,9 @@ const ProjectsPage = (props) => {
         },
         {
           autoAlpha: 0.7,
-          duration: 0.8,
+          duration: 0.6,
           ease: 'none',
-          delay: (index + 1) * 0.2,
+          delay: (index + 1) * 0.1,
           scrollTrigger: scrollTrigger(ref, index),
           clearProps: 'opacity',
         }
@@ -109,9 +109,9 @@ const ProjectsPage = (props) => {
         },
         {
           transform: 'translateX(0)',
-          duration: 0.4,
+          duration: 0.3,
           ease: 'none',
-          delay: (index + 1) * 0.2,
+          delay: (index + 1) * 0.1,
           scrollTrigger: scrollTrigger(ref, index),
         }
       );
@@ -122,9 +122,9 @@ const ProjectsPage = (props) => {
         },
         {
           autoAlpha: 1,
-          duration: 0.3,
+          duration: 0.2,
           ease: 'none',
-          delay: (index + 1) * 0.2,
+          delay: (index + 1) * 0.1,
           scrollTrigger: scrollTrigger(ref, index),
         }
       );
