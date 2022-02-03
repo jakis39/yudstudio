@@ -19,6 +19,9 @@ function preventScroll(e) {
   return false;
 }
 
+// const HDBreakpoints = [675, 1120];
+// const FourKBreakpoints = [675, 1400];
+
 const detectVideoType = (url: string) => {
   if (url.includes('vimeo')) {
     return 'vimeo';
@@ -157,7 +160,7 @@ const ModalVideoContainer = styled.div`
   }
 `;
 
-export const VideoContainer = styled.div<{ fullHeight?: boolean; videoType: string }>`
+export const VideoContainer = styled.div<{ fullHeight?: boolean; videoType?: string }>`
   position: relative;
   border-bottom-left-radius: 35px;
   border-bottom-right-radius: 35px;

@@ -49,13 +49,20 @@ export default {
     },
     {
       name: "videoUrl",
-      title: "Video URL",
+      title: "Header Video URL",
       type: "url"
     },
     {
       name: "headerImage",
       title: "Header image",
       type: "figure"
+    },
+    {
+      name: "additionalVideoUrls",
+      title: "Additional Video URLs",
+      type: "array",
+      of: [{ type: "string" }],
+      description: "Additional videos will appear in order above the photos."
     },
     {
       name: "image",

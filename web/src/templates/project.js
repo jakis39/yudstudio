@@ -86,6 +86,7 @@ export const query = graphql`
           current
         }
       }
+      additionalVideoUrls
       image {
         _key
         crop {

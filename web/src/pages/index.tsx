@@ -183,6 +183,10 @@ const Line = styled.div`
   width: 100%;
   border-top: 2px solid ${theme.colors.black};
   opacity: 0;
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    border-width: 1px;
+  }
 `;
 
 const ProjectLink = styled(Link)`

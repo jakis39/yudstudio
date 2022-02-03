@@ -12,6 +12,7 @@ import { theme } from '../styles/theme';
 import Container from './container';
 import PhotoGrid from './photo-grid';
 import ResponsiveVideoContainer, { VideoContainer } from './ResponsiveVideoContainer';
+import VideoGrid from './video-grid';
 
 import ArrowRight from '../images/arrow-right.svg';
 
@@ -34,6 +35,7 @@ function Project(props: ProjectProps) {
     title,
     videoUrl,
     headerImage,
+    additionalVideoUrls,
     excerpt,
     contributors,
   } = project;
@@ -159,7 +161,9 @@ function Project(props: ProjectProps) {
           {excerpt && <Description addSpacing={clientLogo && excerpt}>{excerpt}</Description>}
         </TopContent>
 
-        <PhotoGrid images={images} />
+        {additionalVideoUrls && <VideoGrid urls={additionalVideoUrls} />}
+
+        {images && <PhotoGrid images={images} />}
 
         <BottomContentContainer wide short>
           <StyledDL>
