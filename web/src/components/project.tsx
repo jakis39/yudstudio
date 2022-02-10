@@ -41,6 +41,13 @@ function Project(props: ProjectProps) {
   } = project;
   const images: Array<any> = project.image;
 
+  let headerVideo = videoUrl;
+
+  if ((!images || images.length === 0) && !videoUrl && additionalVideoUrls.length) {
+    const randomIndex = Math.floor(Math.random() * additionalVideoUrls.length);
+    headerVideo = additionalVideoUrls[randomIndex];
+  }
+
   function generateContributorString(contributor) {
     let contributorString = '';
     if (contributor.people?.length) {
@@ -141,8 +148,8 @@ function Project(props: ProjectProps) {
   return (
     <article id="scrollable">
       <SimpleReactLightbox>
-        {videoUrl && (
-          <ResponsiveVideoContainer videoUrl={videoUrl}>{titleBlock}</ResponsiveVideoContainer>
+        {headerVideo && (
+          <ResponsiveVideoContainer videoUrl={headerVideo}>{titleBlock}</ResponsiveVideoContainer>
         )}
 
         {!videoUrl && headerImage && (
