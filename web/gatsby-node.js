@@ -32,7 +32,7 @@ async function createProjectPages(graphql, actions) {
     .forEach((edge) => {
       const id = edge.node.id;
       const slug = edge.node.slug.current;
-      const path = `/work/${slug}/`;
+      const path = `/${slug}/`;
 
       createPage({
         path,

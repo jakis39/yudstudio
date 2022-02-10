@@ -5,39 +5,14 @@ import GraphQLErrorList from '../components/graphql-error-list';
 import Project from '../components/project';
 import SEO from '../components/seo';
 import Layout from '../containers/layout';
+import { mapEdgesToNodes, filterOutDocsWithoutSlugs } from '../lib/helpers';
 
 export const query = graphql`
   query ProjectTemplateQuery($id: String!) {
     project: sanityProject(id: { eq: $id }) {
       id
-      title
-      slug {
-        current
-      }
-      publishedAt
-      videoUrl
-      excerpt
-      contributors {
-        _key
-        role {
-          title
-        }
-        contributors
-        people {
-          name
-          slug {
-            current
-          }
-        }
-      }
-      relatedProjects {
-        title
-        _id
-        slug {
-          current
-        }
-      }
-      image {
+      clientName
+      clientLogo {
         _key
         crop {
           _key
@@ -60,6 +35,96 @@ export const query = graphql`
         }
         alt
       }
+      title
+      projectDate
+      slug {
+        current
+      }
+      publishedAt
+      videoUrl
+      headerImage {
+        _key
+        crop {
+          _key
+          _type
+          top
+          bottom
+          left
+          right
+        }
+        hotspot {
+          _key
+          _type
+          x
+          y
+          height
+          width
+        }
+        asset {
+          _id
+        }
+        alt
+      }
+      excerpt
+      contributors {
+        _key
+        role {
+          title
+        }
+        contributors
+        people {
+          name
+          slug {
+            current
+          }
+        }
+      }
+      relatedProjects {
+        title
+        _id
+        slug {
+          current
+        }
+      }
+      additionalVideoUrls
+      image {
+        _key
+        crop {
+          _key
+          _type
+          top
+          bottom
+          left
+          right
+        }
+        hotspot {
+          _key
+          _type
+          x
+          y
+          height
+          width
+        }
+        asset {
+          _id
+        }
+        alt
+        displayWidth
+      }
+    }
+    projects: allSanityProject(
+      limit: 100
+      sort: { fields: [publishedAt], order: DESC }
+      filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
+    ) {
+      edges {
+        node {
+          id
+          slug {
+            current
+          }
+        }
+      }
     }
   }
 `;
@@ -67,6 +132,27 @@ export const query = graphql`
 const ProjectTemplate = (props) => {
   const { data, errors } = props;
   const project = data && data.project;
+
+  let previousLink;
+  let nextLink;
+
+  function findPreviousAndNextLinks(data) {
+    const projectNodes =
+      data && data.projects && mapEdgesToNodes(data.projects).filter(filterOutDocsWithoutSlugs);
+
+    const currentProjectIndex = projectNodes?.findIndex((node) => node.id === project.id);
+
+    if (currentProjectIndex !== -1) {
+      const previousProject = projectNodes[currentProjectIndex - 1];
+      const nextProject = projectNodes[currentProjectIndex + 1];
+
+      previousLink = previousProject ? `/${previousProject.slug.current}` : undefined;
+      nextLink = nextProject ? `/${nextProject.slug.current}` : undefined;
+    }
+  }
+
+  findPreviousAndNextLinks(data);
+
   return (
     <Layout centered>
       {errors && <SEO title="GraphQL Error" />}
@@ -77,7 +163,7 @@ const ProjectTemplate = (props) => {
           <GraphQLErrorList errors={errors} />
         </Container>
       )}
-      {project && <Project {...project} />}
+      {project && <Project project={project} linkToPrevious={previousLink} linkToNext={nextLink} />}
     </Layout>
   );
 };

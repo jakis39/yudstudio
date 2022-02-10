@@ -6,19 +6,16 @@ import Layout from '../containers/layout';
 import MainPage from '../components/main-page';
 
 export const query = graphql`
-  query ShopPageQuery {
+  query IndexPageQuery {
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
-      shopText
-      contactInfo {
-        instagram
-        email
-      }
+      description
+      keywords
     }
   }
 `;
 
-const ShopPage = (props) => {
+const AboutPage = (props) => {
   const { data, errors } = props;
 
   if (errors) {
@@ -38,11 +35,11 @@ const ShopPage = (props) => {
   }
 
   return (
-    <Layout>
-      <SEO title={site.title} />
-      <MainPage header={site.shopText} contactInfo={site.contactInfo} />
+    <Layout isDark>
+      <SEO title={site.title} description={site.description} keywords={site.keywords} />
+      <MainPage title={site.title} blurb={site.description} />
     </Layout>
   );
 };
 
-export default ShopPage;
+export default AboutPage;
