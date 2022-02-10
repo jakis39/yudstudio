@@ -153,20 +153,22 @@ const ContactPage = (props) => {
                 />
               </ContactInfo>
 
-              <MessageWrapper>
-                <StyledTextarea
-                  name="message"
-                  placeholder="Message"
-                  aria-label="Message"
-                  required
-                ></StyledTextarea>
-                <div>
-                  <StatusMessage error={submissionError}>{statusMessage}</StatusMessage>
-                  <SendButton type="submit" disabled={isSubmitting}>
-                    Send
-                  </SendButton>
-                </div>
-              </MessageWrapper>
+              <div>
+                <MessageWrapper>
+                  <StyledTextarea
+                    name="message"
+                    placeholder="*Message"
+                    aria-label="Message"
+                    required
+                  ></StyledTextarea>
+                  <div>
+                    <StatusMessage error={submissionError}>{statusMessage}</StatusMessage>
+                    <SendButton type="submit" disabled={isSubmitting}>
+                      Send
+                    </SendButton>
+                  </div>
+                </MessageWrapper>
+              </div>
             </FormWrapper>
           </form>
         </Wrapper>
@@ -229,6 +231,15 @@ const ContactText = styled.div`
 const MessageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
+  padding: ${theme.space(2.5)};
+  padding-bottom: 0;
+  border: 2px solid ${theme.colors.black};
+  border-radius: 10px;
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    border-width: 1px;
+  }
 
   > div {
     display: flex;
@@ -261,12 +272,12 @@ const ContactInfo = styled.div`
 const StyledTextarea = styled.textarea`
   ${font('interface18')};
   background: none;
-  border: 2px solid ${theme.colors.black};
-  border-radius: 10px;
-  padding: ${theme.space(2)};
+  border: none;
+  outline: none;
+  /* padding: ${theme.space(2)}; */
   width: 100%;
   flex-grow: 1;
-  resize: vertical;
+  resize: none;
   max-height: 500px;
 
   @media (${DeviceWidth.mediaMaxLarge}) {
@@ -291,25 +302,18 @@ const SendButton = styled.button`
   ${font('interface20')};
   display: block;
   background: none;
-  border: 2px solid ${theme.colors.black};
-  border-radius: 50px;
-  padding: ${theme.space(1.25)} ${theme.space(3)};
+  border: none;
+  padding: 0;
+  margin-bottom: ${theme.space(2)};
   cursor: pointer;
+  opacity: 50%;
 
-  @media (hover: hover) {
-    opacity: 80%;
-
-    &:hover {
-      opacity: 100%;
-    }
+  &:hover,
+  &:active {
+    opacity: 100%;
   }
 
   &:disabled {
     opacity: 30%;
-  }
-
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    border-width: 1px;
-    padding: ${theme.space(0.75)} ${theme.space(1.5)};
   }
 `;
