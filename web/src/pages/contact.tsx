@@ -162,12 +162,12 @@ const ContactPage = (props) => {
                     required
                   ></StyledTextarea>
                   <div>
-                    <StatusMessage error={submissionError}>{statusMessage}</StatusMessage>
                     <SendButton type="submit" disabled={isSubmitting}>
                       Send
                     </SendButton>
                   </div>
                 </MessageWrapper>
+                <StatusMessage error={submissionError}>{statusMessage}</StatusMessage>
               </div>
             </FormWrapper>
           </form>
@@ -183,7 +183,11 @@ const Wrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+
+  @media (${DeviceWidth.mediaMaxSmall}) {
+    justify-content: center;
+  }
 `;
 
 const FormWrapper = styled.div`
@@ -243,6 +247,7 @@ const MessageWrapper = styled.div`
 
   > div {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
     margin-top: ${theme.space(2)};
   }
@@ -292,6 +297,7 @@ const StyledTextarea = styled.textarea`
 const StatusMessage = styled.div<{ error?: boolean }>`
   ${font('body18')};
   flex-grow: 1;
+  margin-top: ${theme.space(2)};
 
   ${({ error }) => css`
     color: ${error ? '#ee5253' : '#1dd1a1'};
