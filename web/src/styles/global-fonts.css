@@ -39,6 +39,7 @@
   --font-title48-size: calc(48 / var(--unit) * 1rem); /* 48px */
   --font-title48-line-height: calc(64 / 48);
 
+  /* @media (${DeviceWidth.mediaMaxSmall}) { */
   @media ('max-width: 449px') {
     --font-base-size: 1em; /* 16px */
     --font-base-line-height: calc(24 / var(--unit)); /* 24px */
