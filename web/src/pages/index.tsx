@@ -82,6 +82,7 @@ const ProjectsPage = (props) => {
       trigger: ref,
       start: 'top bottom',
       toggleActions: 'play',
+      once: true,
     });
 
     projectLinksRefs.current.forEach((ref, index) => {

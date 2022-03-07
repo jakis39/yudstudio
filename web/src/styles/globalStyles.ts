@@ -18,13 +18,17 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    overflow: auto;
   }
 
   html,
   body,
   body > div#___gatsby,
   body > div#___gatsby > div {
-    height: 100%;
+     min-height: 100%;
+     display: flex;
+     flex-direction: column;
+     flex-grow: 1;
   }
 `;
 

@@ -97,6 +97,7 @@ function Project(props: ProjectProps) {
       trigger: ref,
       start: 'top bottom',
       toggleActions: 'play',
+      once: true,
     });
 
     contributorRefs.current.forEach((ref, index) => {
