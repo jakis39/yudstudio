@@ -181,7 +181,7 @@ const ProjectList = styled.ul`
 
 const Line = styled.div`
   width: 100%;
-  border-top: 2px solid ${theme.colors.black};
+  border-top: 2px solid ${theme.palette.textColor};
   opacity: 0;
 
   @media (${DeviceWidth.mediaMaxSmall}) {
@@ -194,7 +194,7 @@ const ProjectLink = styled(Link)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${theme.colors.black};
+  color: ${theme.palette.textColor};
   padding: ${theme.space(4)} ${theme.space(3)};
   cursor: pointer;
 

@@ -30,7 +30,7 @@ const Layout = (props: LayoutProps) => {
 
       <PageWrapper>
         <Header isDark={isDark} />
-        <Content>{children}</Content>
+        <Content id="pageContent">{children}</Content>
 
         <FooterContainer wide short row>
           <Footer>
@@ -78,7 +78,7 @@ const Footer = styled.footer`
   padding-bottom: 2rem;
   padding-top: 2em;
 
-  border-top: 2px solid ${theme.colors.black};
+  border-top: 2px solid ${theme.palette.textColor};
 
   .footerText {
     flex-grow: 1;
@@ -100,7 +100,7 @@ const Footer = styled.footer`
 const FooterLink = styled.a`
   ${font('body18')}
   font-style: normal;
-  color: ${theme.colors.black};
+  color: ${theme.palette.textColor};
   text-decoration: none;
   margin-left: ${theme.space(3)};
 `;

@@ -5,7 +5,15 @@ export const theme = {
     black: '#000000',
     white: '#ffffff',
     gray: '#a6a6a6',
+    lightGray: '#cccccc',
     offWhite: '#ededed',
+  },
+  get palette() {
+    return {
+      backgroundColor: this.colors.offWhite,
+      textColor: this.colors.black,
+      videoPlaceholderColor: this.colors.lightGray,
+    };
   },
   space: (multiplier) => `${multiplier * baseSpacing}px`,
 };

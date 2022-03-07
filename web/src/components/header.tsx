@@ -7,20 +7,23 @@ import Navigation from './navigation';
 import { DeviceWidth } from '../styles/mediaQueries';
 import { theme } from '../styles/theme';
 import styled from 'styled-components';
-
+import useBackgroundColourLightness from '../lib/useBackgroundColourLightness';
 export interface HeaderProps {
   isDark?: boolean;
 }
 
 const Header = (props: HeaderProps) => {
   const { isDark } = props;
+  const backgroundIsDark = useBackgroundColourLightness();
+  const useDarkColour = isDark || !backgroundIsDark;
 
   return (
     <HeaderContainer>
       <Branding to="/">
-        <img src={isDark ? logoBlack : logoWhite} />
+        <img src={logoWhite} style={{ opacity: useDarkColour ? 0 : 1 }} />
+        <img src={logoBlack} style={{ opacity: useDarkColour ? 1 : 0 }} />
       </Branding>
-      <Navigation isDark={isDark} />
+      <Navigation isDark={useDarkColour} />
     </HeaderContainer>
   );
 };
@@ -28,7 +31,7 @@ const Header = (props: HeaderProps) => {
 export default Header;
 
 const HeaderContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -52,9 +55,12 @@ const HeaderContainer = styled.div`
 
 const Branding = styled(Link)`
   height: ${theme.space(5)};
+  position: relative;
 
   img {
     height: 100%;
+    position: absolute;
+    transition: opacity 200ms linear;
   }
 
   @media (${DeviceWidth.mediaMaxSmall}) {

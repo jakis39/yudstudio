@@ -282,8 +282,9 @@ const LogoContainer = styled.div`
   }
 `;
 
-const Description = styled.div<{ addSpacing: boolean }>`
+const Description = styled.p<{ addSpacing: boolean }>`
   ${font('body24')};
+  margin: 0;
 
   ${({ addSpacing }) =>
     addSpacing &&
@@ -313,7 +314,7 @@ const StyledDL = styled.dl`
 const Row = styled.div`
   ${font('interface20')};
   display: flex;
-  color: ${theme.colors.black};
+  color: ${theme.palette.textColor};
   padding: ${theme.space(1)} 0;
 
   @media (${DeviceWidth.mediaMinSmall}) {
@@ -337,7 +338,7 @@ const ContributorRow = styled(Row)`
 const Divider = styled.div`
   height: 1px;
   width: 100%;
-  background-color: ${theme.colors.black};
+  background-color: ${theme.palette.textColor};
 
   @media (${DeviceWidth.mediaMinSmall}) {
     height: 2px;
@@ -351,7 +352,7 @@ const ButtonRow = styled(Row)`
 
 const LinkStyles = css`
   ${font('interface20')};
-  color: ${theme.colors.black};
+  color: ${theme.palette.textColor};
   background: none;
   border: none;
 

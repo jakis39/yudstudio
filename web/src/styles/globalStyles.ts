@@ -13,8 +13,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${theme.colors.offWhite};
-    color: ${theme.colors.black};
+    background: ${theme.palette.backgroundColor};
+    color: ${theme.palette.textColor};
     margin: 0;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
