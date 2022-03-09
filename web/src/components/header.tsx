@@ -19,9 +19,19 @@ const Header = (props: HeaderProps) => {
 
   return (
     <HeaderContainer>
-      <Branding to="/">
-        <img src={logoWhite} style={{ opacity: useDarkColour ? 0 : 1 }} />
-        <img src={logoBlack} style={{ opacity: useDarkColour ? 1 : 0 }} />
+      <Branding to="/" aria-label="Home">
+        <img
+          src={logoWhite}
+          aria-hidden={useDarkColour}
+          alt="yudstudio - Home"
+          style={{ opacity: useDarkColour ? 0 : 1 }}
+        />
+        <img
+          src={logoBlack}
+          aria-hidden={!useDarkColour}
+          alt="yudstudio - Home"
+          style={{ opacity: useDarkColour ? 1 : 0 }}
+        />
       </Branding>
       <Navigation isDark={useDarkColour} />
     </HeaderContainer>

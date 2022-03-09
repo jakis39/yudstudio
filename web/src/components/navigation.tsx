@@ -195,8 +195,7 @@ const NavToggleIcon = styled.div<{ menuOpen: boolean; offset: number }>`
   }};
 
   ${DashLine}:last-child {
-    transition: height 200ms ease-in-out, width 200ms ease-in-out, left 200ms ease-in-out,
-      top 200ms ease-in-out, background-color 200ms linear;
+    transition: all 200ms ease-in-out, background-color 200ms linear;
     width: var(--line-width);
     left: calc(50% - 1px);
 
