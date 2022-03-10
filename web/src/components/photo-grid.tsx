@@ -71,7 +71,7 @@ const PhotoGrid = (props: PhotoGridProps) => {
       <GridContainer>
         {images.map((image) => (
           <a key={image._key} href={imageUrlFor(buildImageObj(image)).url()} ref={addPhotoRef}>
-            <img src={imageUrlFor(buildImageObj(image)).url()} alt={image.alt} />
+            <img src={imageUrlFor(buildImageObj(image)).url()} alt={image.alt || ''} />
           </a>
         ))}
       </GridContainer>

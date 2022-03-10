@@ -40,7 +40,7 @@ const Header = (props: HeaderProps) => {
 
 export default Header;
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   left: 0;

@@ -154,7 +154,7 @@ const ProjectsPage = (props) => {
                       <span>
                         {project.clientName}: {project.title}
                       </span>
-                      <img src={ArrowRight} />
+                      <img src={ArrowRight} alt="" />
                     </ProjectLink>
                   </li>
                 ))}

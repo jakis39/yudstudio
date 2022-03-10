@@ -59,7 +59,7 @@ const PageWrapper = styled.div`
   flex-grow: 1;
 `;
 
-const Content = styled.div`
+const Content = styled.main`
   flex-grow: 1;
   display: flex;
   flex-direction: column;

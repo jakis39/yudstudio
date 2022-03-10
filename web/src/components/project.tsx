@@ -163,7 +163,10 @@ function Project(props: ProjectProps) {
         <TopContent>
           {clientLogo && (
             <LogoContainer>
-              <img src={imageUrlFor(buildImageObj(clientLogo)).url()} alt={clientLogo.alt} />
+              <img
+                src={imageUrlFor(buildImageObj(clientLogo)).url()}
+                alt={clientLogo.alt || "Client's logo"}
+              />
             </LogoContainer>
           )}
           {excerpt && <Description addSpacing={clientLogo && excerpt}>{excerpt}</Description>}
@@ -180,13 +183,13 @@ function Project(props: ProjectProps) {
               contributors.map((contributor) => {
                 let contributorString = generateContributorString(contributor);
                 return (
-                  <div key={contributor._key}>
-                    <ContributorRow ref={addToContributorRefs}>
+                  <>
+                    <ContributorRow ref={addToContributorRefs} key={contributor._key}>
                       <dt>{contributor.role.title}</dt>
                       <dd>{contributorString}</dd>
                     </ContributorRow>
-                    <Divider ref={addToDividerRefs} />
-                  </div>
+                    <Divider ref={addToDividerRefs} key={contributor._key} />
+                  </>
                 );
               })}
           </StyledDL>
@@ -194,14 +197,14 @@ function Project(props: ProjectProps) {
           <ButtonRow>
             {linkToPrevious && (
               <PreviousLink to={linkToPrevious}>
-                <img src={ArrowRight} />
+                <img src={ArrowRight} alt="" />
                 Previous
               </PreviousLink>
             )}
             {linkToNext && (
               <NextLink to={linkToNext}>
                 Next
-                <img src={ArrowRight} />
+                <img src={ArrowRight} alt="" />
               </NextLink>
             )}
           </ButtonRow>
