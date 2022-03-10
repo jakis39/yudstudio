@@ -189,6 +189,7 @@ export const VideoContainer = styled.div<{ fullHeight?: boolean; videoType?: str
           @media (${DeviceWidth.mediaMinSmall}) {
             height: 60vh;
             max-height: 830px;
+            min-height: 400px;
           }
           ${videoType === 'youtube'
             ? css`
