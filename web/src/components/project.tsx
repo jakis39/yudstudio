@@ -183,13 +183,11 @@ function Project(props: ProjectProps) {
               contributors.map((contributor) => {
                 let contributorString = generateContributorString(contributor);
                 return (
-                  <>
-                    <ContributorRow ref={addToContributorRefs} key={contributor._key}>
-                      <dt>{contributor.role.title}</dt>
-                      <dd>{contributorString}</dd>
-                    </ContributorRow>
-                    <Divider ref={addToDividerRefs} key={contributor._key} />
-                  </>
+                  <ContributorRow ref={addToContributorRefs} key={contributor._key}>
+                    <dt>{contributor.role.title}</dt>
+                    <dd>{contributorString}</dd>
+                    <Divider ref={addToDividerRefs} />
+                  </ContributorRow>
                 );
               })}
           </StyledDL>
@@ -315,30 +313,6 @@ const StyledDL = styled.dl`
   overflow: hidden;
 `;
 
-const Row = styled.div`
-  ${font('interface20')};
-  display: flex;
-  color: ${theme.palette.textColor};
-  padding: ${theme.space(1)} 0;
-
-  @media (${DeviceWidth.mediaMinSmall}) {
-    padding: ${theme.space(4)} ${theme.space(3)};
-  }
-`;
-
-const ContributorRow = styled(Row)`
-  @media (${DeviceWidth.mediaMinSmall}) {
-    border-width: 2px;
-  }
-
-  dt {
-    flex: 0 1 40%;
-  }
-  dd {
-    flex: 1;
-  }
-`;
-
 const Divider = styled.div`
   height: 1px;
   width: 100%;
@@ -346,6 +320,32 @@ const Divider = styled.div`
 
   @media (${DeviceWidth.mediaMinSmall}) {
     height: 2px;
+  }
+`;
+
+const Row = styled.div`
+  ${font('interface20')};
+  display: flex;
+  color: ${theme.palette.textColor};
+  padding: ${theme.space(1)} 0;
+  position: relative;
+
+  @media (${DeviceWidth.mediaMinSmall}) {
+    padding: ${theme.space(4)} ${theme.space(3)};
+  }
+
+  & ${Divider} {
+    position: absolute;
+    bottom: 0;
+  }
+`;
+
+const ContributorRow = styled(Row)`
+  dt {
+    flex: 0 1 40%;
+  }
+  dd {
+    flex: 1;
   }
 `;
 
