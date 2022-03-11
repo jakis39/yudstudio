@@ -13,22 +13,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${theme.palette.backgroundColor};
-    color: ${theme.palette.textColor};
+    background: ${theme.colors.offWhite};
+    color: ${theme.colors.black};
     margin: 0;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    overflow: auto;
   }
 
   html,
   body,
   body > div#___gatsby,
   body > div#___gatsby > div {
-     min-height: 100%;
-     display: flex;
-     flex-direction: column;
-     flex-grow: 1;
+    height: 100%;
   }
 `;
 
