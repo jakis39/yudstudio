@@ -227,7 +227,7 @@ const ContactText = styled.div`
   margin-top: ${theme.space(2)};
 
   a {
-    color: ${theme.colors.black};
+    color: ${theme.palette.textColor};
     text-decoration: none;
   }
 `;
@@ -238,7 +238,7 @@ const MessageWrapper = styled.div`
   height: 100%;
   padding: ${theme.space(2.5)};
   padding-bottom: 0;
-  border: 2px solid ${theme.colors.black};
+  border: 2px solid ${theme.palette.textColor};
   border-radius: 10px;
 
   @media (${DeviceWidth.mediaMaxSmall}) {
@@ -257,7 +257,7 @@ const StyledInput = styled.input`
   ${font('interface18')};
   background: none;
   border: none;
-  border-bottom: 2px solid ${theme.colors.black};
+  border-bottom: 2px solid ${theme.palette.textColor};
   padding: ${theme.space(2)};
 
   @media (${DeviceWidth.mediaMaxSmall}) {

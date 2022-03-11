@@ -2,9 +2,8 @@ import React from 'react';
 import Container from './container';
 import Header from './header';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import GlobalStyle from '../styles/globalStyles';
-import GlobalFonts from '../styles/globalFonts';
 import { theme } from '../styles/theme';
 import { DeviceWidth } from '../styles/mediaQueries';
 import { font } from '../styles/typography';
@@ -25,12 +24,11 @@ const Layout = (props: LayoutProps) => {
 
   return (
     <>
-      <GlobalFonts />
       <GlobalStyle />
 
       <PageWrapper>
         <Header isDark={isDark} />
-        <Content>{children}</Content>
+        <Content id="pageContent">{children}</Content>
 
         <FooterContainer wide short row>
           <Footer>
@@ -58,10 +56,10 @@ const PageWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex-grow: 1;
 `;
 
-const Content = styled.div`
+const Content = styled.main`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -78,7 +76,7 @@ const Footer = styled.footer`
   padding-bottom: 2rem;
   padding-top: 2em;
 
-  border-top: 2px solid ${theme.colors.black};
+  border-top: 2px solid ${theme.palette.textColor};
 
   .footerText {
     flex-grow: 1;
@@ -100,7 +98,7 @@ const Footer = styled.footer`
 const FooterLink = styled.a`
   ${font('body18')}
   font-style: normal;
-  color: ${theme.colors.black};
+  color: ${theme.palette.textColor};
   text-decoration: none;
   margin-left: ${theme.space(3)};
 `;

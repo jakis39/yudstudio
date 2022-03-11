@@ -77,58 +77,63 @@ const ProjectsPage = (props) => {
   };
 
   useEffect(() => {
-    const scrollTrigger = (ref, index) => ({
-      id: `section-${index + 1}`,
-      trigger: ref,
-      start: 'top bottom',
-      toggleActions: 'play',
-    });
+    if (sessionStorage.getItem('HomepageAnimationRan') !== 'true') {
+      const scrollTrigger = (ref, index) => ({
+        id: `section-${index + 1}`,
+        trigger: ref,
+        start: 'top bottom',
+        toggleActions: 'play',
+        once: true,
+      });
 
-    projectLinksRefs.current.forEach((ref, index) => {
-      gsap.fromTo(
-        ref,
-        {
-          autoAlpha: 0,
-        },
-        {
-          autoAlpha: 0.7,
-          duration: 0.6,
-          ease: 'none',
-          delay: (index + 1) * 0.1,
-          scrollTrigger: scrollTrigger(ref, index),
-          clearProps: 'opacity',
-        }
-      );
-    });
+      projectLinksRefs.current.forEach((ref, index) => {
+        gsap.fromTo(
+          ref,
+          {
+            autoAlpha: 0,
+          },
+          {
+            autoAlpha: 0.7,
+            duration: 0.6,
+            ease: 'none',
+            delay: (index + 1) * 0.1,
+            scrollTrigger: scrollTrigger(ref, index),
+            clearProps: 'opacity',
+          }
+        );
+      });
 
-    lineRefs.current.forEach((ref, index) => {
-      gsap.fromTo(
-        ref,
-        {
-          transform: 'translateX(-100%)',
-        },
-        {
-          transform: 'translateX(0)',
-          duration: 0.3,
-          ease: 'none',
-          delay: (index + 1) * 0.1,
-          scrollTrigger: scrollTrigger(ref, index),
-        }
-      );
-      gsap.fromTo(
-        ref,
-        {
-          autoAlpha: 0,
-        },
-        {
-          autoAlpha: 1,
-          duration: 0.2,
-          ease: 'none',
-          delay: (index + 1) * 0.1,
-          scrollTrigger: scrollTrigger(ref, index),
-        }
-      );
-    });
+      lineRefs.current.forEach((ref, index) => {
+        gsap.fromTo(
+          ref,
+          {
+            transform: 'translateX(-100%)',
+          },
+          {
+            transform: 'translateX(0)',
+            duration: 0.3,
+            ease: 'none',
+            delay: (index + 1) * 0.1,
+            scrollTrigger: scrollTrigger(ref, index),
+          }
+        );
+        gsap.fromTo(
+          ref,
+          {
+            autoAlpha: 0,
+          },
+          {
+            autoAlpha: 1,
+            duration: 0.2,
+            ease: 'none',
+            delay: (index + 1) * 0.1,
+            scrollTrigger: scrollTrigger(ref, index),
+          }
+        );
+      });
+
+      sessionStorage.setItem('HomepageAnimationRan', 'true');
+    }
   }, [projectLinksRefs, lineRefs]);
 
   return (
@@ -149,7 +154,7 @@ const ProjectsPage = (props) => {
                       <span>
                         {project.clientName}: {project.title}
                       </span>
-                      <img src={ArrowRight} />
+                      <img src={ArrowRight} alt="" />
                     </ProjectLink>
                   </li>
                 ))}
@@ -181,8 +186,8 @@ const ProjectList = styled.ul`
 
 const Line = styled.div`
   width: 100%;
-  border-top: 2px solid ${theme.colors.black};
-  opacity: 0;
+  border-top: 2px solid ${theme.palette.textColor};
+  opacity: 1;
 
   @media (${DeviceWidth.mediaMaxSmall}) {
     border-width: 1px;
@@ -194,7 +199,7 @@ const ProjectLink = styled(Link)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${theme.colors.black};
+  color: ${theme.palette.textColor};
   padding: ${theme.space(4)} ${theme.space(3)};
   cursor: pointer;
 
