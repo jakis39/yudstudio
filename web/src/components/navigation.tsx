@@ -137,7 +137,6 @@ const NavLink = styled.a<{ isDark: boolean }>`
   padding: 0 var(--icon-padding) 0 ${theme.space(1)};
   cursor: pointer;
   white-space: nowrap;
-  transition: color 200ms linear;
 
   @media (hover: hover) {
     opacity: 80%;
@@ -158,7 +157,6 @@ const NavToggle = styled(NavLink)`
   justify-content: flex-end;
   align-items: center;
   padding-right: 0;
-  transition: background-color 200ms linear, color 200ms linear;
 
   ${({ isDark }) =>
     css`
@@ -175,7 +173,6 @@ const DashLine = styled.div`
   position: absolute;
   top: calc(50% - var(--line-width) / 2);
   left: 0;
-  transition: background-color 200ms linear;
 `;
 
 const NavToggleIcon = styled.div<{ menuOpen: boolean; offset: number }>`
@@ -183,7 +180,7 @@ const NavToggleIcon = styled.div<{ menuOpen: boolean; offset: number }>`
   width: var(--icon-width);
   position: relative;
   margin-left: var(--icon-spacing);
-  transition: transform 200ms ease-in-out, background-color 200ms linear;
+  transition: transform 200ms ease-in-out;
 
   ${({ menuOpen, offset }) => {
     const rotate = !menuOpen ? 'rotate(90deg)' : '';
@@ -195,7 +192,7 @@ const NavToggleIcon = styled.div<{ menuOpen: boolean; offset: number }>`
   }};
 
   ${DashLine}:last-child {
-    transition: all 200ms ease-in-out, background-color 200ms linear;
+    transition: all 200ms ease-in-out;
     width: var(--line-width);
     left: calc(50% - 1px);
 

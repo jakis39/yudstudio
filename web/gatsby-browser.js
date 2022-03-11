@@ -5,9 +5,3 @@
  */
 
 // You can delete this file if you're not using it
-
-// Scroll to top of page on navigation
-exports.shouldUpdateScroll = () => {
-  window.scrollTo(0, 0);
-  return false;
-};

@@ -7,41 +7,28 @@ import Navigation from './navigation';
 import { DeviceWidth } from '../styles/mediaQueries';
 import { theme } from '../styles/theme';
 import styled from 'styled-components';
-import useBackgroundColourLightness from '../lib/useBackgroundColourLightness';
+
 export interface HeaderProps {
   isDark?: boolean;
 }
 
 const Header = (props: HeaderProps) => {
   const { isDark } = props;
-  const backgroundIsDark = useBackgroundColourLightness();
-  const useDarkColour = isDark || !backgroundIsDark;
 
   return (
     <HeaderContainer>
-      <Branding to="/" aria-label="Home">
-        <img
-          src={logoWhite}
-          aria-hidden={useDarkColour}
-          alt="yudstudio - Home"
-          style={{ opacity: useDarkColour ? 0 : 1 }}
-        />
-        <img
-          src={logoBlack}
-          aria-hidden={!useDarkColour}
-          alt="yudstudio - Home"
-          style={{ opacity: useDarkColour ? 1 : 0 }}
-        />
+      <Branding to="/">
+        <img src={isDark ? logoBlack : logoWhite} />
       </Branding>
-      <Navigation isDark={useDarkColour} />
+      <Navigation isDark={isDark} />
     </HeaderContainer>
   );
 };
 
 export default Header;
 
-const HeaderContainer = styled.header`
-  position: fixed;
+const HeaderContainer = styled.div`
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -65,12 +52,9 @@ const HeaderContainer = styled.header`
 
 const Branding = styled(Link)`
   height: ${theme.space(5)};
-  position: relative;
 
   img {
     height: 100%;
-    position: absolute;
-    transition: opacity 200ms linear;
   }
 
   @media (${DeviceWidth.mediaMaxSmall}) {

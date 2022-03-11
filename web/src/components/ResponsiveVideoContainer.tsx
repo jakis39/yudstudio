@@ -166,7 +166,7 @@ export const VideoContainer = styled.div<{ fullHeight?: boolean; videoType?: str
   border-bottom-right-radius: 35px;
   overflow: hidden;
   box-shadow: 0px 7px 16px 0px #0000004f;
-  background-color: ${theme.palette.videoPlaceholderColor};
+  background-color: #ccc;
 
   ${({ fullHeight, videoType }) =>
     fullHeight
@@ -189,7 +189,6 @@ export const VideoContainer = styled.div<{ fullHeight?: boolean; videoType?: str
           @media (${DeviceWidth.mediaMinSmall}) {
             height: 60vh;
             max-height: 830px;
-            min-height: 400px;
           }
           ${videoType === 'youtube'
             ? css`

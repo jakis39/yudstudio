@@ -70,13 +70,8 @@ const PhotoGrid = (props: PhotoGridProps) => {
     <SRLWrapper options={lightboxOptions}>
       <GridContainer>
         {images.map((image) => (
-          <a
-            key={image._key}
-            href={imageUrlFor(buildImageObj(image)).url()}
-            ref={addPhotoRef}
-            aria-label="Expand image"
-          >
-            <img src={imageUrlFor(buildImageObj(image)).url()} alt={image.alt || ''} />
+          <a key={image._key} href={imageUrlFor(buildImageObj(image)).url()} ref={addPhotoRef}>
+            <img src={imageUrlFor(buildImageObj(image)).url()} alt={image.alt} />
           </a>
         ))}
       </GridContainer>
