@@ -26,6 +26,8 @@
     "gatsby-plugin-styled-components": "^5.1.0",
     "gatsby-source-sanity": "^6.0.5",
     "gsap": "^3.9.1",
+    "html-to-image": "^1.9.0",
+    "lodash.throttle": "^4.1.1",
     "postcss": "^8.2.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
