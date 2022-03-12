@@ -97,6 +97,7 @@ function Project(props: ProjectProps) {
       trigger: ref,
       start: 'top bottom',
       toggleActions: 'play',
+      once: true,
     });
 
     contributorRefs.current.forEach((ref, index) => {
@@ -162,7 +163,10 @@ function Project(props: ProjectProps) {
         <TopContent>
           {clientLogo && (
             <LogoContainer>
-              <img src={imageUrlFor(buildImageObj(clientLogo)).url()} alt={clientLogo.alt} />
+              <img
+                src={imageUrlFor(buildImageObj(clientLogo)).url()}
+                alt={clientLogo.alt || "Client's logo"}
+              />
             </LogoContainer>
           )}
           {excerpt && <Description addSpacing={clientLogo && excerpt}>{excerpt}</Description>}
@@ -179,13 +183,11 @@ function Project(props: ProjectProps) {
               contributors.map((contributor) => {
                 let contributorString = generateContributorString(contributor);
                 return (
-                  <div key={contributor._key}>
-                    <ContributorRow ref={addToContributorRefs}>
-                      <dt>{contributor.role.title}</dt>
-                      <dd>{contributorString}</dd>
-                    </ContributorRow>
+                  <ContributorRow ref={addToContributorRefs} key={contributor._key}>
+                    <dt>{contributor.role.title}</dt>
+                    <dd>{contributorString}</dd>
                     <Divider ref={addToDividerRefs} />
-                  </div>
+                  </ContributorRow>
                 );
               })}
           </StyledDL>
@@ -193,14 +195,14 @@ function Project(props: ProjectProps) {
           <ButtonRow>
             {linkToPrevious && (
               <PreviousLink to={linkToPrevious}>
-                <img src={ArrowRight} />
+                <img src={ArrowRight} alt="" />
                 Previous
               </PreviousLink>
             )}
             {linkToNext && (
               <NextLink to={linkToNext}>
                 Next
-                <img src={ArrowRight} />
+                <img src={ArrowRight} alt="" />
               </NextLink>
             )}
           </ButtonRow>
@@ -282,8 +284,9 @@ const LogoContainer = styled.div`
   }
 `;
 
-const Description = styled.div<{ addSpacing: boolean }>`
+const Description = styled.p<{ addSpacing: boolean }>`
   ${font('body24')};
+  margin: 0;
 
   ${({ addSpacing }) =>
     addSpacing &&
@@ -310,37 +313,39 @@ const StyledDL = styled.dl`
   overflow: hidden;
 `;
 
+const Divider = styled.div`
+  height: 1px;
+  width: 100%;
+  background-color: ${theme.palette.textColor};
+
+  @media (${DeviceWidth.mediaMinSmall}) {
+    height: 2px;
+  }
+`;
+
 const Row = styled.div`
   ${font('interface20')};
   display: flex;
-  color: ${theme.colors.black};
+  color: ${theme.palette.textColor};
   padding: ${theme.space(1)} 0;
+  position: relative;
 
   @media (${DeviceWidth.mediaMinSmall}) {
     padding: ${theme.space(4)} ${theme.space(3)};
   }
+
+  & ${Divider} {
+    position: absolute;
+    bottom: 0;
+  }
 `;
 
 const ContributorRow = styled(Row)`
-  @media (${DeviceWidth.mediaMinSmall}) {
-    border-width: 2px;
-  }
-
   dt {
     flex: 0 1 40%;
   }
   dd {
     flex: 1;
-  }
-`;
-
-const Divider = styled.div`
-  height: 1px;
-  width: 100%;
-  background-color: ${theme.colors.black};
-
-  @media (${DeviceWidth.mediaMinSmall}) {
-    height: 2px;
   }
 `;
 
@@ -351,7 +356,7 @@ const ButtonRow = styled(Row)`
 
 const LinkStyles = css`
   ${font('interface20')};
-  color: ${theme.colors.black};
+  color: ${theme.palette.textColor};
   background: none;
   border: none;
 
