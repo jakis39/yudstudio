@@ -19,7 +19,7 @@ export interface LayoutProps {
 }
 
 const Layout = (props: LayoutProps) => {
-  const { children, siteTitle, contactInfo = {}, isDark } = props;
+  const { children, contactInfo = {}, isDark } = props;
 
   const { instagram, email } = contactInfo;
 
