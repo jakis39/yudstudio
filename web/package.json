@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "sanity-gatsby-portfolio-web",
+  "name": "yudstudio-web",
   "version": "1.0.2",
-  "author": "Sanity <hello@sanity.io>",
+  "author": "Jake Nusca <jakis30@gmail.com>",
   "scripts": {
     "build": "gatsby build",
     "clean-cache": "gatsby clean",

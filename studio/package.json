@@ -1,9 +1,9 @@
 {
   "private": true,
-  "name": "sanity-gatsby-portfolio-studio",
+  "name": "yudstudio-studio",
   "version": "1.0.6",
   "main": "package.json",
-  "author": "Sanity <hello@sanity.io>",
+  "author": "Jake Nusca <jakis30@gmail.com>",
   "scripts": {
     "dev": "sanity start",
     "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\"",
