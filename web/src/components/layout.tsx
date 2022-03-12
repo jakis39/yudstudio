@@ -3,6 +3,7 @@ import Container from './container';
 import Header from './header';
 
 import styled from 'styled-components';
+import GlobalFonts from '../styles/globalFonts';
 import GlobalStyle from '../styles/globalStyles';
 import { theme } from '../styles/theme';
 import { DeviceWidth } from '../styles/mediaQueries';
@@ -18,12 +19,13 @@ export interface LayoutProps {
 }
 
 const Layout = (props: LayoutProps) => {
-  const { children, siteTitle, contactInfo = {}, isDark } = props;
+  const { children, contactInfo = {}, isDark } = props;
 
   const { instagram, email } = contactInfo;
 
   return (
     <>
+      <GlobalFonts />
       <GlobalStyle />
 
       <PageWrapper>
