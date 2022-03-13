@@ -2,6 +2,7 @@ import React from 'react';
 import Container from './container';
 import Header from './header';
 
+import '../styles/global-fonts.css';
 import styled from 'styled-components';
 import GlobalFonts from '../styles/globalFonts';
 import GlobalStyle from '../styles/globalStyles';
@@ -25,7 +26,6 @@ const Layout = (props: LayoutProps) => {
 
   return (
     <>
-      <GlobalFonts />
       <GlobalStyle />
 
       <PageWrapper>
