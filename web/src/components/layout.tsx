@@ -2,8 +2,8 @@ import React from 'react';
 import Container from './container';
 import Header from './header';
 
+import '../styles/global-fonts.css';
 import styled from 'styled-components';
-import GlobalFonts from '../styles/globalFonts';
 import GlobalStyle from '../styles/globalStyles';
 import { theme } from '../styles/theme';
 import { DeviceWidth } from '../styles/mediaQueries';
@@ -25,7 +25,6 @@ const Layout = (props: LayoutProps) => {
 
   return (
     <>
-      <GlobalFonts />
       <GlobalStyle />
 
       <PageWrapper>
