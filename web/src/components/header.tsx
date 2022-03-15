@@ -50,6 +50,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   margin: 0 auto;
   z-index: 999;
+  pointer-events: none;
 
   padding: ${theme.space(6)} ${theme.space(6)} 1.5rem;
 
@@ -66,6 +67,7 @@ const HeaderContainer = styled.header`
 const Branding = styled(Link)`
   height: ${theme.space(5)};
   position: relative;
+  pointer-events: auto;
 
   img {
     height: 100%;

@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
 import { DeviceWidth } from '../styles/mediaQueries';
 import { theme } from '../styles/theme';
@@ -9,17 +8,10 @@ export interface ContainerProps {
   grow?: boolean;
   row?: boolean;
   addHeaderPadding?: boolean;
-  children: any;
+  clickThrough?: boolean;
 }
 
-const Container = (props: ContainerProps) => {
-  const { children, ...rest } = props;
-  return <Cntnr {...rest}>{children}</Cntnr>;
-};
-
-export default Container;
-
-const Cntnr = styled.div<Omit<ContainerProps, 'children'>>`
+const Container = styled.div<ContainerProps>`
   box-sizing: border-box;
   max-width: 960px;
   padding: 1.5em;
@@ -86,4 +78,12 @@ const Cntnr = styled.div<Omit<ContainerProps, 'children'>>`
         padding-top: ${theme.space(18)};
       }
     `}
+
+    ${({ clickThrough }) =>
+    clickThrough &&
+    css`
+      pointer-events: none;
+    `}
 `;
+
+export default Container;
