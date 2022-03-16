@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import GraphQLErrorList from '../components/graphql-error-list';
 import SEO from '../components/seo';
 import Layout from '../containers/layout';
-import MainPage from '../components/main-page';
+import AboutContent from '../components/about-content';
 
 export const query = graphql`
   query IndexPageQuery {
@@ -37,7 +37,7 @@ const AboutPage = (props) => {
   return (
     <Layout isDark>
       <SEO title={site.title} description={site.description} keywords={site.keywords} />
-      <MainPage title={site.title} blurb={site.description} />
+      <AboutContent title={site.title} blurb={site.description} />
     </Layout>
   );
 };

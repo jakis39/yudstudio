@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
-import Container from '../components/container';
 import styled from 'styled-components';
-import { font } from '../styles/typography';
-import { theme } from '../styles/theme';
-import { DeviceWidth } from '../styles/mediaQueries';
 import { useRef } from 'react';
 import {
   Engine,
@@ -16,22 +12,69 @@ import {
   Mouse,
   MouseConstraint,
 } from 'matter-js';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
-export interface MainPageProps {
-  title?: string;
-  blurb?: string;
+export interface BouncingHeadsProps {
+  obstacles?: Array<HTMLElement>;
 }
 
 const SHAPE_BOUNCINESS = 0.6;
+const GRAVITY_Y = 0.5;
 
-const MainPage = (props) => {
-  const { title, blurb } = props;
+const BouncingHeads = (props: BouncingHeadsProps) => {
+  const { obstacles } = props;
   const scene = useRef(null);
-  const titleBlock = useRef(null);
-  const textBlock = useRef(null);
+  const { width, height } = useWindowDimensions({
+    debounce: true,
+  });
+
+  function addWorldBounds(world, containerWidth, containerHeight) {
+    // Add walls
+    Composite.add(world, [
+      Bodies.rectangle(containerWidth / 2, -25, containerWidth, 50, {
+        isStatic: true,
+        render: { fillStyle: 'transparent' },
+      }),
+      Bodies.rectangle(-25, containerHeight / 2, 50, containerHeight, {
+        isStatic: true,
+        render: { fillStyle: 'transparent' },
+      }),
+      Bodies.rectangle(containerWidth / 2, containerHeight + 25, containerWidth, 50, {
+        isStatic: true,
+        render: { fillStyle: 'transparent' },
+      }),
+      Bodies.rectangle(containerWidth + 25, containerHeight / 2, 50, containerHeight, {
+        isStatic: true,
+        render: { fillStyle: 'transparent' },
+      }),
+    ]);
+  }
+
+  function addDOMObstacle(world, element: HTMLElement) {
+    if (!element) {
+      return;
+    }
+    const elementRect = element.getBoundingClientRect(),
+      elementWidth = element.offsetWidth,
+      elementHeight = element.offsetHeight;
+
+    Composite.add(world, [
+      Bodies.rectangle(
+        elementRect.x + elementWidth / 2,
+        elementRect.y + elementHeight / 2,
+        elementWidth,
+        elementHeight,
+        {
+          isStatic: true,
+          render: { fillStyle: 'transparent' },
+        }
+      ),
+    ]);
+  }
 
   useEffect(() => {
-    // mount
+    console.log('Setting up', obstacles);
+
     let containerWidth = document.body.clientWidth;
     let containerHeight = document.body.clientHeight;
 
@@ -42,13 +85,11 @@ const MainPage = (props) => {
 
     const shapeSize = Math.min(containerWidth, containerHeight) / 4;
 
-    console.log(containerWidth, containerHeight);
-
     // create engine
     var engine = Engine.create(),
       world = engine.world;
 
-    engine.gravity.y = 0.5;
+    engine.gravity.y = GRAVITY_Y;
 
     // create renderer
     var render = Render.create({
@@ -70,48 +111,10 @@ const MainPage = (props) => {
     var runner = Runner.create();
     Runner.run(runner, engine);
 
-    // Add walls
-    Composite.add(world, [
-      Bodies.rectangle(containerWidth / 2, -25, containerWidth, 50, {
-        isStatic: true,
-        render: { fillStyle: 'transparent' },
-      }),
-      Bodies.rectangle(-25, containerHeight / 2, 50, containerHeight, {
-        isStatic: true,
-        render: { fillStyle: 'transparent' },
-      }),
-      Bodies.rectangle(containerWidth / 2, containerHeight + 25, containerWidth, 50, {
-        isStatic: true,
-        render: { fillStyle: 'transparent' },
-      }),
-      Bodies.rectangle(containerWidth + 25, containerHeight / 2, 50, containerHeight, {
-        isStatic: true,
-        render: { fillStyle: 'transparent' },
-      }),
-    ]);
+    addWorldBounds(world, containerWidth, containerHeight);
 
     // Add DOM obstacles
-    function addDOMObstacle(element) {
-      const elementRect = element.getBoundingClientRect(),
-        elementWidth = element.offsetWidth,
-        elementHeight = element.offsetHeight;
-
-      Composite.add(world, [
-        Bodies.rectangle(
-          elementRect.x + elementWidth / 2,
-          elementRect.y + elementHeight / 2,
-          elementWidth,
-          elementHeight,
-          {
-            isStatic: true,
-            render: { fillStyle: 'yellow' },
-          }
-        ),
-      ]);
-    }
-
-    addDOMObstacle(titleBlock.current);
-    addDOMObstacle(textBlock.current);
+    obstacles?.forEach((obstacle) => addDOMObstacle(world, obstacle));
 
     // Add bodies
     var stack = Composites.stack(
@@ -168,6 +171,7 @@ const MainPage = (props) => {
         //   },
         // },
       });
+    mouse.pixelRatio = window.devicePixelRatio;
     mouseConstraint.constraint.render.visible = false;
     mouseConstraint.constraint.stiffness = 0.2;
     // mouseConstraint.constraint.damping = 1;
@@ -177,14 +181,15 @@ const MainPage = (props) => {
     // keep the mouse in sync with rendering
     render.mouse = mouse;
 
-    // // fit the render viewport to the scene
-    // Render.lookAt(render, {
-    //   min: { x: 0, y: 0 },
-    //   max: { x: 800, y: 600 },
-    // });
+    // fit the render viewport to the scene
+    Render.lookAt(render, {
+      min: { x: 0, y: 0 },
+      max: { x: containerWidth, y: containerHeight },
+    });
 
     // unmount
     return () => {
+      console.log('teardown');
       // destroy Matter
       Render.stop(render);
       World.clear(engine.world, false);
@@ -194,63 +199,17 @@ const MainPage = (props) => {
       render.context = null;
       render.textures = {};
     };
-  }, []);
+  }, [obstacles, width, height]);
 
-  return (
-    <>
-      <MatterContainer ref={scene}></MatterContainer>
-      <Container wide short grow addHeaderPadding clickThrough>
-        <Wrapper>
-          <Title ref={titleBlock}>{title}</Title>
-          <Blurb ref={textBlock}>{blurb}</Blurb>
-        </Wrapper>
-      </Container>
-    </>
-  );
+  return <MatterContainer ref={scene}></MatterContainer>;
 };
 
-export default MainPage;
+export default BouncingHeads;
 
 const MatterContainer = styled.div`
   position: absolute;
-  /* background-color: yellowgreen; */
   height: 100%;
   width: 100%;
   top: 0;
   left: 0;
-`;
-
-const Wrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: start;
-  max-width: 580px;
-  pointer-events: none;
-
-  @media (${DeviceWidth.mediaMaxSmall}) {
-    padding-top: ${theme.space(12)};
-  }
-
-  @media (${DeviceWidth.mediaMinSmall}) {
-    padding-left: ${theme.space(2)};
-    /* justify-content: flex-end; */
-  }
-`;
-
-const Title = styled.h1`
-  ${font('title24')}
-  text-transform: uppercase;
-  margin: 0;
-`;
-
-const Blurb = styled.p`
-  ${font('body20')};
-  margin: ${theme.space(2)} 0 ${theme.space(10)};
-  white-space: pre-wrap;
-
-  @media (${DeviceWidth.mediaMinSmall}) {
-    margin: ${theme.space(4)} 0 ${theme.space(7)};
-  }
 `;

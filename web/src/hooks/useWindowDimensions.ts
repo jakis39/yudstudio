@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import debounce from 'lodash.debounce';
+
+const DEBOUNCE_TIME = 200;
 
 function getWindowDimensions() {
   let width;
@@ -10,23 +13,40 @@ function getWindowDimensions() {
     width = innerWidth;
     height = innerHeight;
   }
-  
+
   return {
     width,
     height,
   };
 }
 
-export default function useWindowDimensions() {
+export interface useWindowDimensionsProps {
+  debounce?: boolean;
+  debounceTime?: number;
+}
+
+export default function useWindowDimensions(props?: useWindowDimensionsProps) {
+  const { debounce: shouldDebounce, debounceTime: userDebounceTime } = props;
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  const debounceTime = userDebounceTime ?? DEBOUNCE_TIME;
 
   useEffect(() => {
-    function handleResize() {
+    const handleResize = () => {
       setWindowDimensions(getWindowDimensions());
+    };
+
+    if (shouldDebounce) {
+      const debouncedResize = debounce(handleResize, debounceTime, {
+        leading: false,
+        trailing: true,
+      });
+      window.addEventListener('resize', debouncedResize);
+    } else {
+      window.addEventListener('resize', handleResize);
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () =>
+      window.removeEventListener('resize', shouldDebounce ? debouncedResize : handleResize);
   }, []);
 
   return windowDimensions;
