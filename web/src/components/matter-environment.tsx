@@ -117,9 +117,9 @@ const MatterEnvironment = (props: MatterEnvironmentProps) => {
   }
 
   function createRectangle(x, y, sprite: Sprite, shapeSize: number) {
-    const spriteRatio = sprite.width / sprite.height;
-    const shapeWidth = shapeSize * spriteRatio,
-      shapeHeight = shapeSize;
+    const spriteRatio = sprite.height / sprite.width;
+    const shapeWidth = shapeSize,
+      shapeHeight = shapeSize * spriteRatio;
     return Bodies.rectangle(x, y, shapeWidth, shapeHeight, {
       restitution: SHAPE_BOUNCINESS,
       chamfer: { radius: 15 },
@@ -136,9 +136,9 @@ const MatterEnvironment = (props: MatterEnvironmentProps) => {
   }
 
   function createPill(x, y, sprite: Sprite, shapeSize: number) {
-    const spriteRatio = sprite.height / sprite.width;
-    const shapeWidth = shapeSize,
-      shapeHeight = shapeSize * spriteRatio;
+    const spriteRatio = sprite.width / sprite.height;
+    const shapeWidth = shapeSize * spriteRatio,
+      shapeHeight = shapeSize;
     return Bodies.rectangle(x, y, shapeWidth, shapeHeight, {
       restitution: SHAPE_BOUNCINESS,
       chamfer: { radius: shapeSize / 2 },
@@ -193,7 +193,7 @@ const MatterEnvironment = (props: MatterEnvironmentProps) => {
   useEffect(() => {
     const containerWidth = scene.current ? scene.current.clientWidth : document.body.clientWidth;
     const containerHeight = scene.current ? scene.current.clientHeight : document.body.clientHeight;
-    const shapeSize = Math.min(containerWidth, containerHeight) / 4;
+    const shapeSize = containerWidth > containerHeight ? containerHeight / 3 : containerWidth / 2.5;
 
     // create engine
     var engine = Engine.create(),
