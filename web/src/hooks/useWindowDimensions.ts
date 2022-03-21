@@ -25,7 +25,7 @@ export interface useWindowDimensionsProps {
   debounceTime?: number;
 }
 
-export default function useWindowDimensions(props?: useWindowDimensionsProps) {
+export default function useWindowDimensions(props: useWindowDimensionsProps = {}) {
   const { debounce: shouldDebounce, debounceTime: userDebounceTime } = props;
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   const debounceTime = userDebounceTime ?? DEBOUNCE_TIME;
