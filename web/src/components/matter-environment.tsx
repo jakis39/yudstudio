@@ -26,6 +26,7 @@ export interface Sprite {
 }
 
 export type ShapeType = 'circle' | 'pill' | 'rectangle';
+export const ShapeTypes = ['circle', 'pill', 'rectangle'];
 
 export interface BouncingShape {
   type: ShapeType;
@@ -183,36 +184,6 @@ const MatterEnvironment = (props: MatterEnvironmentProps) => {
           default:
             return createCircle(x, y, bodies[i].sprite, shapeSize);
         }
-        // if (i === 1 || i === 2) {
-        //   // TODO improve this if check
-        //   return Bodies.rectangle(x, y, shapeSize, shapeSize, {
-        //     restitution: SHAPE_BOUNCINESS,
-        //     // chamfer: { radius: 10 },
-        //     render: {
-        //       fillStyle: 'grey',
-        //       sprite: {
-        //         texture: 'https://i.redd.it/u99ffh875efy.png',
-        //         xScale: shapeSize / 256,
-        //         yScale: shapeSize / 256,
-        //       },
-        //     },
-        //   });
-        // } else {
-        //   return Bodies.circle(x, y, shapeSize / 2, {
-        //     restitution: SHAPE_BOUNCINESS,
-        //     render: {
-        //       fillStyle: 'grey',
-        //       strokeStyle: '#000000',
-        //       sprite: {
-        //         texture:
-        //           // 'https://habrastorage.org/getpro/habr/post_images/f1a/820/d43/f1a820d4350d4d647cd295fde1b253f2.png',
-        //           'https://i.pinimg.com/originals/cb/7d/48/cb7d48c589412612f5fd4a554e36a325.png',
-        //         xScale: shapeSize / 1000, //256,
-        //         yScale: shapeSize / 1000, //256,
-        //       },
-        //     },
-        //   });
-        // }
       }
     );
 

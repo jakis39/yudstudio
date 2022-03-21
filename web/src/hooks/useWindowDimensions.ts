@@ -35,8 +35,9 @@ export default function useWindowDimensions(props: useWindowDimensionsProps = {}
       setWindowDimensions(getWindowDimensions());
     };
 
+    let debouncedResize;
     if (shouldDebounce) {
-      const debouncedResize = debounce(handleResize, debounceTime, {
+      debouncedResize = debounce(handleResize, debounceTime, {
         leading: false,
         trailing: true,
       });
@@ -46,7 +47,7 @@ export default function useWindowDimensions(props: useWindowDimensionsProps = {}
     }
 
     return () =>
-      window.removeEventListener('resize', shouldDebounce ? debouncedResize : handleResize);
+      window.removeEventListener('resize', debouncedResize ? debouncedResize : handleResize);
   }, []);
 
   return windowDimensions;

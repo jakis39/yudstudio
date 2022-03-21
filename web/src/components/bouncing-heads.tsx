@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import MatterEnvironment, { BouncingShape } from './matter-environment';
+import MatterEnvironment, { BouncingShape, ShapeType, ShapeTypes } from './matter-environment';
 
 export interface BouncingHeadsProps {
   obstacles?: Array<HTMLElement>;
@@ -40,43 +40,40 @@ const ShapeAssetDimensions = {
   },
 };
 
-const bodies: BouncingShape[] = [
-  {
-    type: 'circle',
-    sprite: {
-      path: Circle1,
-      height: ShapeAssetDimensions.circle.height,
-      width: ShapeAssetDimensions.circle.width,
-    },
+const ShapeData = {
+  circle: {
+    spritePaths: Circles,
+    dimensions: ShapeAssetDimensions.circle,
   },
-  {
-    type: 'rectangle',
-    sprite: {
-      path: Rectangle2,
-      height: ShapeAssetDimensions.rectangle.height,
-      width: ShapeAssetDimensions.rectangle.width,
-    },
+  rectangle: {
+    spritePaths: Rectangles,
+    dimensions: ShapeAssetDimensions.rectangle,
   },
-  {
-    type: 'pill',
-    sprite: {
-      path: Pill3,
-      height: ShapeAssetDimensions.pill.height,
-      width: ShapeAssetDimensions.pill.width,
-    },
+  pill: {
+    spritePaths: Pills,
+    dimensions: ShapeAssetDimensions.pill,
   },
-  {
-    type: 'circle',
-    sprite: {
-      path: Circle4,
-      height: ShapeAssetDimensions.circle.height,
-      width: ShapeAssetDimensions.circle.width,
-    },
-  },
-];
+};
+
+const NUMBER_TEAM_MEMBERS = 4;
 
 const BouncingHeads = (props: BouncingHeadsProps) => {
   const { obstacles } = props;
+
+  // Randomly populate shapes
+  const bodies: BouncingShape[] = [];
+  for (let i = 0; i < NUMBER_TEAM_MEMBERS; i++) {
+    const randIndex = Math.floor(Math.random() * ShapeTypes.length);
+    const shapeType = ShapeTypes[randIndex];
+    bodies.push({
+      type: shapeType as ShapeType,
+      sprite: {
+        path: ShapeData[shapeType].spritePaths[i],
+        height: ShapeData[shapeType].dimensions.height,
+        width: ShapeData[shapeType].dimensions.width,
+      },
+    });
+  }
 
   return <MatterEnvironment obstacles={obstacles} bodies={bodies} />;
 };
