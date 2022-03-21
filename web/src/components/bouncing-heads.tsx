@@ -15,10 +15,10 @@ import Pill2 from '../images/sprites/pills/YUD_Pill-02.png';
 import Pill3 from '../images/sprites/pills/YUD_Pill-03.png';
 import Pill4 from '../images/sprites/pills/YUD_Pill-04.png';
 
-import Rectangle1 from '../images/sprites/Rectangles/YUD_Rounded Corner-01.png';
-import Rectangle2 from '../images/sprites/Rectangles/YUD_Rounded Corner-02.png';
-import Rectangle3 from '../images/sprites/Rectangles/YUD_Rounded Corner-03.png';
-import Rectangle4 from '../images/sprites/Rectangles/YUD_Rounded Corner-04.png';
+import Rectangle1 from '../images/sprites/Rectangles/YUD_Rounded-Corner-01.png';
+import Rectangle2 from '../images/sprites/Rectangles/YUD_Rounded-Corner-02.png';
+import Rectangle3 from '../images/sprites/Rectangles/YUD_Rounded-Corner-03.png';
+import Rectangle4 from '../images/sprites/Rectangles/YUD_Rounded-Corner-04.png';
 
 const Circles = [Circle1, Circle2, Circle3, Circle4];
 const Pills = [Pill1, Pill2, Pill3, Pill4];
