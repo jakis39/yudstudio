@@ -34,7 +34,7 @@ export interface BouncingShape {
 }
 
 const SHAPE_BOUNCINESS = 0.6;
-const GRAVITY_Y = 0.5;
+const GRAVITY_Y = 0.1;
 
 const MatterEnvironment = (props: MatterEnvironmentProps) => {
   const { obstacles, bodies } = props;
@@ -227,7 +227,9 @@ const MatterEnvironment = (props: MatterEnvironmentProps) => {
     obstacles?.forEach((obstacle) => addDOMObstacle(world, obstacle));
 
     // Add bodies
-    addBodyStack(world, 2, 2, bodies, shapeSize, containerWidth, containerHeight);
+    if (bodies && bodies.length) {
+      addBodyStack(world, 2, 2, bodies, shapeSize, containerWidth, containerHeight);
+    }
 
     // add mouse control
     var mouse = Mouse.create(render.canvas),

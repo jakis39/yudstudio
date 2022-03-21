@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import MatterEnvironment, { BouncingShape, ShapeType, ShapeTypes } from './matter-environment';
 
 export interface BouncingHeadsProps {
@@ -59,21 +59,36 @@ const NUMBER_TEAM_MEMBERS = 4;
 
 const BouncingHeads = (props: BouncingHeadsProps) => {
   const { obstacles } = props;
+  const [bodies, setBodies] = useState([]);
 
   // Randomly populate shapes
-  const bodies: BouncingShape[] = [];
-  for (let i = 0; i < NUMBER_TEAM_MEMBERS; i++) {
-    const randIndex = Math.floor(Math.random() * ShapeTypes.length);
-    const shapeType = ShapeTypes[randIndex];
-    bodies.push({
-      type: shapeType as ShapeType,
-      sprite: {
-        path: ShapeData[shapeType].spritePaths[i],
-        height: ShapeData[shapeType].dimensions.height,
-        width: ShapeData[shapeType].dimensions.width,
-      },
-    });
+  function populateBodies() {
+    const newBodies: BouncingShape[] = [];
+    let shapeTypeIndex = Math.floor(Math.random() * ShapeTypes.length);
+
+    for (let i = 0; i < NUMBER_TEAM_MEMBERS; i++) {
+      const shapeType = ShapeTypes[shapeTypeIndex];
+      newBodies.push({
+        type: shapeType as ShapeType,
+        sprite: {
+          path: ShapeData[shapeType].spritePaths[i],
+          height: ShapeData[shapeType].dimensions.height,
+          width: ShapeData[shapeType].dimensions.width,
+        },
+      });
+
+      // Iterate through shape types so that each type appears at least once
+      shapeTypeIndex++;
+      if (shapeTypeIndex >= ShapeTypes.length) {
+        shapeTypeIndex = 0;
+      }
+    }
+    setBodies(newBodies);
   }
+
+  useEffect(() => {
+    populateBodies();
+  }, []);
 
   return <MatterEnvironment obstacles={obstacles} bodies={bodies} />;
 };
