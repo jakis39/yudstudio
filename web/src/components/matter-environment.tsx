@@ -34,7 +34,7 @@ export interface BouncingShape {
 }
 
 const SHAPE_BOUNCINESS = 0.6;
-const GRAVITY_Y = 0.1;
+const GRAVITY_Y = 0.2;
 
 const MatterEnvironment = (props: MatterEnvironmentProps) => {
   const { obstacles, bodies } = props;
@@ -141,7 +141,7 @@ const MatterEnvironment = (props: MatterEnvironmentProps) => {
       shapeHeight = shapeSize;
     return Bodies.rectangle(x, y, shapeWidth, shapeHeight, {
       restitution: SHAPE_BOUNCINESS,
-      chamfer: { radius: shapeSize / 2 },
+      chamfer: { radius: shapeWidth / 2 },
       render: {
         fillStyle: 'grey',
         strokeStyle: '#000000',
