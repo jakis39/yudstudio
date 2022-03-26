@@ -46,6 +46,7 @@ const MatterEnvironment = (props: MatterEnvironmentProps) => {
   function addWorldBounds(world, containerWidth, containerHeight) {
     const wallWidth = 300;
     const wallOffset = wallWidth / 2;
+
     // Add walls
     Composite.add(world, [
       Bodies.rectangle(containerWidth / 2, -wallOffset, containerWidth, wallWidth, {

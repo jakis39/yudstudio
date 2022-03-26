@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MatterEnvironment, { BouncingShape, ShapeType, ShapeTypes } from './matter-environment';
 
-export interface BouncingHeadsProps {
-  obstacles?: Array<HTMLElement>;
-}
-
 import Circle1 from '../images/sprites/circles/YUD_Circle-01.png';
 import Circle2 from '../images/sprites/circles/YUD_Circle-02.png';
 import Circle3 from '../images/sprites/circles/YUD_Circle-03.png';
@@ -56,6 +52,10 @@ const ShapeData = {
 };
 
 const NUMBER_TEAM_MEMBERS = 4;
+
+export interface BouncingHeadsProps {
+  obstacles?: Array<HTMLElement>;
+}
 
 const BouncingHeads = (props: BouncingHeadsProps) => {
   const { obstacles } = props;

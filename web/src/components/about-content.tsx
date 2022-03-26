@@ -23,7 +23,9 @@ const AboutContent = (props: AboutContentProps) => {
       <Container wide short grow addHeaderPadding clickThrough>
         <Wrapper>
           <Title ref={(ref) => setTitleBlock(ref)}>{title}</Title>
-          <Blurb ref={(ref) => setTextBlock(ref)}>{blurb}</Blurb>
+          <div ref={(ref) => setTextBlock(ref)}>
+            <Blurb>{blurb}</Blurb>
+          </div>
         </Wrapper>
       </Container>
     </>
