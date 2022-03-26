@@ -90,6 +90,7 @@ const Nav = styled.nav`
   }
 
   position: relative;
+  pointer-events: auto;
 
   ul {
     position: absolute;
