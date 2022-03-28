@@ -76,7 +76,11 @@ const PhotoGrid = (props: PhotoGridProps) => {
             ref={addPhotoRef}
             aria-label="Expand image"
           >
-            <img src={imageUrlFor(buildImageObj(image)).url()} alt={image.alt || ''} />
+            <img
+              src={imageUrlFor(buildImageObj(image)).url()}
+              alt={image.alt || ''}
+              crossOrigin="anonymous"
+            />
           </a>
         ))}
       </GridContainer>
